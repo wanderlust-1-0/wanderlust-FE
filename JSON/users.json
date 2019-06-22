@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "visitor@test.com",
+      "password": "password123",
+      "firstname": "visitor",
+      "lastname": "visitorius",
+      "isTourGuide": false,
+      "registeredTourIds": [
+        2,
+        15
+      ],
+      "offeredTourIds": []
+    },
+    {
+      "id": 2,
+      "email": "guide@test.com",
+      "password": "ilovemycity123",
+      "firstname": "tour",
+      "lastname": "guide",
+      "isTourGuide": true,
+      "registeredTourIds": [],
+      "offeredTourIds": [
+        1,
+        7
+      ]
+    }
+  ]
+}
