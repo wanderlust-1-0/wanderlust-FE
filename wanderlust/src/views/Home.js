@@ -1,14 +1,15 @@
 import React from 'react';
 import SignUp from '../components/SignUp';
+import SignIn from '../components/SignIn';
 import { Route } from 'react-router-dom';
 
-const Login = () => {
+const Home = () => {
   return (
     <div>
-      <Route exact path='/signup' render={() => <SignUp />} />
+      <Route exact path='/' render={() => <SignUp />} />
       <Route path='/signin' render={() => <SignIn />} />
     </div>
   );
 };
 
-export default Login;
+export default Home;
