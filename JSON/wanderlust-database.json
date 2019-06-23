@@ -1,0 +1,77 @@
+{
+   "users": [
+    {
+      "id": 1,
+      "email": "visitor@test.com",
+      "password": "password123",
+      "firstname": "visitor",
+      "lastname": "visitorius",
+	  "phonenumber": "017151",
+      "isTourGuide": false,
+      "registeredTourIds": [
+        2,
+        15
+      ],
+      "offeredTourIds": []
+    },
+    {
+      "id": 2,
+      "email": "guide@test.com",
+      "password": "ilovemycity123",
+      "firstname": "tour",
+      "lastname": "guide",
+	  "phonenumber": "01713431",
+      "isTourGuide": true,
+      "registeredTourIds": [],
+      "offeredTourIds": [
+        1,
+        7
+      ]
+    }
+  ],
+    "tours": [
+    {
+      "id": 1,
+      "name": "Awesome New York City Tour",
+      "description": "We will visit the empire state building and so much more!",
+      "recommendedAge": 6,
+      "whatToBring": "A machete and a few liters of water.",
+      "category": "city",
+      "area": "newyork",
+      "price": 20.00,
+      "durationHours": 3,
+      "getTogetherAddress": "29 3rd St #203 New City, New York(NY), 10956",
+      "guideContactNumber": "(508) 839-9757",
+      "likes": 102,
+      "guideUserName": "username",
+      "attendeeCount": 4,
+      "attendeeUserIds": [
+        43,
+        7,
+        34
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Amazonas Djungle Tour",
+      "description": "We will fight rattlesnakes while riding tigers",
+      "recommendedAge": 21,
+      "whatToBring": "A machete and a few liters of water.",
+      "category": "nature",
+      "area": "amazonas",
+      "price": 35.00,
+      "durationHours": 4,
+      "getTogetherAddress": "34 Merchant St Barre, Vermont(VT), 05641",
+      "guideContactNumber": "(509) 279-0704",
+      "likes": 37,
+      "guideUserName": "username",
+      "attendeeCount": 3,
+      "attendeeUserIds": [
+        1,
+        55,
+        12
+      ]
+    }
+  ],
+  "authentication_token": "randomstring"
+}
