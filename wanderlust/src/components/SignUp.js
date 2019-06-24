@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { signin } from '../actions';
 
 class SignUp extends Component {
   state = {
     name: '',
     email: '',
+    password: '',
     phone: '',
     isTourGuide: false,
   };
@@ -30,10 +32,15 @@ class SignUp extends Component {
     }
   };
 
+  signIn = event => {
+    event.preventDefault();
+    this.props.signin(this.state);
+  };
+
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.signIn}>
           <div>
             <label htmlFor='name'>Name</label>
             <input
@@ -103,4 +110,12 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+const mapStateToProps = state => {
+  console.log(state);
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  { signin },
+)(SignUp);
