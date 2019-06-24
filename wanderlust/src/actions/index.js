@@ -6,8 +6,12 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
 export const signUp = accountData => dispatch => {
   dispatch({ type: SIGNUP_FETCHING });
+  let api_path;
+  accountData.isTourGuide
+    ? (api_path = 'https://wunderlust-ac056.firebaseio.com/guides.json')
+    : (api_path = 'https://wunderlust-ac056.firebaseio.com/tourists.json');
   return axios
-    .post('https://wunderlust-ac056.firebaseio.com/users.json', accountData)
+    .post(api_path, accountData)
     .then(response => {
       console.log('RESPONSE', response.config.data);
       // localStorage.setItem('authentication_token', 'loggedIn');
