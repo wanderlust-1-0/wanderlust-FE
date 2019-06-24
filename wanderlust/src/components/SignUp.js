@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { signin } from '../actions';
+import { signUp } from '../actions';
 
 class SignUp extends Component {
   state = {
@@ -32,15 +32,17 @@ class SignUp extends Component {
     }
   };
 
-  signIn = event => {
+  signUp = event => {
     event.preventDefault();
-    this.props.signin(this.state);
+    this.props.signUp(this.state).then(() => {
+      this.props.history.push('/signin');
+    });
   };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.signIn}>
+        <form onSubmit={this.signUp}>
           <div>
             <label htmlFor='name'>Name</label>
             <input
@@ -89,15 +91,9 @@ class SignUp extends Component {
               onChange={this.checkedTourGuide}
             />
           </div>
-          {this.state.isTourGuide ? (
-            <Link to='/dashboard'>
-              <button>Sign Up</button>
-            </Link>
-          ) : (
-            <Link to='/explore-tours'>
-              <button>Sign Up</button>
-            </Link>
-          )}
+
+          <button type='submit'>Sign Up</button>
+
           <div>
             <div>Already have an account</div>
             <Link to='/signin'>
@@ -117,5 +113,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { signin },
+  { signUp },
 )(SignUp);

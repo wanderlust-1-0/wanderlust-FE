@@ -16,9 +16,16 @@ class SignIn extends React.Component {
 
   signin = event => {
     event.preventDefault();
-    this.props.signin(this.state.accountData).then(() => {
-      this.props.history.push('/');
-    });
+    if (this.state.accountData.email === 'guide') {
+      this.props.signin(this.state.accountData).then(() => {
+        this.props.history.push('/dashboard');
+      });
+    }
+    if (this.state.accountData.email === 'user') {
+      this.props.signin(this.state.accountData).then(() => {
+        this.props.history.push('/explore-tours');
+      });
+    }
   };
 
   handleInput = event => {
@@ -39,7 +46,7 @@ class SignIn extends React.Component {
         <h2>Sign in to Wanderlust</h2>
         <form onSubmit={this.signin}>
           <input
-            type='email'
+            type='text' // Todo: change back type to email
             name='email'
             placeholder='Email'
             value={this.state.accountData.email}

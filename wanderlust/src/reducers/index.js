@@ -1,29 +1,50 @@
+import { SIGNUP_FETCHING, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../actions';
 import { SIGNIN_FETCHING, SIGNIN_SUCCESS, SIGNIN_FAILURE } from '../actions';
 
 const initialState = {
-  user: {
-    name: '',
-    password: '',
-    email: '',
-    phone: '',
-    isTourGuide: false,
-  },
+  user: [],
   password: null,
-  loggingIn: false,
+  signingUp: false,
+  signingIn: false,
+  signUpErr: null,
+  signInErr: null,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SIGNUP_FETCHING:
+      return {
+        ...state,
+        signingUp: true,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        signingUp: false,
+        user: JSON.parse(action.payload),
+      };
+    case SIGNUP_FAILURE:
+      return {
+        ...state,
+        signingUp: false,
+        signUpErr: action.payload,
+      };
     case SIGNIN_FETCHING:
       return {
         ...state,
-        loggingIn: true,
+        signingIn: true,
       };
     case SIGNIN_SUCCESS:
       return {
         ...state,
-        loggingIn: false,
+        signingIn: false,
         user: action.payload,
+      };
+    case SIGNIN_FAILURE:
+      return {
+        ...state,
+        signingIn: false,
+        signUpErr: action.payload,
       };
     default:
       return state;
