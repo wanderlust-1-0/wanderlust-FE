@@ -11,6 +11,7 @@ export const signin = accountData => dispatch => {
     accountData,
   )
     .then(response => {
+      console.log('this is the response: ', response);
       localStorage.setItem('authentication_token', 'token');
       dispatch({ type: SIGNIN_SUCCESS, payload: response.data });
     })

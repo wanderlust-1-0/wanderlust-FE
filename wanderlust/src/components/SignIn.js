@@ -31,9 +31,9 @@ class SignIn extends React.Component {
   };
 
   render() {
-    if (localStorage.getItem('authentication_token')) {
-      return <Redirect to='/' />;
-    }
+    // if (localStorage.getItem('authentication_token')) {
+    //   return <Redirect to='/' />;
+    // }
     return (
       <div>
         <h2>Sign in to Wanderlust</h2>
@@ -67,7 +67,9 @@ class SignIn extends React.Component {
   }
 }
 
-const mapStateToProps = state => {};
+const mapStateToProps = state => {
+  return {};
+};
 
 export default connect(
   mapStateToProps,
