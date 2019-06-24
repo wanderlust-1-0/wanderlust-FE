@@ -11,8 +11,10 @@ export const signin = accountData => dispatch => {
     accountData,
   )
     .then(response => {
-      localStorage.setItem('authentication_token', 'token');
-      dispatch({ type: SIGNIN_SUCCESS, payload: response.data });
+      console.log('RESPONSE', response.config.data);
+      localStorage.setItem('authentication_token', 'loggedIn');
+      /* dispatch({ type: SIGNIN_SUCCESS, payload: response.data }); */
+      dispatch({ type: SIGNIN_SUCCESS, payload: response.config.data });
     })
     .catch(error => {
       dispatch({ type: SIGNIN_FAILURE, payload: 'Signin failed.' });
