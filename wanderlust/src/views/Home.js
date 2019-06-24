@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div>
       <Route exact path='/' render={() => <SignUp />} />
-      <Route path='/signin' render={() => <SignIn />} />
+      <Route path='/signin' render={props => <SignIn {...props} />} />
     </div>
   );
 };

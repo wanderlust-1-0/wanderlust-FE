@@ -89,7 +89,15 @@ class SignUp extends Component {
               onChange={this.checkedTourGuide}
             />
           </div>
-          <button type='submit'>Sign Up</button>
+          {this.state.isTourGuide ? (
+            <Link to='/dashboard'>
+              <button>Sign Up</button>
+            </Link>
+          ) : (
+            <Link to='/explore-tours'>
+              <button>Sign Up</button>
+            </Link>
+          )}
           <div>
             <div>Already have an account</div>
             <Link to='/signin'>
