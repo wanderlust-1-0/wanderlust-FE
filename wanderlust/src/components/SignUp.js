@@ -10,6 +10,12 @@ class SignUp extends Component {
     password: '',
     phone: '',
     isTourGuide: false,
+    firstname: '',
+    lastname: '',
+    phonenumber: '',
+    bookedtours: [],
+    offeredtours: [],
+    likedtours: [],
   };
 
   handleInputChanges = e => {
