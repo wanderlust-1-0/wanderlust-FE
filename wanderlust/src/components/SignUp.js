@@ -7,6 +7,27 @@ class SignUp extends Component {
     name: '',
     email: '',
     phone: '',
+    isTourGuide: false,
+  };
+
+  handleInputChanges = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  checkedTourGuide = () => {
+    if (this.state.isTourGuide) {
+      this.setState(prevState => ({
+        ...prevState,
+        isTourGuide: false,
+      }));
+    } else {
+      this.setState(prevState => ({
+        ...prevState,
+        isTourGuide: true,
+      }));
+    }
   };
 
   render() {
@@ -14,24 +35,52 @@ class SignUp extends Component {
       <div>
         <form>
           <div>
-            <label htmlFor=''>Name</label>
-            <input type='text' placeholder='Name' />
+            <label htmlFor='name'>Name</label>
+            <input
+              type='text'
+              placeholder='Name'
+              name='name'
+              value={this.state.name}
+              onChange={this.handleInputChanges}
+            />
           </div>
           <div>
-            <label htmlFor=''>Email</label>
-            <input type='text' placeholder='Email' />
+            <label htmlFor='email'>Email</label>
+            <input
+              type='text'
+              placeholder='Email'
+              name='email'
+              value={this.state.email}
+              onChange={this.handleInputChanges}
+            />
           </div>
           <div>
-            <label htmlFor=''>Phone</label>
-            <input type='text' placeholder='Phone' />
+            <label htmlFor='phone'>Phone</label>
+            <input
+              type='text'
+              placeholder='Phone'
+              name='phone'
+              value={this.state.phone}
+              onChange={this.handleInputChanges}
+            />
           </div>
           <div>
             <label htmlFor=''>Password</label>
-            <input type='text' placeholder='Password' />
+            <input
+              type='password'
+              placeholder='Password'
+              name='password'
+              value={this.state.password}
+              onChange={this.handleInputChanges}
+            />
           </div>
           <div>
-            <div>Register as a guide</div>
-            <div>Checkbox</div>
+            <span>Register as a guide</span>
+            <input
+              type='checkbox'
+              checked={this.state.isTourGuide}
+              onChange={this.checkedTourGuide}
+            />
           </div>
           <button>Sign Up</button>
           <div>
