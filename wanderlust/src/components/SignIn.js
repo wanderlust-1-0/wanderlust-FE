@@ -8,7 +8,7 @@ class SignIn extends React.Component {
     super(props);
     this.state = {
       accountData: {
-        email: "",
+        email: '',
         password: '',
       },
     };
@@ -20,37 +20,56 @@ class SignIn extends React.Component {
       this.props.history.push('/');
     });
   };
-}
 
-handleInput = event => {
-  this.setState({
-    accountData: {
-      ...this.state.accountData,
-      [event.target.name]: event.target.value,
-    },
-  });
+  handleInput = event => {
+    this.setState({
+      accountData: {
+        ...this.state.accountData,
+        [event.target.name]: event.target.value,
+      },
+    });
+  };
 
   render() {
-    if(localStorage.getItem("authentication_token")) {
-        return <Redirect to="/"/>
+    if (localStorage.getItem('authentication_token')) {
+      return <Redirect to='/' />;
     }
-      return (
-        <div>
-          <h2>Sign in to Wanderlust</h2>
-          <form onSubmit={this.signin}>
-            <input type="email" name="email" placeholder="Email" value={this.state.accountData.email} onChange={this.handleInput} autoComplete="off" />
-            <input type="password" name="password" placeholer="Password" value={this.state.accountData.password} onChange={this.handleInput} autoComplete="off" />
-            <button type="submit">Sign In</button>
-            <div className="signup-wrapper">
+    return (
+      <div>
+        <h2>Sign in to Wanderlust</h2>
+        <form onSubmit={this.signin}>
+          <input
+            type='email'
+            name='email'
+            placeholder='Email'
+            value={this.state.accountData.email}
+            onChange={this.handleInput}
+            autoComplete='off'
+          />
+          <input
+            type='password'
+            name='password'
+            placeholer='Password'
+            value={this.state.accountData.password}
+            onChange={this.handleInput}
+            autoComplete='off'
+          />
+          <button type='submit'>Sign In</button>
+          <div className='signup-wrapper'>
             <h2>Don't have an account?</h2>
-            <Link to="/signup">
+            <Link to='/'>
               <div>Sign Up</div>
             </Link>
-            </div>
-          </form>
-        </div>
-      )
+          </div>
+        </form>
+      </div>
+    );
   }
-};
+}
 
-export default connect(mapStatesToProps, { signin })(SignIn)
+const mapStateToProps = state => {};
+
+export default connect(
+  mapStateToProps,
+  { signin },
+)(SignIn);
