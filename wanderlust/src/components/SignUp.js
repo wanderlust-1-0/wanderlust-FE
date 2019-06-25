@@ -5,17 +5,17 @@ import { signUp } from '../actions';
 
 class SignUp extends Component {
   state = {
-    name: '',
-    email: '',
+    username: '',
+    // email: '',
     password: '',
-    phone: '',
+    // phone: '',
     isTourGuide: false,
-    firstname: '',
-    lastname: '',
-    phonenumber: '',
-    bookedtours: [],
-    offeredtours: [],
-    likedtours: [],
+    // firstname: '',
+    // lastname: '',
+    // phonenumber: '',
+    // bookedtours: [],
+    // offeredtours: [],
+    // likedtours: [],
   };
 
   handleInputChanges = e => {
@@ -50,12 +50,12 @@ class SignUp extends Component {
       <div>
         <form onSubmit={this.signUp}>
           <div>
-            <label htmlFor='name'>Name</label>
+            <label htmlFor='username'>Username</label>
             <input
               type='text'
-              placeholder='Name'
-              name='name'
-              value={this.state.name}
+              placeholder='Username'
+              name='username'
+              value={this.state.username}
               onChange={this.handleInputChanges}
             />
           </div>

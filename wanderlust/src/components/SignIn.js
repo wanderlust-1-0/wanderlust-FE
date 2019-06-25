@@ -7,33 +7,27 @@ class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      accountData: {
-        email: '',
-        password: '',
-      },
+      username: '',
+      password: '',
     };
   }
 
   signin = event => {
     event.preventDefault();
-    if (this.state.accountData.email === 'guide') {
-      this.props.signin(this.state.accountData).then(() => {
-        this.props.history.push('/dashboard');
-      });
-    }
-    if (this.state.accountData.email === 'user') {
-      this.props.signin(this.state.accountData).then(() => {
-        this.props.history.push('/explore-tours');
-      });
-    }
+    this.props.signin(this.state);
   };
+
+  // this.props.signin(this.state.accountData).then(() =>
+  //     this.props.history.push('/dashboard');
+  //   });
+
+  //   this.props.signin(this.state.accountData).then(() =>
+  //     this.props.history.push('/explore-tours');
+  //   });
 
   handleInput = event => {
     this.setState({
-      accountData: {
-        ...this.state.accountData,
-        [event.target.name]: event.target.value,
-      },
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -47,9 +41,9 @@ class SignIn extends React.Component {
         <form onSubmit={this.signin}>
           <input
             type='text' // Todo: change back type to email
-            name='email'
-            placeholder='Email'
-            value={this.state.accountData.email}
+            name='username'
+            placeholder='Username'
+            value={this.state.username}
             onChange={this.handleInput}
             autoComplete='off'
           />
@@ -57,7 +51,7 @@ class SignIn extends React.Component {
             type='password'
             name='password'
             placeholer='Password'
-            value={this.state.accountData.password}
+            value={this.state.password}
             onChange={this.handleInput}
             autoComplete='off'
           />

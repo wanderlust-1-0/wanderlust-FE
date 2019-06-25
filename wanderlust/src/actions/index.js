@@ -9,15 +9,15 @@ export const signUp = accountData => dispatch => {
   dispatch({ type: SIGNUP_FETCHING });
   let api_path;
   accountData.isTourGuide
-    ? (api_path = 'https://wunderlust-ac056.firebaseio.com/guides.json')
-    : (api_path = 'https://wunderlust-ac056.firebaseio.com/tourists.json');
+    ? (api_path = 'https://roger-wanderlust.herokuapp.com/createnewguide')
+    : (api_path = 'https://roger-wanderlust.herokuapp.com/createnewtourist');
   return axios
     .post(api_path, accountData)
     .then(response => {
-      console.log('RESPONSE', response.config.data);
+      console.log('RESPONSE', response);
       // localStorage.setItem('authentication_token', 'loggedIn');
       // /* dispatch({ type: SIGNUP_SUCCESS, payload: response.data }); */
-      dispatch({ type: SIGNUP_SUCCESS, payload: response.config.data });
+      dispatch({ type: SIGNUP_SUCCESS, payload: response });
     })
     .catch(error => {
       dispatch({ type: SIGNUP_FAILURE, payload: 'Signin failed.' });
@@ -29,19 +29,30 @@ export const SIGNIN_FETCHING = 'SIGNIN_FETCHING';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 export const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
 
-export const signin = () => dispatch => {
+export const signin = user => dispatch => {
+  console.log('User Signin: ', user);
+  let header = {
+    headers: {
+      "Authorization": `Basic ${btoa('client:secret')}`, 'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  };
+  console.log('This is the header: ');
   dispatch({ type: SIGNIN_FETCHING });
-  return axios
-    .get('https://wunderlust-ac056.firebaseio.com/authentication_token.json')
-    .then(res => {
-      console.log('token response: ', res.data);
-      localStorage.setItem('auth-token', res.data);
-      dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
-    })
-    .catch(err => {
-      console.log('token err: ', 'token err');
-      dispatch({ type: SIGNIN_FAILURE, payload: 'token err' });
-    });
+  return (
+    axios
+      .post('https://roger-wanderlust.herokuapp.com/oauth/token', `grant_type=password&username=${user.username}&password=${user.password}`, header
+      )
+
+      .then(res => {
+        console.log('token response: ', res);
+        localStorage.setItem('auth-token', res.data.access_token);
+        dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
+      })
+      .catch(err => {
+        console.log('token err: ', err);
+        dispatch({ type: SIGNIN_FAILURE, payload: err });
+      })
+  );
 };
 
 // Update User Info Action Creator
@@ -76,14 +87,20 @@ export const FETCHING_TOURS_FAILURE = 'FETCHING_TOURS_FAILURE';
 export const getAllTours = () => dispatch => {
   dispatch({ type: FETCHING_TOURS_START });
   axios
-    .get('')
+    .get('https://roger-wanderlust.herokuapp.com/tours/tours',
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('auth-token')}`
+        }
+      }
+    )
     .then(res => {
-      console.log('Get all tours: ', res.config.data);
-      dispatch({ type: FETCHING_TOURS_SUCCESS, payload: res.config.data });
+      console.log('Get all tours: ', res.data);
+      dispatch({ type: FETCHING_TOURS_SUCCESS, payload: res.data });
     })
-    .then(err => {
+    .catch(err => {
       console.log('Get all tours err: ', 'get all tours err');
-      dispatch({ FETCHING_TOURS_FAILURE, payload: 'get all tours err' });
+      dispatch({ type: FETCHING_TOURS_FAILURE, payload: 'get all tours err' });
     });
 };
 
