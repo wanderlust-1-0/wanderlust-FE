@@ -1,0 +1,20 @@
+.fadeElement {
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  display: block;
+  width: 100%;
+  top: 0;
+  opacity: 0;
+  transform-origin:top;
+  transform:scaleY(0.7);
+  visibility: hidden;
+  pointer-events: none;
+}
+.fadeElement.fadeIn {
+  transform:scaleY(1);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}

@@ -1,0 +1,13 @@
+.scrollbar-primary .ps__thumb-x, .scrollbar-primary .ps__thumb-y {
+  background-color: #4285F4;
+}
+
+.scrollbar-primary .ps__rail-x:hover > .ps__thumb-x,
+.scrollbar-primary .ps__rail-x:focus > .ps__thumb-x {
+  background-color: #4285F4;
+}
+
+.scrollbar-primary .ps__rail-y:hover > .ps__thumb-y,
+.scrollbar-primary .ps__rail-y:focus > .ps__thumb-y {
+  background-color: #4285F4;
+}
