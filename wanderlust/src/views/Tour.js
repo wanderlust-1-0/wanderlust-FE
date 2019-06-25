@@ -1,4 +1,5 @@
 import React from 'react';
+import './Tour.css';
 
 const Tour = props => (
   <div className='tour-wrapper'>
