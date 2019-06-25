@@ -1,16 +1,22 @@
 import { SIGNUP_FETCHING, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../actions';
 import { SIGNIN_FETCHING, SIGNIN_SUCCESS, SIGNIN_FAILURE } from '../actions';
+import {
+  UPDATE_USER_INFO_FETCHING,
+  UPDATE_USER_INFO_SUCCESS,
+  UPDATE_USER_INFO_FAILURE,
+} from '../actions';
 
 const initialState = {
-  user: [],
-  password: null,
+  user: {},
   signingUp: false,
   signingIn: false,
-  signUpErr: null,
-  signInErr: null,
+  updatingUser: false,
+  signUpErr: '',
+  signInErr: '',
+  updatingUserErr: '',
 };
 
-const rootReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case SIGNUP_FETCHING:
       return {
@@ -21,7 +27,9 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         signingUp: false,
-        user: JSON.parse(action.payload),
+        user: {
+          ...JSON.parse(action.payload),
+        },
       };
     case SIGNUP_FAILURE:
       return {
@@ -46,9 +54,30 @@ const rootReducer = (state = initialState, action) => {
         signingIn: false,
         signUpErr: action.payload,
       };
+    case UPDATE_USER_INFO_FETCHING:
+      return {
+        ...state,
+        updatingUser: true,
+        error: '',
+      };
+    case UPDATE_USER_INFO_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...action.payload,
+        },
+        updatingUser: false,
+        error: '',
+      };
+    case UPDATE_USER_INFO_FAILURE:
+      return {
+        ...state,
+        updatingUser: false,
+        error: action.payload,
+      };
     default:
       return state;
   }
 };
 
-export default rootReducer;
+export default userReducer;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import updateUserInfo from '../actions';
+import { updateUserInfo } from '../actions';
 import { connect } from 'react-redux';
 
 class EditInfoForm extends Component {
