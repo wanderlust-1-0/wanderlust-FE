@@ -28,7 +28,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         signingUp: false,
         user: {
-          ...JSON.parse(action.payload),
+          ...action.payload,
         },
       };
     case SIGNUP_FAILURE:
