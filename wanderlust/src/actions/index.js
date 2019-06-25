@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// Sign Up Action Creator
 export const SIGNUP_FETCHING = 'SIGNUP_FETCHING';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
@@ -23,6 +24,7 @@ export const signUp = accountData => dispatch => {
     });
 };
 
+// Sign In Action Creator
 export const SIGNIN_FETCHING = 'SIGNIN_FETCHING';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 export const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
@@ -39,5 +41,27 @@ export const signin = () => dispatch => {
     .catch(err => {
       console.log('token err: ', 'token err');
       dispatch({ type: SIGNIN_FAILURE, payload: 'token err' });
+    });
+};
+
+// Update User Info Action Creator
+export const UPDATE_USER_INFO_FETCHING = 'UPDATE_USER_INFO_FETCHING';
+export const UPDATE_USER_INFO_SUCCESS = 'UPDATE_USER_INFO_SUCCESS';
+export const UPDATE_USER_INFO_FAILURE = 'UPDATE_USER_INFO_FAILURE';
+
+export const updateUserInfo = user => dispatch => {
+  dispatch({ UPDATE_USER_INFO_FETCHING });
+  axios
+    .put('https://wunderlust-ac056.firebaseio.com/guides.json', user)
+    .then(res => {
+      console.log('Update User Info Response: ', res.config.data);
+      dispatch({ type: UPDATE_USER_INFO_SUCCESS, payload: res.config.data });
+    })
+    .catch(err => {
+      console.log('Update User Info Err: ', 'Could not update User');
+      dispatch({
+        type: UPDATE_USER_INFO_FAILURE,
+        payload: 'Could not update User',
+      });
     });
 };
