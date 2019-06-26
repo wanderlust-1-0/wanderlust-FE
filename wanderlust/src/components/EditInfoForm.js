@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { updateUserInfo } from '../actions';
+import { updateGuideInfo } from '../actions';
 import { connect } from 'react-redux';
 
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
@@ -44,7 +44,7 @@ class EditInfoForm extends Component {
 
   updateUserInfo = e => {
     e.preventDefault();
-    this.props.updateUserInfo(this.state);
+    this.props.updateGuideInfo(this.state);
   };
 
   componentDidMount() {
@@ -225,5 +225,5 @@ const mapStateToProps = () => {
 
 export default connect(
   mapStateToProps,
-  { updateUserInfo },
+  { updateGuideInfo },
 )(EditInfoForm);
