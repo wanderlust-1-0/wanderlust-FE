@@ -9,16 +9,16 @@ const Tour = props => (
           <div>
             <div>
               <div className='nav'>
-                <h1 className='tour-header'>Wanderlust</h1>
+                <h1 className='tour-header poppins-font'>Wanderlust</h1>
 
                 <div className='nav-middle'>
-                  <a href='#'>Popular</a>
-                  <a href='#'>Deals</a>
-                  <a href='#'>Catagories</a>
+                  <a href='#' className="poppins-font">Popular</a>
+                  <a href='#' className="poppins-font">Deals</a>
+                  <a href='#' className="poppins-font">Catagories</a>
                 </div>
 
                 <div className='nav-right'>
-                  <a href='#'>Username </a>
+                  <a href='#' className="poppins-font">Username </a>
                   <div className='chevron-down' />
                   {/* <a href='#'>{props.user.firstname}</a> */}
                 </div>
@@ -26,9 +26,9 @@ const Tour = props => (
             </div>
             <div className='header-text-wrapper'>
               {/* <h1>{props.tour.title}</h1> */}
-              <h1 className='header'>An Awesome Tour!</h1>
+              <h1 className='header poppins-font' style={{ fontSize: '5.5rem', fontWeight: 'bold' }}>An Awesome Tour!</h1>
             </div>
-            <h2 className='sub-header'>Hiking</h2>
+            <h2 className='sub-header poppins-font' style={{ fontSize: '2rem', fontWeight: 'bold' }}>Hiking</h2>
           </div>
         </div>
       </div>

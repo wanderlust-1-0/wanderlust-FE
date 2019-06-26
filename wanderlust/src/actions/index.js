@@ -103,7 +103,7 @@ export const getAllTours = () => dispatch => {
       dispatch({ type: FETCHING_TOURS_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      console.log('Get all tours err: ', 'get all tours err');
+      console.log('Get all tours err: ', err);
       dispatch({ type: FETCHING_TOURS_FAILURE, payload: 'get all tours err' });
     });
 };

@@ -91,14 +91,14 @@ class Home extends React.Component {
                   {this.props.location.pathname === '/' ? (
                     <MDBNavLink to='/signin'>Sign In</MDBNavLink>
                   ) : (
-                    <MDBNavLink to='/'>Sign Up</MDBNavLink>
-                  )}
+                      <MDBNavLink to='/'>Sign Up</MDBNavLink>
+                    )}
                 </MDBNavItem>
               </MDBNavbarNav>
             </MDBCollapse>
           </MDBNavbar>
         </header>
-        <MDBView src='https://i.imgur.com/Khv7HRX.png'>
+        <MDBView src='https://i.imgur.com/4ox5JIo.png'>
           <MDBMask
             overlay='black-light'
             className='flex-center flex-column text-white text-center'>
@@ -113,7 +113,7 @@ class Home extends React.Component {
                   }}>
                   <MDBCardBody>
                     <MDBCardText>
-                       <SignIn />
+                      <SignIn />
                     </MDBCardText>
                   </MDBCardBody>
                 </MDBCard>
