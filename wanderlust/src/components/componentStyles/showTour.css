@@ -1,0 +1,31 @@
+
+
+.showTourList {
+  display: flex;
+}
+
+
+.card-background {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-image: url('/assets/running-in-forrest.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-weight: bolder;
+  margin: 1rem;
+  width: 15rem;
+  height: 15rem;
+}
+
+.heart-icon {
+  background-image: url('/assets/heart.PNG');
+  background-repeat: no-repeat;
+  background-size: 2.5rem 2.5rem;
+  margin: 1rem;
+  width: 15rem;
+  height: 15rem;
+  background-position: 85% 1%;
+}
