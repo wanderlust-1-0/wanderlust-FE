@@ -33,7 +33,6 @@ class SignIn extends React.Component {
   };
 
   render() {
-    console.log(this.props.location.pathname);
     // if (localStorage.getItem('authentication_token')) {
     //   return <Redirect to='/' />;
     // }

@@ -90,7 +90,7 @@ export const getAllTours = () => dispatch => {
     .get('https://roger-wanderlust.herokuapp.com/tours/tours',
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('auth-token')}`
+          "Authorization": `Bearer ${localStorage.getItem('auth-token')}`
         }
       }
     )
@@ -112,7 +112,11 @@ export const ADD_TOUR_FAILURE = 'ADD_TOUR_FAILURE';
 export const addTour = tour => dispatch => {
   dispatch({ type: ADD_TOUR_START });
   axios
-    .post('', tour)
+    .post('https://roger-wanderlust.herokuapp.com/tours/data/tours/add', {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('auth-token')}`
+      }
+    }, tour)
     .then(res => {
       console.log('add a tour: ', res.config.data);
       dispatch({ type: ADD_TOUR_SUCCESS, payload: res.config.data });

@@ -47,7 +47,6 @@ class SignUp extends Component {
   };
 
   render() {
-    console.log(this.props.location.pathname);
     return (
       <div>
         <span className='h4 poppins-font main-color-blue'>
