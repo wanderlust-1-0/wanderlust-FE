@@ -1,8 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllTours } from '../actions';
+import ShowTourList from '../components/ShowTourList';
+
+import './explore-tours.css';
+
+import {
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarNav,
+  MDBNavbarToggler,
+  MDBCollapse,
+  MDBNavItem,
+  MDBNavLink,
+  MDBContainer,
+  MDBMask,
+  MDBView,
+  MDBIcon,
+} from 'mdbreact';
+import {
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem,
+} from 'mdbreact';
 
 class ExploreTours extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapse: false,
+      isWideEnough: false,
+    };
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick() {
+    this.setState({
+      collapse: !this.state.collapse,
+    });
+  }
 
   componentDidMount() {
     const tours = this.props.getAllTours();
@@ -12,31 +49,110 @@ class ExploreTours extends Component {
   render() {
     return (
       <div>
-        <header style={{ display: 'flex', marginTop: '30px' }}>
-          <h1>Wanderlust</h1>
-          <nav style={{ display: 'flex', height: '25px' }}>
-            <div style={{ display: 'flex' }}>
-              <a href='#'>Popular</a>
-              <a href='#'>Deals</a>
-              <a href='#'>Catagories</a>
-            </div>
-            <div style={{ display: 'flex' }}>
-              <a href='#'>Search Icon</a>
-              <a href='#'>Tourist Name</a>
-            </div>
-          </nav>
+        <header>
+          <MDBNavbar
+            color='unique-color'
+            fixed='top'
+            dark
+            expand='md'
+            scrolling
+            transparent
+            style={{ boxShadow: 'none' }}>
+            <MDBNavbarBrand href='/'>
+              <strong style={{ fontSize: '2rem', fontWeight: 'bold' }}>
+                Wanderlust
+              </strong>
+            </MDBNavbarBrand>
+            {!this.state.isWideEnough && (
+              <MDBNavbarToggler onClick={this.onClick} />
+            )}
+            <MDBCollapse isOpen={this.state.collapse} navbar>
+              {/* This part can be used for the explore-page */}
+              <MDBNavbarNav left style={{ marginLeft: '35%' }}>
+                <MDBNavItem
+                  style={{
+                    marginLeft: '1rem',
+                    marginRight: '1rem',
+                    fontSize: '1.3rem',
+                    fontWeight: '400',
+                  }}>
+                  <MDBNavLink to='#'>Popular</MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem
+                  style={{
+                    marginLeft: '1rem',
+                    marginRight: '1rem',
+                    fontSize: '1.3rem',
+                    fontWeight: '400',
+                  }}>
+                  <MDBNavLink to='#'>Deals</MDBNavLink>
+                </MDBNavItem>
 
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              justifyContent: 'flex-start',
-              marginTop: '100px',
-            }}>
-            <h2>Zion National Park</h2>
-            <button>View Tours</button>
-          </div>
+                <MDBNavItem
+                  style={{
+                    marginLeft: '1rem',
+                    marginRight: '1rem',
+                    fontSize: '1.3rem',
+                    fontWeight: '400',
+                  }}>
+                  <MDBDropdown>
+                    <MDBDropdownToggle nav caret color='unique-color'>
+                      Categories
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu color='unique-color'>
+                      <MDBDropdownItem>Mountain Biking</MDBDropdownItem>
+                      <MDBDropdownItem>Hiking</MDBDropdownItem>
+                      <MDBDropdownItem>Rafting</MDBDropdownItem>
+                      <MDBDropdownItem>Rock Climbing</MDBDropdownItem>
+                      <MDBDropdownItem>City</MDBDropdownItem>
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+                </MDBNavItem>
+              </MDBNavbarNav>
+              <MDBNavbarNav right style={{}}>
+                {!this.state.collapse ? (
+                  <MDBNavItem style={{ display: 'hide' }}>
+                    <MDBDropdown>
+                      <MDBDropdownToggle nav caret color='unique-color'>
+                        Username
+                      </MDBDropdownToggle>
+                      <MDBDropdownMenu color='unique-color'>
+                        <MDBDropdownItem>My offered Tours</MDBDropdownItem>
+                        <MDBDropdownItem>Settings</MDBDropdownItem>
+                        <MDBDropdownItem>Logout</MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </MDBNavItem>
+                ) : (
+                    <MDBNavItem
+                      style={{
+                        marginLeft: '1rem',
+                        marginRight: '1rem',
+                        fontSize: '1.3rem',
+                        fontWeight: '400',
+                      }}>
+                      <MDBNavLink to='#'>My offered Tours</MDBNavLink>
+                    </MDBNavItem>
+                  )}
+              </MDBNavbarNav>
+            </MDBCollapse>
+          </MDBNavbar>
+
+          <MDBView src='https://i.imgur.com/eAs1xr6.png'>
+            <MDBMask
+              overlay='black-light'
+              className='flex-center flex-column text-white text-center'>
+              <h2
+                className='poppins-font'
+                style={{ fontSize: '6rem', fontWeight: 'bold' }}>
+                MAKE THE LEAP
+              </h2>
+              <h5>
+                Beeing a tour guide can make the day of thousands of people
+                better.
+              </h5>
+            </MDBMask>
+          </MDBView>
         </header>
 
         <div
@@ -50,87 +166,8 @@ class ExploreTours extends Component {
           <button>Search</button>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            width: '75%',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: '100px auto',
-          }}>
-          <div
-            style={{
-              height: '200px',
-              width: '200px',
-              border: '1px solid black',
-              margin: '10px',
-            }}
-          />
-          <div
-            style={{
-              height: '200px',
-              width: '200px',
-              border: '1px solid black',
-              margin: '10px',
-            }}
-          />
-          <div
-            style={{
-              height: '200px',
-              width: '200px',
-              border: '1px solid black',
-              margin: '10px',
-            }}
-          />
-          <div
-            style={{
-              height: '200px',
-              width: '200px',
-              border: '1px solid black',
-              margin: '10px',
-            }}
-          />
-          <div
-            style={{
-              height: '200px',
-              width: '200px',
-              border: '1px solid black',
-              margin: '10px',
-            }}
-          />
-          <div
-            style={{
-              height: '200px',
-              width: '200px',
-              border: '1px solid black',
-              margin: '10px',
-            }}
-          />
-          <div
-            style={{
-              height: '200px',
-              width: '200px',
-              border: '1px solid black',
-              margin: '10px',
-            }}
-          />
-          <div
-            style={{
-              height: '200px',
-              width: '200px',
-              border: '1px solid black',
-              margin: '10px',
-            }}
-          />
-          <div
-            style={{
-              height: '200px',
-              width: '200px',
-              border: '1px solid black',
-              margin: '10px',
-            }}
-          />
+        <div className="allToursWrapper">
+          <ShowTourList allTours={this.props.allTours} />
         </div>
       </div>
     );
