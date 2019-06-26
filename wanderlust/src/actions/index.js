@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { dispatch } from '../../../../../../../AppData/Local/Microsoft/TypeScript/3.5/node_modules/rxjs/internal/observable/pairs';
 
 // Sign Up Action Creator
 export const SIGNUP_FETCHING = 'SIGNUP_FETCHING';
@@ -21,7 +20,7 @@ export const signUp = accountData => dispatch => {
       dispatch({ type: SIGNUP_SUCCESS, payload: response });
     })
     .catch(error => {
-      dispatch({ type: SIGNUP_FAILURE, payload: 'Signin failed.' });
+      dispatch({ type: SIGNUP_FAILURE, payload: error });
     });
 };
 
@@ -194,7 +193,7 @@ export const FETCHING_SINGLE_TOURIST_START = 'FETCHING_SINGLE_TOURIST_START';
 export const FETCHING_SINGLE_TOURIST_SUCCESS = 'FETCHING_SINGLE_TOURIST_SUCCESS';
 export const FETCHING_SINGLE_TOURIST_FAILURE = 'FETCHING_SINGLE_TOURIST_FAILURE';
 
-export const getSingleTouristById = (id) => {
+export const getSingleTouristById = (id) => dispatch => {
   dispatch({ type: FETCHING_SINGLE_TOURIST_START })
   axios
     .get(`https://roger-wanderlust.herokuapp.com/tourists/${id}`,
@@ -237,14 +236,10 @@ export const getAllTours = () => dispatch => {
       dispatch({ type: FETCHING_TOURS_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      console.log('Get all tours err: ', 'get all tours err');
-      dispatch({ type: FETCHING_TOURS_FAILURE, payload: 'get all tours err' });
+      console.log('Get all tours err: ', err);
+      dispatch({ type: FETCHING_TOURS_FAILURE, payload: err });
     });
 };
-
-
-
-
 
 // Get single tours by id
 export const FETCHING_SINGLETOUR_START = 'FETCH_SINGLETOUR_START';

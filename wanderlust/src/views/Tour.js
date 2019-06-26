@@ -1,7 +1,24 @@
 import React from 'react';
 import './Tour.css';
+import { connect } from 'react-redux';
+import { getTourById } from '../actions';
 
-const Tour = props => (
+class Tour extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state ={
+      test: ""
+    }
+  }
+
+  componentDidMount(){
+     this.props.getTourById(this.props.location.pathname.split("/")[2])
+  }
+
+  render() {
+    console.log("PATH: ", this.props.location.pathname.split("/")[2])
+    return(
+
   <div className='tour-wrapper'>
     <header>
       <div className='header-wrapper'>
@@ -11,14 +28,9 @@ const Tour = props => (
               <div className='nav'>
                 <h1 className='tour-header poppins-font'>Wanderlust</h1>
 
-                <div className='nav-middle'>
-                  <a href='#' className="poppins-font">Popular</a>
-                  <a href='#' className="poppins-font">Deals</a>
-                  <a href='#' className="poppins-font">Catagories</a>
-                </div>
 
                 <div className='nav-right'>
-                  <a href='#' className="poppins-font">Username </a>
+                  <a href='#' className="poppins-font" style={{marginLeft: "30rem"}}>Username </a>
                   <div className='chevron-down' />
                   {/* <a href='#'>{props.user.firstname}</a> */}
                 </div>
@@ -26,9 +38,9 @@ const Tour = props => (
             </div>
             <div className='header-text-wrapper'>
               {/* <h1>{props.tour.title}</h1> */}
-              <h1 className='header poppins-font' style={{ fontSize: '5.5rem', fontWeight: 'bold' }}>An Awesome Tour!</h1>
+              <h1 className='header poppins-font' style={{ fontSize: '5.5rem', fontWeight: 'bold' }}>{this.props.tourProps.tour.tourname}</h1>
             </div>
-            <h2 className='sub-header poppins-font' style={{ fontSize: '2rem', fontWeight: 'bold' }}>Hiking</h2>
+            <h2 className='sub-header poppins-font' style={{ fontSize: '2rem', fontWeight: 'bold' }}>{this.props.tourProps.tour.category}</h2>
           </div>
         </div>
       </div>
@@ -40,10 +52,8 @@ const Tour = props => (
           <div className='description-wrapper'>
             About this tour
             <br />
-            <span className='decent-text'>
-              This three hour excursion the mountain tops is perfect for
-              families. This tip covers 6 miles with fantastic scenery, and lots
-              of fresh air.
+            <span className='decent-text' style={{textAlign: "left", marginLeft: "4.3rem"}}>
+              {this.props.tourProps.tour.tourdescription}
             </span>
             {/*  <span className='decent-text'>{props.tour.description} </span>*/}
           </div>
@@ -52,14 +62,14 @@ const Tour = props => (
           <div className='clock-symbol' />
           <div className='description-wrapper'>
             {/* <span className='decent-text'>{props.tour.duration}</span> */}
-            <span className='clock-text'>Duration 3 hours</span>
+            <span className='clock-text'>Duration {this.props.tourProps.tour.durationhrs} hours</span>
           </div>
         </div>
         <div className='people-wrapper'>
           <div className='people-symbol' />
           <div className='description-wrapper'>
             {/* <span className='clock-text'>Redommended Age ({props.tour.recommendedAge})</span> */}
-            <span className='people-text'>Recommended Age (11+)</span>
+            <span className='people-text'>Recommended Age ({this.props.tourProps.tour.recommendedage}+)</span>
           </div>
         </div>
         <div className='note-wrapper'>
@@ -68,7 +78,7 @@ const Tour = props => (
             <span className='decent-text'>What to bring:</span>
             <ul className='decent-text'>
               {/* { props.tour.whattobring } */}
-              <li>Hiking Boots</li>
+              <li>{this.props.tourProps.tour.whattobring}</li>
               <li>Bottles Water</li>
               <li>Sunscreen</li>
             </ul>
@@ -81,9 +91,7 @@ const Tour = props => (
               {/*   { props.tour.meetingaddress}*/}
               Address
               <br />
-              4300 Pine Highway,
-              <br />
-              Yosemite National Park, CA 95389
+              {this.props.tourProps.tour.meetingaddress}
             </div>
           </div>
         </div>
@@ -92,7 +100,7 @@ const Tour = props => (
         <div className='call-to-action'>
           <div className='price'>
             {/* US$ {props.tour.price} */}
-            US$ 50 <br />
+            US$ {this.props.tourProps.tour.price} <br />
             <span className='tiny'>per person</span>
           </div>
           <div className='booking'>
@@ -105,9 +113,20 @@ const Tour = props => (
         </div>
         <div className='avatar' />
         <span className='avatar-text'>Your Tour Guide</span>
+        {/* <span className='avatar-text'>{this.props.tourProps.tour.guide[email]}</span>  */}
+         {/* <span className='avatar-text'>{this.props.tourProps.tour.guide.phonenumber}</span> */}
       </div>
     </div>
   </div>
-);
+  )
+  }
+};
 
-export default Tour;
+
+const mapStateToProps = state => ({ tourProps: state.tourReducer });
+
+export default connect(
+  mapStateToProps,
+  { getTourById },
+)(Tour);
+

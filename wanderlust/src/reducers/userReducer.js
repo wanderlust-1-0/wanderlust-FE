@@ -19,6 +19,7 @@ import {
   UPDATE_GUIDE_INFO_FAILURE,
 } from '../actions';
 
+
 const initialState = {
   guides: [],
   tourists: [],
