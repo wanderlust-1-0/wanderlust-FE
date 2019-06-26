@@ -7,16 +7,9 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 class SignUp extends Component {
   state = {
     username: '',
-    // email: '',
     password: '',
-    // phone: '',
     isTourGuide: false,
-    // firstname: '',
-    // lastname: '',
-    // phonenumber: '',
-    // bookedtours: [],
-    // offeredtours: [],
-    // likedtours: [],
+
   };
 
   handleInputChanges = e => {
