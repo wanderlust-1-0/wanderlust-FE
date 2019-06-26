@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signUp } from '../actions';
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 
 class SignUp extends Component {
   state = {
@@ -46,67 +47,70 @@ class SignUp extends Component {
   };
 
   render() {
+    console.log(this.props.location.pathname);
     return (
       <div>
-        <form onSubmit={this.signUp}>
-          <div>
-            <label htmlFor='username'>Username</label>
-            <input
-              type='text'
-              placeholder='Username'
-              name='username'
-              value={this.state.username}
-              onChange={this.handleInputChanges}
-            />
-          </div>
-          <div>
-            <label htmlFor='email'>Email</label>
-            <input
-              type='text'
-              placeholder='Email'
-              name='email'
-              value={this.state.email}
-              onChange={this.handleInputChanges}
-            />
-          </div>
-          <div>
-            <label htmlFor='phone'>Phone</label>
-            <input
-              type='text'
-              placeholder='Phone'
-              name='phone'
-              value={this.state.phone}
-              onChange={this.handleInputChanges}
-            />
-          </div>
-          <div>
-            <label htmlFor=''>Password</label>
-            <input
-              type='password'
-              placeholder='Password'
-              name='password'
-              value={this.state.password}
-              onChange={this.handleInputChanges}
-            />
-          </div>
-          <div>
-            <span>Register as a guide</span>
-            <input
-              type='checkbox'
-              checked={this.state.isTourGuide}
-              onChange={this.checkedTourGuide}
-            />
-          </div>
+        <span className='h4 poppins-font main-color-blue'>
+          Sign Up for Wanderlust
+        </span>
+        <MDBContainer>
+          <MDBRow>
+            <MDBCol>
+              <form onSubmit={this.signUp}>
+                <div className='grey-text'>
+                  <MDBInput
+                    label='Type your username'
+                    group
+                    type='text' // Todo: change back type to email
+                    validate
+                    error='wrong'
+                    success='right'
+                    type='text'
+                    name='username'
+                    value={this.state.username}
+                    onChange={this.handleInputChanges}
+                    autoComplete='off'
+                    name='username'
+                  />
+                  <MDBInput
+                    label='Type your password'
+                    group
+                    type='password'
+                    validate
+                    name='password'
+                    value={this.state.password}
+                    onChange={this.handleInputChanges}
+                    autoComplete='off'
+                    name='password'
+                  />
+                </div>
 
-          <button type='submit'>Sign Up</button>
+                {/* Material checked */}
+                <MDBInput
+                  label='Are you a tour guide?'
+                  type='checkbox'
+                  id='checkbox2'
+                  checked={this.state.isTourGuide}
+                  onChange={this.checkedTourGuide}
+                />
 
-          <div>
-            <div>Already have an account</div>
-            <Link to='/signin'>
-              <div>Sign In</div>
-            </Link>
-          </div>
-        </form>
+                <div className='text-center'>
+                  <MDBBtn gradient='blue' type='submit'>
+                    Sign Up
+                  </MDBBtn>
+                </div>
+                <div className='info'>
+                  <span className='h9 poppins-font'>
+                    Already have an account?{' '}
+                    <strong className='main-color-blue linker'>
+                      <Link to='/signin'>Sign In</Link>
+                    </strong>
+                  </span>
+                </div>
+              </form>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
       </div>
     );
   }

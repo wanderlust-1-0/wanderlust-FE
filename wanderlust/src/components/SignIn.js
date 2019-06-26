@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { signin } from '../actions';
 import { Redirect, Link } from 'react-router-dom';
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -32,37 +33,61 @@ class SignIn extends React.Component {
   };
 
   render() {
+    console.log(this.props.location.pathname);
     // if (localStorage.getItem('authentication_token')) {
     //   return <Redirect to='/' />;
     // }
     return (
       <div>
-        <h2>Sign in to Wanderlust</h2>
-        <form onSubmit={this.signin}>
-          <input
-            type='text' // Todo: change back type to email
-            name='username'
-            placeholder='Username'
-            value={this.state.username}
-            onChange={this.handleInput}
-            autoComplete='off'
-          />
-          <input
-            type='password'
-            name='password'
-            placeholer='Password'
-            value={this.state.password}
-            onChange={this.handleInput}
-            autoComplete='off'
-          />
-          <button type='submit'>Sign In</button>
-          <div className='signup-wrapper'>
-            <h2>Don't have an account?</h2>
-            <Link to='/'>
-              <div>Sign Up</div>
-            </Link>
-          </div>
-        </form>
+        <span className='h4 poppins-font main-color-blue'>
+          Sign In to Wanderlust
+        </span>
+        <MDBContainer>
+          <MDBRow>
+            <MDBCol>
+              <form onSubmit={this.signin}>
+                <div className='grey-text'>
+                  <MDBInput
+                    label='Type your username'
+                    group
+                    type='text' // Todo: change back type to email
+                    validate
+                    error='wrong'
+                    success='right'
+                    type='text'
+                    name='username'
+                    value={this.state.username}
+                    onChange={this.handleInput}
+                    autoComplete='off'
+                  />
+                  <MDBInput
+                    label='Type your password'
+                    group
+                    type='password'
+                    validate
+                    name='password'
+                    value={this.state.password}
+                    onChange={this.handleInput}
+                    autoComplete='off'
+                  />
+                </div>
+                <div className='text-center'>
+                  <MDBBtn gradient='blue' type='submit'>
+                    Sign In
+                  </MDBBtn>
+                </div>
+                <div className='info'>
+                  <span className='h9 poppins-font'>
+                    Don't have an account?{' '}
+                    <strong className='main-color-blue linker'>
+                      <Link to='/'>Sign Up</Link>
+                    </strong>
+                  </span>
+                </div>
+              </form>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
       </div>
     );
   }

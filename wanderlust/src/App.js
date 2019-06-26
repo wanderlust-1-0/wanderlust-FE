@@ -13,7 +13,7 @@ import 'mdbreact/dist/css/mdb.css';
 function App() {
   return (
     <div className='App'>
-      <Route path='/' render={() => <Home />} />
+      <Route path='/' render={props => <Home {...props} />} />
       <Route exact path='/dashboard' render={() => <Dashboard />} />
       <Route exact path='/explore-tours' render={() => <ExploreTours />} />
       <Route path='/tours/:id' render={() => <Tour />} />
