@@ -45,7 +45,8 @@ class Dashboard extends React.Component {
             dark
             expand='md'
             scrolling
-            transparent>
+            transparent
+            style={{ boxShadow: 'none' }}>
             <MDBNavbarBrand href='/'>
               <strong style={{ fontSize: '2rem', fontWeight: 'bold' }}>
                 Wanderlust
@@ -130,10 +131,14 @@ class Dashboard extends React.Component {
             <MDBMask
               overlay='black-light'
               className='flex-center flex-column text-white text-center'>
-              <h2>Make The Leap!</h2>
+              <h2
+                className='poppins-font'
+                style={{ fontSize: '6rem', fontWeight: 'bold' }}>
+                MAKE THE LEAP
+              </h2>
               <h5>
-                Look up all the people that you educate and enrich their travel
-                experience.
+                Beeing a tour guide can make the day of thousands of people
+                better.
               </h5>
             </MDBMask>
           </MDBView>
