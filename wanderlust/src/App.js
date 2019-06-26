@@ -9,7 +9,7 @@ import AddTour from './views/AddTour';
 import CreatAccount from './views/CreateAccount';
 import Settings from './views/Settings';
 import Logout from './views/Logout';
-import Users from './views/Users';
+import Admin from './views/Admin';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
@@ -28,7 +28,7 @@ function App() {
 
       <Route exact path='/settings' render={() => <Settings />} />
       <Route exact path='/logout' render={() => <Logout />} />
-      <Route exact path='/users' render={() => <Users />} />
+      <Route exact path='/admin' render={() => <Admin />} />
     </div>
   );
 }

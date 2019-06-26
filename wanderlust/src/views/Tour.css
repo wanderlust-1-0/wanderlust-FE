@@ -19,8 +19,8 @@
   padding-bottom: 20rem;
   width: 80rem;
   min-width: 80rem;
-  height: 20rem;
-  min-height: 20rem;
+  height: 40rem;
+  min-height: 40rem;
 }
 
 .tour-header {
@@ -42,14 +42,14 @@
 
 .nav-middle {
   margin-left: 12rem;
-  margin-top: 2rem;
+  margin-top: 0rem;
 }
 
 .nav-right {
   display: flex;
   justify-content: space-around;
-  margin-top: 2rem;
-  margin-left: 25rem;
+  margin-top: 0rem;
+  margin-left: 20rem;
 }
 
 .nav-right a {

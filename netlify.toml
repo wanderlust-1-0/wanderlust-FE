@@ -1,0 +1,9 @@
+[build]
+base = "wanderlust/"
+publish = "wanderlust/build/"
+command = "yarn build"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

@@ -40,9 +40,10 @@ const tourReducer = (state = initialState, action) => {
         fetchingToursErr: '',
       };
     case FETCHING_TOURS_SUCCESS:
+      console.log('Reducing of TOURS: ', action.payload);
       return {
         ...state,
-        tours: action.payload,
+        tours: [...action.payload],
         fetchingTours: false,
         fetchingToursErr: '',
       };
