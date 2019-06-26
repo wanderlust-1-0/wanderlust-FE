@@ -7,16 +7,9 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 class SignUp extends Component {
   state = {
     username: '',
-    // email: '',
     password: '',
-    // phone: '',
     isTourGuide: false,
-    // firstname: '',
-    // lastname: '',
-    // phonenumber: '',
-    // bookedtours: [],
-    // offeredtours: [],
-    // likedtours: [],
+
   };
 
   handleInputChanges = e => {
@@ -47,7 +40,6 @@ class SignUp extends Component {
   };
 
   render() {
-    console.log(this.props.location.pathname);
     return (
       <div>
         <span className='h4 poppins-font main-color-blue'>

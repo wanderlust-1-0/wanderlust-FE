@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Home from './views/Home';
+import SignUp from './views/SignUp';
+import SignIn from './views/SignIn';
 import Dashboard from './views/Dashboard';
 import ExploreTours from './views/ExploreTours';
 import Tour from './views/Tour';
@@ -15,11 +16,12 @@ import 'mdbreact/dist/css/mdb.css';
 function App() {
   return (
     <div className='App'>
-      <Route exact path='/' render={props => <Home {...props} />} />
+      <Route exact path='/' render={props => <SignUp {...props} />} />
+      <Route exact path='/signin' render={props => <SignIn {...props} />} />
       <Route exact path='/dashboard' render={() => <Dashboard />} />
       <Route exact path='/explore-tours' render={() => <ExploreTours />} />
-      <Route path='/tours/:id' render={() => <Tour />} />
-      <Route path='/add-tour' render={() => <AddTour />} />
+      <Route exact path='/tours/:id' render={() => <Tour />} />
+      <Route exact path='/add-tour' render={() => <AddTour />} />
       <Route exact path='/settings' render={() => <Settings />} />
       <Route exact path='/logout' render={() => <Logout />} />
       <Route exact path='/users' render={() => <Users />} />
