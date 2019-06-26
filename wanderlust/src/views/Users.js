@@ -10,13 +10,12 @@ class Users extends React.Component {
   }
 
   componentDidMount() {
-    /* this.props.getAllTourists(); */
+    this.props.getAllTourists();
     this.props.getAllGuides();
   }
 
   render() {
-    console.log('DISPLAY OF Users: ', this.props.userProps);
-    console.log('THE GUIDES ARE HERE: ', this.state.guides);
+    console.log('Rendering of Users: ', this.props.guideProps);
     return (
       <div
         style={{
@@ -33,7 +32,7 @@ class Users extends React.Component {
         <div
           className='guide-list'
           style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {this.props.userProps.map(guide => (
+          {this.props.guideProps.map(guide => (
             <Guide guide={guide} key={guide.id} />
           ))}
         </div>
@@ -42,7 +41,7 @@ class Users extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ userProps: state.userReducer.guides });
+const mapStateToProps = state => ({ guideProps: state.userReducer.guides, touristProps: state.userReducer.tourists });
 
 export default connect(
   mapStateToProps,

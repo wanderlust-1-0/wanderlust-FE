@@ -98,7 +98,7 @@ const userReducer = (state = initialState, action) => {
         fetchingAllGuides: true,
       };
     case FETCHING_GUIDES_SUCCESS:
-      console.log('GOT ALL GUIDES: ', action.payload);
+      console.log('Reducing of GUIDES: ', action.payload);
       return {
         ...state,
         fetchingAllGuides: false,
@@ -117,11 +117,11 @@ const userReducer = (state = initialState, action) => {
         fetchingAllGuides: true,
       };
     case FETCHING_TOURISTS_SUCCESS:
-      console.log('GOT ALL TOURISTS: ', action.payload);
+      console.log('Reducing of TOURISTS: ', action.payload);
       return {
         ...state,
         fetchingAllGuides: false,
-        guides: [...action.payload],
+        tourist: [...action.payload],
       };
     case FETCHING_TOURISTS_FAILURE:
       console.log('GET TOURISTS ERR: ', action.payload);
