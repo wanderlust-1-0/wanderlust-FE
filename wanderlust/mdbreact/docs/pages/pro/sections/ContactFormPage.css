@@ -1,0 +1,19 @@
+#contactformpage .view {
+  background-image: url('https://mdbootstrap.com/img/Photos/Others/images/89.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 100vh;
+}
+
+#contactformpage h6 {
+  line-height: 1.7;
+}
+
+#contactformpage .form-check {
+  margin-bottom: 0!important;
+}
+
+#contactformpage i {
+  color: #9e9e9e!important;
+}

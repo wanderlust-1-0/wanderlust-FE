@@ -1,0 +1,35 @@
+.mountain-background-card {
+  background-image: url(/assets/mountains3.png);
+  background-repeat: no-repeat;
+  background-position: left;
+  width: 70rem;
+  min-width: 30rem;
+  height: 60rem;
+  min-height: 60rem;
+  background-position: 15% 49%;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+.poppins-font {
+  font-family: 'Poppins', cursive;
+}
+
+.main-color-blue {
+  color: #7289da;
+}
+
+.info {
+  padding-top: 2rem;
+}
+
+.linker:hover {
+  cursor: pointer;
+}
+
+.checkbox-warning-filled
+  [type='checkbox'][class*='filled-in']:checked
+  + label:after {
+  border-color: #ff8800;
+  background-color: #ff8800;
+}
