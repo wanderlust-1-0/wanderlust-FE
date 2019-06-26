@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { signin } from '../actions';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 
 class SignIn extends React.Component {
@@ -80,7 +80,9 @@ class SignIn extends React.Component {
                   <span className='h9 poppins-font'>
                     Don't have an account?{' '}
                     <strong className='main-color-blue linker'>
-                      <Link to='/'>Sign Up</Link>
+                      <Link exact to='/'>
+                        Sign Up
+                      </Link>
                     </strong>
                   </span>
                 </div>
