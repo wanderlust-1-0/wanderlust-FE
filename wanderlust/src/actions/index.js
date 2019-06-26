@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { dispatch } from '../../../../../../../AppData/Local/Microsoft/TypeScript/3.5/node_modules/rxjs/internal/observable/pairs';
+
 
 // Sign Up Action Creator
 export const SIGNUP_FETCHING = 'SIGNUP_FETCHING';
@@ -113,10 +113,10 @@ export const ADD_NEW_GUIDE_FETCHING = 'ADD_NEW_GUIDE_FETCHING';
 export const ADD_NEW_GUIDE_SUCCESS = 'ADD_NEW_GUIDE_SUCCESS';
 export const ADD_NEW_GUIDE_FAILURE = 'ADD_NEW_GUIDE_FAILURE';
 
-export const addNewGuide = () => dispatch => {
+export const addNewGuide = (guide) => dispatch => {
   dispatch({ type: ADD_NEW_GUIDE_FETCHING })
   axios
-    .post('https://roger-wanderlust.herokuapp.com/guides/guide/add',
+    .post('https://roger-wanderlust.herokuapp.com/guides/guide/add', guide,
       {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('auth-token')}`
@@ -125,12 +125,24 @@ export const addNewGuide = () => dispatch => {
     )
     .then(res => {
       console.log("add new guide: ", res.data)
-      dispatch({ type: ADD_NEW_GUIDE_FETCHING, payload: res.data })
+      dispatch({ type: ADD_NEW_GUIDE_SUCCESS, payload: res.data })
     })
     .catch(err => {
       console.log('add new guide err', err.response)
       dispatch({ type: ADD_NEW_GUIDE_FAILURE, payload: err.response })
     })
+}
+
+// Add a new guide
+// export const ADD_NEW_GUIDE_STORE_FETCHING = 'ADD_NEW_GUIDE_FETCHING';
+export const ADD_NEW_GUIDE_STORE_SUCCESS = 'ADD_NEW_GUIDE_SUCCESS';
+// export const ADD_NEW_GUIDE_STORE_FAILURE = 'ADD_NEW_GUIDE_FAILURE';
+
+export const addNewGuideToStore = (guide) => {
+  return {
+    type: ADD_NEW_GUIDE_STORE_SUCCESS,
+    payload: guide
+  }
 }
 
 // Update Guide Info by id Action Creator
@@ -194,7 +206,7 @@ export const FETCHING_SINGLE_TOURIST_START = 'FETCHING_SINGLE_TOURIST_START';
 export const FETCHING_SINGLE_TOURIST_SUCCESS = 'FETCHING_SINGLE_TOURIST_SUCCESS';
 export const FETCHING_SINGLE_TOURIST_FAILURE = 'FETCHING_SINGLE_TOURIST_FAILURE';
 
-export const getSingleTouristById = (id) => {
+export const getSingleTouristById = (id) => dispatch => {
   dispatch({ type: FETCHING_SINGLE_TOURIST_START })
   axios
     .get(`https://roger-wanderlust.herokuapp.com/tourists/${id}`,
