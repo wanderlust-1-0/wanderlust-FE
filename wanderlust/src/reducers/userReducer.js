@@ -14,15 +14,15 @@ import {
 } from '../actions';
 
 import {
-  UPDATE_USER_INFO_FETCHING,
-  UPDATE_USER_INFO_SUCCESS,
-  UPDATE_USER_INFO_FAILURE,
+  UPDATE_GUIDE_INFO_FETCHING,
+  UPDATE_GUIDE_INFO_SUCCESS,
+  UPDATE_GUIDE_INFO_FAILURE,
 } from '../actions';
 
 const initialState = {
   guides: [],
   tourists: [],
-  user: {},
+  guide: {},
   signingUp: false,
   signingIn: false,
   updatingUser: false,
@@ -71,22 +71,22 @@ const userReducer = (state = initialState, action) => {
         signingIn: false,
         signUpErr: action.payload,
       };
-    case UPDATE_USER_INFO_FETCHING:
+    case UPDATE_GUIDE_INFO_FETCHING:
       return {
         ...state,
         updatingUser: true,
         error: '',
       };
-    case UPDATE_USER_INFO_SUCCESS:
+    case UPDATE_GUIDE_INFO_SUCCESS:
       return {
         ...state,
-        user: {
+        guide: {
           ...action.payload,
         },
         updatingUser: false,
         error: '',
       };
-    case UPDATE_USER_INFO_FAILURE:
+    case UPDATE_GUIDE_INFO_FAILURE:
       return {
         ...state,
         updatingUser: false,
