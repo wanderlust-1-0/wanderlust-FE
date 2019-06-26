@@ -11,9 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
-
-.poppins-font {
-  font-family: 'Poppins', cursive;
-}

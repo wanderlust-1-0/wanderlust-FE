@@ -10,7 +10,6 @@ import {
   MDBContainer,
   MDBMask,
   MDBView,
-  MDBIcon,
 } from 'mdbreact';
 import {
   MDBDropdown,
