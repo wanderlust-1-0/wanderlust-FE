@@ -31,7 +31,7 @@ const initialState = {
   deletingTourErr: '',
 };
 
-export const tourReducer = (state = initialState, action) => dispatch => {
+const tourReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCHING_TOURS_START:
       return {
@@ -113,3 +113,5 @@ export const tourReducer = (state = initialState, action) => dispatch => {
       return state;
   }
 };
+
+export default tourReducer;

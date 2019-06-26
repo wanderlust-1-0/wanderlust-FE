@@ -138,9 +138,9 @@ class ExploreTours extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  console.log('mstp: ', state)
   return {
-    allTours: state.tours
+    allTours: state.tourReducer.tours
   }
 }
 
