@@ -33,26 +33,28 @@ export const signin = user => dispatch => {
   console.log('User Signin: ', user);
   let header = {
     headers: {
-      "Authorization": `Basic ${btoa('client:secret')}`, 'Content-Type': 'application/x-www-form-urlencoded'
-    }
+      Authorization: `Basic ${btoa('client:secret')}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
   };
   console.log('This is the header: ');
   dispatch({ type: SIGNIN_FETCHING });
-  return (
-    axios
-      .post('https://roger-wanderlust.herokuapp.com/oauth/token', `grant_type=password&username=${user.username}&password=${user.password}`, header
-      )
+  return axios
+    .post(
+      'https://roger-wanderlust.herokuapp.com/oauth/token',
+      `grant_type=password&username=${user.username}&password=${user.password}`,
+      header,
+    )
 
-      .then(res => {
-        console.log('token response: ', res);
-        localStorage.setItem('auth-token', res.data.access_token);
-        dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
-      })
-      .catch(err => {
-        console.log('token err: ', err);
-        dispatch({ type: SIGNIN_FAILURE, payload: err });
-      })
-  );
+    .then(res => {
+      console.log('token response: ', res);
+      localStorage.setItem('auth-token', res.data.access_token);
+      dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log('token err: ', err);
+      dispatch({ type: SIGNIN_FAILURE, payload: err });
+    });
 };
 
 // Update User Info Action Creator
@@ -62,8 +64,12 @@ export const UPDATE_USER_INFO_FAILURE = 'UPDATE_USER_INFO_FAILURE';
 
 export const updateUserInfo = user => dispatch => {
   dispatch({ UPDATE_USER_INFO_FETCHING });
+  let api_path;
+  user.isTourGuide
+    ? (api_path = 'https://roger-wanderlust.herokuapp.com/guides/guide/{id}')
+    : (api_path = 'https://roger-wanderlust.herokuapp.com/createnewtourist');
   axios
-    .put('https://wunderlust-ac056.firebaseio.com/guides.json', user)
+    .put('api_path', user)
     .then(res => {
       console.log('Update User Info Response: ', res.config.data);
       dispatch({ type: UPDATE_USER_INFO_SUCCESS, payload: res.config.data });
@@ -105,6 +111,51 @@ export const getAllTours = () => dispatch => {
     });
 };
 
+// Get all GUIDES
+export const FETCHING_GUIDES_START = 'FETCHING_GUIDES_START';
+export const FETCHING_GUIDES_SUCCESS = 'FETCHING_GUIDES_SUCCESS';
+export const FETCHING_GUIDES_FAILURE = 'FETCHING_GUIDES_FAILURE';
+
+export const getAllGuides = () => dispatch => {
+  dispatch({ type: FETCHING_GUIDES_START });
+  axios
+    .get('https://roger-wanderlust.herokuapp.com/guides/guides', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('auth-token')}`,
+      },
+    })
+    .then(res => {
+      console.log('Get all GUIDES: ', res.data);
+      dispatch({ type: FETCHING_GUIDES_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log('Get all GUIDES err: ', err);
+      dispatch({ type: FETCHING_GUIDES_FAILURE, payload: err });
+    });
+};
+
+// Get all Tourists
+export const FETCHING_TOURISTS_START = 'FETCHING_TOURISTS_START';
+export const FETCHING_TOURISTS_SUCCESS = 'FETCHING_TOURISTS_SUCCESS';
+export const FETCHING_TOURISTS_FAILURE = 'FETCHING_TOURISTS_FAILURE';
+
+export const getAllTourists = () => dispatch => {
+  dispatch({ type: FETCHING_TOURISTS_START });
+  axios
+    .get('https://roger-wanderlust.herokuapp.com/tourists/tourists', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('auth-token')}`,
+      },
+    })
+    .then(res => {
+      console.log('Get all TOURISTS: ', res.data);
+      dispatch({ type: FETCHING_TOURISTS_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log('Get all TOURISTS err: ', err);
+      dispatch({ type: FETCHING_TOURISTS_FAILURE, payload: err });
+    });
+};
 
 // Get single tours by id
 export const FETCHING_SINGLETOUR_START = 'FETCH_SINGLETOUR_START';
