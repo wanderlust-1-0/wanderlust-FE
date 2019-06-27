@@ -1,9 +1,8 @@
-
-
 .showTourList {
   display: flex;
+  flex-wrap: wrap;
+  margin-left: 10%;
 }
-
 
 .card-background {
   display: flex;
@@ -23,8 +22,6 @@
 .card-background:hover {
   cursor: pointer;
 }
-
-
 
 .heart-icon {
   background-image: url('/assets/heart.PNG');
@@ -52,8 +49,4 @@
 
 .background {
   background: rgba(0,0,0,0.4);
-}
-
-.allToursWrapper {
-  margin-bottom: 30rem;
 }

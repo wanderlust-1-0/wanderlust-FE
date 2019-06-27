@@ -299,7 +299,7 @@ export const addTour = tour => dispatch => {
     })
     .then(err => {
       console.log('add a tour err: ', err.response);
-      dispatch({ ADD_TOUR_FAILURE, payload: err.response });
+      dispatch({ type: ADD_TOUR_FAILURE, payload: err.response });
     });
 };
 
@@ -322,7 +322,7 @@ export const updateTour = id => dispatch => {
     })
     .then(err => {
       console.log('Update a tour err: ', err.response);
-      dispatch({ UPDATE_TOUR_FAILURE, payload: err.response });
+      dispatch({ type: UPDATE_TOUR_FAILURE, payload: err.response });
     });
 };
 
@@ -345,6 +345,31 @@ export const deleteTour = id => dispatch => {
     })
     .then(err => {
       console.log('Delete a tour err: ', err.response);
-      dispatch({ DELETE_TOUR_FAILURE, payload: err.response });
+      dispatch({ type: DELETE_TOUR_FAILURE, payload: err.response });
+    });
+};
+
+
+// Add a tourist to a Tour By ID
+export const ADD_TOURIST_TO_TOUR_START = 'ADD_TOURIST_TO_TOUR_START';
+export const ADD_TOURIST_TO_TOUR_SUCCESS = 'ADD_TOURIST_TO_TOUR_SUCCESS';
+export const ADD_TOURIST_TO_TOUR_FAILURE = 'ADD_TOURIST_TO_TOUR_FAILURE';
+
+export const addTouristToTour = (touristid, tourid) => dispatch => {
+  dispatch({ type: ADD_TOURIST_TO_TOUR_START });
+  axios
+    .put(`https://roger-wanderlust.herokuapp.com/tourists/tourist/assignTourist/${touristid}/${tourid}`, { touristid: touristid, tourid: tourid }, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('auth-token')}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then(res => {
+      console.log('ADD TOURIST TO TOUR SUCESS: ', res);
+      dispatch({ type: ADD_TOURIST_TO_TOUR_SUCCESS, payload: res.data });
+    })
+    .then(err => {
+      console.log('ADD TOURIST TO TOUR ERROR: ', err);
+      dispatch({ type: ADD_TOURIST_TO_TOUR_FAILURE, payload: err });
     });
 };

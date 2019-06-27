@@ -1,0 +1,68 @@
+{
+  "tours": [
+    {
+      "tourid": 1,
+      "tourname": "Awesome New York City Tour",
+      "tourdescription": "We will visit the empire state building and so much more!",
+      "recommendedage": 6,
+      "whattobring": "Bring with you some fun!",
+      "category": "city",
+      "area": "newyork",
+      "price": 20.0,
+      "durationhrs": 3,
+      "meetingaddress": "29 3rd St #203 New City, New York(NY), 10956",
+      "tourguidephonenumber": "(511) 355-2121",
+      "likes": 102,
+      "guide": {
+        "guideid": 1,
+        "firstname": "Fiction",
+        "lastname": "",
+        "phonenumber": "",
+        "email": "",
+        "istourguide": null
+      },
+      "tourists": [
+        {
+          "touristid": 6,
+          "firstname": "Ian",
+          "lastname": "Stewart",
+          "phonenumber": null,
+          "email": null,
+          "istourguide": null
+        }
+      ]
+    },
+    {
+      "tourid": 2,
+      "tourname": "Amazonas Djungle Tour",
+      "tourdescription": "We will fight rattlesnakes while riding tigers",
+      "recommendedage": 21,
+      "whattobring": "A machete and a few liters of water.",
+      "category": "nature",
+      "area": "amazonas",
+      "price": 35.0,
+      "durationhrs": 4,
+      "meetingaddress": "34 Merchant St Barre, Vermont(VT), 05641",
+      "tourguidephonenumber": "(509) 279-0704",
+      "likes": 37,
+      "guide": {
+        "guideid": 1,
+        "firstname": "Fiction",
+        "lastname": "",
+        "phonenumber": "",
+        "email": "",
+        "istourguide": null
+      },
+      "tourists": [
+        {
+          "touristid": 6,
+          "firstname": "Ian",
+          "lastname": "Stewart",
+          "phonenumber": null,
+          "email": null,
+          "istourguide": null
+        }
+      ]
+    }
+  ]
+}
