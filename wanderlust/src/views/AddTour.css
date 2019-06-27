@@ -19,10 +19,6 @@
   align-items: center;
 }
 
-.tourTitleWrapper {
-  
-}
-
 .tourTitle {
   display: flex;
   flex-direction: column;
@@ -44,6 +40,11 @@
 
 .category {
   width: 10rem;
+  color: white;
+}
+
+.category::placeholder {
+  color: white;
 }
 
 .addThumbnail {
@@ -54,11 +55,10 @@
   margin: 0 2rem 0 0;;
 }
 
-
 .addTourAboutWrapper {
+  margin-top: 21rem;
   display: flex;
   justify-content: center;
-  margin-top: 5rem;
 }
 
 .addTourAbout {
@@ -86,6 +86,12 @@
 
 .tourDescription {
   margin-bottom: 1rem;
+  padding-left: 10px;
+  width: 21.5rem;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 5px;
+  outline: none;
 }
 
 .clock {
@@ -103,6 +109,12 @@
 
 .tourLength {
   margin-bottom: 1rem;
+  width: 21.5rem;
+  padding-left: 10px;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 5px;
+  outline: none;
 }
 
 .people {
@@ -119,7 +131,13 @@
 }
 
 .recommendedAge {
-  margin-bottom: 1rem;  
+  margin-bottom: 1rem;
+  width: 21.5rem;
+  padding-left: 10px;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 5px;
+  outline: none;
 }
 
 .note {
@@ -141,6 +159,12 @@
 
 .itemsToBring {
   margin-bottom: 1rem;
+  padding-left: 10px;
+  width: 21.5rem;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 5px;
+  outline: none;
 }
 
 .target {
@@ -158,23 +182,37 @@
 
 .tourAddress {
   margin-bottom: 1rem;  
+  width: 21.5rem;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 5px;
+  padding-left: 10px;
+  outline: none;
 }
 
 .btnAddTour {
   margin-right: 1rem;
   padding: 0.5rem 1.4rem;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
   border: 1px solid #8c96ea;
   border-radius: 5px;
-  background-color:  #8c96ea;
+  background-color: #7289da;
   color: #f2f2f2;
-}
+  font-size: 1.2rem;
+  margin-left: 3.9rem;
+  }
 
 .btnCancel {
   border: 1px solid #e55050;
-  border-radius: 5px;
-  background-color:  #e55050;
-  color: #f2f2f2;
   padding: 0.5rem 1.7rem;
+  border-radius: 5px;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  background-color: #d0021b;
+  color: #f2f2f2;
+  font-size: 1.2rem;
+  margin-left: 3rem;
 }
 
 .addTourInfo {

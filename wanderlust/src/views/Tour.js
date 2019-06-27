@@ -2,6 +2,7 @@ import React from 'react';
 import './Tour.css';
 import { connect } from 'react-redux';
 import { getTourById, addTouristToTour } from '../actions';
+import { Redirect } from 'react-router';
 
 class Tour extends React.Component {
   constructor(props) {
@@ -21,6 +22,9 @@ class Tour extends React.Component {
   }
 
   render() {
+    if (localStorage.getItem("auth-token") === null) {
+      return <Redirect to="/" />
+    }
     return (
       <div className='tour-wrapper'>
         <header>
@@ -30,10 +34,8 @@ class Tour extends React.Component {
                 <div>
                   <div className='nav'>
                     <h1 className='tour-header poppins-font'>Wanderlust</h1>
-
-
                     <div className='nav-right'>
-                      <a href='#' className="poppins-font" style={{ marginLeft: "30rem" }}>Username </a>
+                      <a href='#' className="poppins-font" style={{ marginLeft: "30rem" }}>{JSON.parse(localStorage.getItem("user")).firstname} </a>
                       <div className='chevron-down' />
                       {/* <a href='#'>{props.user.firstname}</a> */}
                     </div>

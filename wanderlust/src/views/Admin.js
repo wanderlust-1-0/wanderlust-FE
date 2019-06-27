@@ -4,6 +4,7 @@ import Guide from '../components/Guide';
 import Tour from '../components/Tour';
 import Tourist from '../components/Tourist';
 import { getAllGuides, getAllTourists, getAllTours } from '../actions';
+import { Redirect } from "react-router-dom";
 
 class Admin extends React.Component {
   constructor(props) {
@@ -27,6 +28,9 @@ class Admin extends React.Component {
   }
 
   render() {
+    if (localStorage.getItem("auth-token") === null || !localStorage.getItem("admin")) {
+      return <Redirect to="/" />
+    }
     console.log('Rendering of Tourists: ', this.props.touristProps);
 
     console.log('Rendering of Guides: ', this.props.guideProps);

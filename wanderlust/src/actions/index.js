@@ -49,6 +49,7 @@ export const signin = user => dispatch => {
     .then(res => {
       console.log('token response: ', res);
       localStorage.setItem('auth-token', res.data.access_token);
+      localStorage.setItem('username', user.username);
       dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
     })
     .catch(err => {
