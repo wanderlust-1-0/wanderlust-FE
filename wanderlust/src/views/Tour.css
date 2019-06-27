@@ -15,12 +15,13 @@
 .bg-image {
   background-image: url(/assets/running-in-forrest.jpg);
   background-repeat: no-repeat;
-  background-position: top;
+  background-position: top center ;
   padding-bottom: 20rem;
   width: 80rem;
   min-width: 80rem;
   height: 40rem;
   min-height: 40rem;
+  
 }
 
 .tour-header {
@@ -112,18 +113,15 @@
   margin-top: 3rem;
   display: flex;
   margin-right: 8rem;
-  margin-bottom: 1rem;
 }
 
 .info-symbol {
   background-image: url(/assets/info-symbol.png);
   background-repeat: no-repeat;
-  width: 8rem;
+  width: 3rem;
   height: 5rem;
   margin-top: 2rem;
   margin-left: 0.2rem;
-  position: absolute;
-  left: 25.8rem;
 }
 
 .clock-wrapper {
@@ -171,6 +169,7 @@
   font-size: 1.2rem;
   font-weight: 500;
   padding-right: 26.6rem;
+  margin-left: 0.5rem;
 }
 
 .people-text {
@@ -273,7 +272,7 @@
   background-image: url(/assets/avatar_dracarys.png);
   background-repeat: no-repeat;
   width: 30rem;
-  height: 50rem;
+  height: 13rem;
   margin-right: 1rem;
   margin-left: 5rem;
   margin-top: 2rem;
@@ -281,7 +280,10 @@
 
 .avatar-text {
   margin-left: 7rem;
-  margin-bottom: 10.5rem;
   font-size: 1.3rem;
   font-weight: 600;
+}
+
+.description-header {
+  margin-left: 0.9rem;
 }

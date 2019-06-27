@@ -16,9 +16,7 @@ class Tour extends React.Component {
   }
 
   render() {
-    console.log("PATH: ", this.props.location.pathname.split("/")[2])
     return(
-
   <div className='tour-wrapper'>
     <header>
       <div className='header-wrapper'>
@@ -45,17 +43,15 @@ class Tour extends React.Component {
         </div>
       </div>
     </header>
-    <div className='tour-information-wrapper'>
+    <div className='tour-information-wrapper' style={{paddingRight: "10rem"}}>
       <div className='tour-information-left'>
         <div className='info-wrapper'>
           <div className='info-symbol' />
           <div className='description-wrapper'>
-            About this tour
-            <br />
-            <span className='decent-text' style={{textAlign: "left", marginLeft: "4.3rem"}}>
+            <div className="description-header" style={{paddingBottom: "0.3rem"}}>About this tour</div>
+            <span className='decent-text' style={{textAlign: "left", marginLeft: "1rem"}}>
               {this.props.tourProps.tour.tourdescription}
             </span>
-            {/*  <span className='decent-text'>{props.tour.description} </span>*/}
           </div>
         </div>
         <div className='clock-wrapper'>
@@ -104,7 +100,7 @@ class Tour extends React.Component {
             <span className='tiny'>per person</span>
           </div>
           <div className='booking'>
-            <button className='bookingButton'> Book Now</button>
+            <button className='bookingButton' style={{marginLeft: "0.5rem"}}> Book Now</button>
           </div>
         </div>
         <div className='social-media-wrapper'>
@@ -113,7 +109,8 @@ class Tour extends React.Component {
         </div>
         <div className='avatar' />
         <span className='avatar-text'>Your Tour Guide</span>
-        {/* <span className='avatar-text'>{this.props.tourProps.tour.guide[email]}</span>  */}
+        {this.props.tourProps.tour.guide &&  <span className='avatar-text'>{this.props.tourProps.tour.guide.email}</span>}
+         {/* <span className='avatar-text'>{this.props.tourProps.tour.guide[0].email}</span> */}
          {/* <span className='avatar-text'>{this.props.tourProps.tour.guide.phonenumber}</span> */}
       </div>
     </div>
