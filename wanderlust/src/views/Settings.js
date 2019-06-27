@@ -48,6 +48,8 @@ class Settings extends React.Component {
     });
   }
 
+
+
   render() {
     if (localStorage.getItem("auth-token") === null || localStorage.getItem("username") === null || localStorage.getItem("user") === null) {
       return <Redirect to="/" />

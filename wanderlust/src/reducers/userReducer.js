@@ -36,6 +36,11 @@ import {
   ADD_NEW_TOURIST_FAILURE
 } from '../actions';
 
+import {
+  UPDATING_SINGLE_TOURIST_START,
+  UPDATING_SINGLE_TOURIST_SUCCESS, UPDATING_SINGLE_TOURIST_FAILURE
+} from '../actions';
+
 const initialState = {
   guides: [],
   tourists: [],
@@ -60,6 +65,8 @@ const initialState = {
   signingUp: false,
   signingIn: false,
   updatingUser: false,
+  updatingTourist: false,
+  updatingTouristErr: '',
   fetchingAllGuides: false,
   signUpErr: '',
   signInErr: '',
@@ -167,6 +174,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         tourist: action.payload
       }
+
+    // Update guide info
     case UPDATE_GUIDE_INFO_FETCHING:
       return {
         ...state,
@@ -176,9 +185,7 @@ const userReducer = (state = initialState, action) => {
     case UPDATE_GUIDE_INFO_SUCCESS:
       return {
         ...state,
-        guide: {
-          ...action.payload,
-        },
+        guide: action.payload,
         updatingUser: false,
         error: '',
       };
@@ -187,6 +194,27 @@ const userReducer = (state = initialState, action) => {
         ...state,
         updatingUser: false,
         error: action.payload,
+      };
+
+    // Update tourist info
+    case UPDATING_SINGLE_TOURIST_START:
+      return {
+        ...state,
+        updatingTourist: true,
+        updatingTouristErr: '',
+      }
+    case UPDATING_SINGLE_TOURIST_SUCCESS:
+      return {
+        ...state,
+        updatingTourist: false,
+        tourist: action.payload,
+        updatingTouristErr: '',
+      }
+    case UPDATING_SINGLE_TOURIST_FAILURE:
+      return {
+        ...state,
+        updatingTourist: false,
+        updatingTouristErr: action.payload
       };
     case FETCHING_GUIDES_START:
       return {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllTours } from '../actions';
+import { getAllTours, getAllTourists } from '../actions';
 import ShowTourList from '../components/ShowTourList';
 import { Redirect } from 'react-router';
 import './explore-tours.css';
@@ -216,6 +216,6 @@ const mapStateToProps = state => ({ tourProps: state.tourReducer.tours });
 
 export default connect(
   mapStateToProps,
-  { getAllTours },
+  { getAllTours, getAllTourists },
 )(ExploreTours);
 

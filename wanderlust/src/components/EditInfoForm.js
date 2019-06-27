@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { updateGuideInfo } from '../actions';
+import { updateGuideById, updateTouristById } from '../actions';
 import { connect } from 'react-redux';
 
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
@@ -17,13 +17,13 @@ class EditInfoForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      guideid: '',
+      touristid: '',
       firstname: '',
       lastname: '',
       email: '',
-      phone: '',
-      isTourGuide: '',
+      phonenumber: '',
+      istourguide: '',
       collapse: false,
       isWideEnough: false,
     };
@@ -42,23 +42,64 @@ class EditInfoForm extends Component {
     });
   };
 
-  updateUserInfo = e => {
-    e.preventDefault();
-    this.props.updateGuideInfo(this.state);
-  };
+  // updateUserInfo = e => {
+  //   e.preventDefault();
+  //   this.props.updateGuideInfo(this.state);
+  // };
 
   componentDidMount() {
-    //prefill the inputs with the API call data of the current user
-    this.setState({
-      username: 123,
-      password: 123,
-      firstname: 'sascha',
-      lastname: 'majewsky',
-      email: 'sascha@test.com',
-      phone: '12345',
-      isTourGuide: true,
-    });
+    // prefill the inputs with the API call data of the current user
+    // this.setState({
+    //   username: 123,
+    //   password: 123,
+    //   firstname: 'sascha',
+    //   lastname: 'majewsky',
+    //   email: 'sascha@test.com',
+    //   phone: '12345',
+    //   isTourGuide: true,
+    // });
     console.log('MY STATE IS: ', this.state);
+    let obj = {
+      id: 1,
+      email: "guide@test.com",
+      firstname: "hero",
+      lastname: "king",
+      phonenumber: "1223434",
+      istourguide: true,
+      tours: []
+    }
+
+    localStorage.setItem('user', JSON.stringify(obj))
+    const userObj = JSON.parse(localStorage.getItem('user'))
+
+    this.setState(
+      JSON.parse(localStorage.getItem("user")).istourguide ?
+        {
+          email: userObj.email,
+          firstname: userObj.firstname,
+          lastname: userObj.lastname,
+          phonenumber: userObj.phonenumber,
+          istourguide: userObj.isTourGuide,
+          guideid: userObj.id
+        } :
+        {
+          email: userObj.email,
+          firstname: userObj.firstname,
+          lastname: userObj.lastname,
+          phonenumber: userObj.phonenumber,
+          istourguide: userObj.isTourGuide,
+          tourists: userObj.tourists,
+          touristid: userObj.id
+        })
+  }
+
+  updateUserInfo = (e) => {
+    e.preventDefault();
+    const { email, firstname, lastname, phonenumber } = this.state
+
+    JSON.parse(localStorage.getItem("user")).istourguide ?
+      this.props.updateGuideById({ email, firstname, lastname, phonenumber }, this.state.guideid) :
+      this.props.updateTouristById({ email, firstname, lastname, phonenumber }, this.state.touristid);
   }
 
   render() {
@@ -189,7 +230,7 @@ class EditInfoForm extends Component {
                               error='wrong'
                               success='right'
                               autoComplete='off'
-                              name='phone'
+                              name='phonenumber'
                               value={this.state.phone}
                               onChange={this.handleInputChanges}
                               style={{ width: '15rem', marginBottom: '0rem' }}
@@ -225,5 +266,5 @@ const mapStateToProps = () => {
 
 export default connect(
   mapStateToProps,
-  { updateGuideInfo },
+  { updateGuideById, updateTouristById },
 )(EditInfoForm);

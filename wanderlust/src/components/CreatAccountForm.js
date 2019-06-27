@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { updateGuideInfo, addNewGuideToStore, addNewGuide, addNewTouristToStore, addNewTourist } from '../actions';
+import { addNewGuideToStore, addNewGuide, addNewTouristToStore, addNewTourist } from '../actions';
 import { connect } from 'react-redux';
 
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
@@ -251,5 +251,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-  { updateGuideInfo, addNewGuideToStore, addNewGuide, addNewTouristToStore, addNewTourist },
+  { addNewGuideToStore, addNewGuide, addNewTouristToStore, addNewTourist },
 )(CreateAccountForm);
