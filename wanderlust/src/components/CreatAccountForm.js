@@ -42,7 +42,15 @@ class CreateAccountForm extends Component {
     });
   };
 
-  addNewGuideToStore = (e) => {
+  addUser = (e) => {
+    if (this.props.guide.isTourGuide) {
+      this.addNewGuide(e)
+    } else {
+      this.addNewTourist(e)
+    }
+  }
+
+  addNewGuide = (e) => {
     e.preventDefault();
 
     const { username, firstname, lastname, password, email, phone, isTourGuide } = this.state;
@@ -54,12 +62,14 @@ class CreateAccountForm extends Component {
     this.props.history.push('/dashboard')
   }
 
-  addNewTouristToStore = (e) => {
+  addNewTourist = (e) => {
     e.preventDefault();
 
     const { username, firstname, lastname, password, email, phone, isTourGuide } = this.state
 
     this.props.addNewTouristToStore({ username, firstname, lastname, password, email, phone, isTourGuide })
+
+    this.props.addNewTourist({ firstname, lastname })
 
     this.props.history.push('/explore-tours')
   }
@@ -112,7 +122,7 @@ class CreateAccountForm extends Component {
                 }}>
                 <MDBCardBody>
                   <MDBCardText>
-                    <form onSubmit={this.props.guide.isTourGuide ? this.addNewGuideToStore : this.addNewTouristToStore}>
+                    <form onSubmit={this.addUser}>
                       <div className='seperator' style={{ display: 'flex' }}>
                         <div
                           className='left-side'
