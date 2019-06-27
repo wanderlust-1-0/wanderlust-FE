@@ -219,7 +219,6 @@
   justify-content: space-around;
   border-bottom: 1px solid grey;
   margin-left: 2rem;
-  margin-right: 2rem;
 }
 
 .price {
@@ -234,7 +233,7 @@
   align-items: center;
 }
 
-.tiny {
+.price-tiny {
   font-size: 1.1rem;
 }
 
@@ -263,6 +262,14 @@
   height: 5rem;
 }
 
+.heart-symbol:hover {
+  background-image: url(/assets/heart-red-hover-over-half-filled.png);
+}
+
+.heart-symbol:active {
+  background-image: url(/assets/heart-red-filled.png);
+}
+
 .favorites {
   font-size: 1.3rem;
   font-weight: 600;
@@ -282,6 +289,10 @@
   margin-left: 7rem;
   font-size: 1.3rem;
   font-weight: 600;
+}
+.tiny {
+    margin-left: 2rem;
+    text-align: center;
 }
 
 .description-header {

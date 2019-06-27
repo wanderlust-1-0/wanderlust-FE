@@ -24,6 +24,12 @@ import {
   FETCHING_SINGLETOUR_FAILURE,
 } from '../actions';
 
+import {
+  ADD_TOURIST_TO_TOUR_START,
+  ADD_TOURIST_TO_TOUR_SUCCESS,
+  ADD_TOURIST_TO_TOUR_FAILURE,
+} from '../actions';
+
 
 const initialState = {
   tours: [],
@@ -38,6 +44,8 @@ const initialState = {
   deletingTourErr: '',
   fetchingSingleTour: false,
   fetchSingleTourErr: '',
+  addingTouristToTour: false,
+  addingTouristToTourError: ''
 };
 
 const tourReducer = (state = initialState, action) => {
@@ -119,7 +127,6 @@ const tourReducer = (state = initialState, action) => {
         deletingTour: false,
         deletingTourErr: action.payload,
       };
-    
     case FETCHING_SINGLETOUR_START:
       return {
         ...state,
@@ -139,7 +146,28 @@ const tourReducer = (state = initialState, action) => {
       return {
         ...state,
         fetchingSingleTour: false,
-        error: action.payload,
+        fetchSingleTourErr: action.payload,
+      };
+    case ADD_TOURIST_TO_TOUR_START:
+      return {
+        ...state,
+        addingTouristToTour: true,
+      };
+    case ADD_TOURIST_TO_TOUR_SUCCESS:
+      console.log('Reducing of Single Tour: ', action.payload);
+      return {
+        ...state,
+        addingTouristToTour: false,
+        tour: {
+          ...action.payload,
+        },
+      };
+    case ADD_TOURIST_TO_TOUR_FAILURE:
+      console.log('GET Single Tour ERR: ', action.payload);
+      return {
+        ...state,
+        addingTouristToTour: false,
+        addingTouristToTourError: action.payload,
       };
     default:
       return state;
