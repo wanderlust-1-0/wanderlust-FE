@@ -219,7 +219,7 @@ export const ADD_NEW_TOURIST_FAILURE = 'ADD_NEW_TOURIST_FAILURE';
 export const addNewTourist = (tourist) => dispatch => {
   dispatch({ type: ADD_NEW_TOURIST_FETCHING })
   axios
-    .post('https://roger-wanderlust.herokuapp.com/tourists/add', tourist,
+    .post('https://roger-wanderlust.herokuapp.com/tourists/tourist/add', tourist,
       {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('auth-token')}`
@@ -391,21 +391,22 @@ export const ADD_TOURIST_TO_TOUR_START = 'ADD_TOURIST_TO_TOUR_START';
 export const ADD_TOURIST_TO_TOUR_SUCCESS = 'ADD_TOURIST_TO_TOUR_SUCCESS';
 export const ADD_TOURIST_TO_TOUR_FAILURE = 'ADD_TOURIST_TO_TOUR_FAILURE';
 
-export const addTouristToTour = (touristid, tourid) => dispatch => {
-  dispatch({ type: ADD_TOURIST_TO_TOUR_START });
-  axios
-    .put(`https://roger-wanderlust.herokuapp.com/tourists/tourist/assignTourist/${touristid}/${tourid}`, { touristid: touristid, tourid: tourid }, {
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem('auth-token')}`,
-        "Content-Type": "application/json",
-      },
-    })
-    .then(res => {
-      console.log('ADD TOURIST TO TOUR SUCESS: ', res);
-      dispatch({ type: ADD_TOURIST_TO_TOUR_SUCCESS, payload: res.data });
-    })
-    .then(err => {
-      console.log('ADD TOURIST TO TOUR ERROR: ', err);
-      dispatch({ type: ADD_TOURIST_TO_TOUR_FAILURE, payload: err });
-    });
-};
+export const addTouristToTour = (touristid, tourid) =>
+  dispatch => {
+    dispatch({ type: ADD_TOURIST_TO_TOUR_START });
+    axios
+      .put(`https://roger-wanderlust.herokuapp.com/tourists/tourist/assignTourist/${touristid}/${tourid}`, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('auth-token')}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then(res => {
+        console.log('ADD TOURIST TO TOUR SUCESS: ', res);
+        dispatch({ type: ADD_TOURIST_TO_TOUR_SUCCESS, payload: res.data });
+      })
+      .catch(err => {
+        console.log('ADD TOURIST TO TOUR ERROR: ', err);
+        dispatch({ type: ADD_TOURIST_TO_TOUR_FAILURE, payload: err });
+      });
+  };
