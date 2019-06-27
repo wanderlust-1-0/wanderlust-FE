@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import CreateAccountForm from '../components/CreatAccountForm';
 
 import {
@@ -31,6 +33,7 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: '',
       password: '',
       firstname: '',
       lastname: '',
@@ -41,6 +44,12 @@ class Settings extends React.Component {
     };
     this.onClick = this.onClick.bind(this);
   }
+
+  // componentDidMount() {
+  //   this.setState({
+  //     username: this.props.guide.username
+  //   })
+  // }
 
   onClick() {
     this.setState({
@@ -73,7 +82,7 @@ class Settings extends React.Component {
                 <MDBNavItem style={{ display: 'hide' }}>
                   <MDBDropdown>
                     <MDBDropdownToggle nav caret color='unique-color'>
-                      Username
+                      {this.props.guide.username}
                     </MDBDropdownToggle>
                     <MDBDropdownMenu color='unique-color'>
                       <MDBDropdownItem>My offered Tours</MDBDropdownItem>
@@ -101,7 +110,8 @@ class Settings extends React.Component {
           <MDBMask
             overlay='black-light'
             className='flex-center flex-column text-white text-center'>
-            <CreateAccountForm />
+            <Route path="/create-account" render={(props) => <CreateAccountForm {...props} />
+            } />
           </MDBMask>
         </MDBView>
       </div>
@@ -109,4 +119,11 @@ class Settings extends React.Component {
   }
 }
 
-export default Settings;
+const mapStateToProps = (state) => {
+  console.log('mstp in createAccount', state)
+  return {
+    guide: state.userReducer.guide
+  }
+}
+
+export default connect(mapStateToProps, {})(Settings)

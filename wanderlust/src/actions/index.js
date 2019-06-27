@@ -146,9 +146,9 @@ export const addNewGuideToStore = (guide) => {
 }
 
 // Update Guide Info by id Action Creator
-export const UPDATE_GUIDE_INFO_FETCHING = 'UPDATE_USER_INFO_FETCHING';
-export const UPDATE_GUIDE_INFO_SUCCESS = 'UPDATE_USER_INFO_SUCCESS';
-export const UPDATE_GUIDE_INFO_FAILURE = 'UPDATE_USER_INFO_FAILURE';
+export const UPDATE_GUIDE_INFO_FETCHING = 'UPDATE_GUIDE_INFO_FETCHING';
+export const UPDATE_GUIDE_INFO_SUCCESS = 'UPDATE_GUIDE_INFO_SUCCESS';
+export const UPDATE_GUIDE_INFO_FAILURE = 'UPDATE_GUIDE_INFO_FAILURE';
 
 export const updateGuideInfo = id => dispatch => {
   dispatch({ type: UPDATE_GUIDE_INFO_FETCHING });
@@ -200,6 +200,42 @@ export const getAllTourists = () => dispatch => {
       dispatch({ type: FETCHING_TOURISTS_FAILURE, payload: err });
     });
 };
+
+// Add a new tourist to redux store
+export const ADD_NEW_TOURIST_STORE_SUCCESS = 'ADD_NEW_TOURIST_STORE_SUCCESS';
+
+
+export const addNewTouristToStore = (tourist) => {
+  return {
+    type: ADD_NEW_TOURIST_STORE_SUCCESS,
+    payload: tourist
+  }
+}
+
+// Add a new tourist
+export const ADD_NEW_TOURIST_FETCHING = 'ADD_NEW_TOURIST_FETCHING';
+export const ADD_NEW_TOURIST_SUCCESS = 'ADD_NEW_TOURIST_SUCCESS';
+export const ADD_NEW_TOURIST_FAILURE = 'ADD_NEW_TOURIST_FAILURE';
+
+export const addNewTourist = (tourist) => dispatch => {
+  dispatch({ type: ADD_NEW_TOURIST_FETCHING })
+  axios
+    .post('https://roger-wanderlust.herokuapp.com/tourists/add', tourist,
+      {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('auth-token')}`
+        }
+      }
+    )
+    .then(res => {
+      console.log("add new tourist: ", res.data)
+      dispatch({ type: ADD_NEW_TOURIST_SUCCESS, payload: res.data })
+    })
+    .catch(err => {
+      console.log('add new tourist err', err.response)
+      dispatch({ type: ADD_NEW_TOURIST_FAILURE, payload: err.response })
+    })
+}
 
 // Get single tourist by id
 export const FETCHING_SINGLE_TOURIST_START = 'FETCHING_SINGLE_TOURIST_START';

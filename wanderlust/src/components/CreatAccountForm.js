@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { updateGuideInfo, addNewGuideToStore, addNewGuide } from '../actions';
+import { updateGuideInfo, addNewGuideToStore, addNewGuide, addNewTouristToStore, addNewTourist } from '../actions';
 import { connect } from 'react-redux';
 
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
@@ -44,19 +44,45 @@ class CreateAccountForm extends Component {
 
   addNewGuideToStore = (e) => {
     e.preventDefault();
+
     const { username, firstname, lastname, password, email, phone, isTourGuide } = this.state;
-    // this.props.addNewGuideToStore({ username, firstname, lastname, password, email, phone, isTourGuide })
-    this.props.addNewGuide({ firstname, lastname })
+
+    this.props.addNewGuideToStore({ username, firstname, lastname, password, email, phone, isTourGuide })
+
+    this.props.addNewGuide({ username, firstname, lastname, password, email, phone })
+
+    this.props.history.push('/dashboard')
+  }
+
+  addNewTouristToStore = (e) => {
+    e.preventDefault();
+
+    const { username, firstname, lastname, password, email, phone, isTourGuide } = this.state
+
+    this.props.addNewTouristToStore({ username, firstname, lastname, password, email, phone, isTourGuide })
+
+    this.props.history.push('/explore-tours')
   }
 
   componentDidMount() {
-    console.log('CDM: ', this.props.guide)
-    this.setState({
-      username: this.props.username,
-      password: this.props.password,
-      isTourGuide: this.props.isTourGuide
-    })
+    console.log('CDM: ', this.props.guide.isTourGuide)
+    if (this.props.isTourGuide) {
+      this.setState({
+        username: this.props.guide.username,
+        password: this.props.guide.password,
+        isTourGuide: this.props.guide.isTourGuide
+      })
+    } else {
+      this.setState({
+        username: this.props.tourist.username,
+        password: this.props.tourist.password,
+        isTourGuide: this.props.tourist.isTourGuide
+      })
+    }
+    console.log('Is this a guide or tourist: ', this.state.isTourGuide)
   }
+
+
 
   render() {
     return (
@@ -86,7 +112,7 @@ class CreateAccountForm extends Component {
                 }}>
                 <MDBCardBody>
                   <MDBCardText>
-                    <form onSubmit={this.addNewGuideToStore}>
+                    <form onSubmit={this.props.guide.isTourGuide ? this.addNewGuideToStore : this.addNewTouristToStore}>
                       <div className='seperator' style={{ display: 'flex' }}>
                         <div
                           className='left-side'
@@ -205,7 +231,8 @@ class CreateAccountForm extends Component {
 const mapStateToProps = (state) => {
   console.log("MStp in create guide form", state)
   return {
-    guide: state.userReducer.guide
+    guide: state.userReducer.guide,
+    tourist: state.userReducer.tourist
     // username: state.userReducer.guide.username,
     // password: state.userReducer.guide.password,
     // isTourGuide: state.userReducer.guide.isTourGuide
@@ -214,5 +241,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-  { updateGuideInfo, addNewGuideToStore, addNewGuide },
+  { updateGuideInfo, addNewGuideToStore, addNewGuide, addNewTouristToStore, addNewTourist },
 )(CreateAccountForm);

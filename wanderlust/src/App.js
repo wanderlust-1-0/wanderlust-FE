@@ -24,7 +24,7 @@ function App() {
       <Route exact path='/tours/:id' render={() => <Tour />} />
       <Route exact path='/add-tour' render={() => <AddTour />} />
 
-      <Route exact path='/create-account' render={() => <CreatAccount />} />
+      <Route exact path='/create-account' render={(props) => <CreatAccount {...props} />} />
 
       <Route exact path='/settings' render={() => <Settings />} />
       <Route exact path='/logout' render={() => <Logout />} />
