@@ -113,7 +113,7 @@ class Home extends React.Component {
                   }}>
                   <MDBCardBody>
                     <MDBCardText>
-                      <SignIn />
+                      <Route path="/signin" render={(props) => <SignIn {...props} />} />
                     </MDBCardText>
                   </MDBCardBody>
                 </MDBCard>
