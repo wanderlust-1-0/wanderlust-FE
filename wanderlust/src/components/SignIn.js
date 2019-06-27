@@ -15,7 +15,9 @@ class SignIn extends React.Component {
 
   signin = event => {
     event.preventDefault();
-    this.props.signin(this.state);
+    this.props.signin(this.state).then(() => {
+      this.props.history.push('/create-account');
+    });
   };
 
   // this.props.signin(this.state.accountData).then(() =>
