@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -115,7 +117,7 @@ class Dashboard extends React.Component {
                   <MDBNavItem style={{ display: 'hide' }}>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
-                        Username
+                        {this.props.guide.username}
                       </MDBDropdownToggle>
                       <MDBDropdownMenu color='unique-color'>
                         <MDBDropdownItem>My offered Tours</MDBDropdownItem>
@@ -171,7 +173,7 @@ class Dashboard extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ tourProps: state.tourReducer.tours });
+const mapStateToProps = state => ({ tourProps: state.tourReducer.tours, guide: state.userReducer.guide });
 
 export default connect(
   mapStateToProps,

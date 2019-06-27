@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { signUp, addNewGuideToStore } from '../actions';
+import { signUp, addNewGuideToStore, addNewTouristToStore } from '../actions';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 
 class SignUp extends Component {
@@ -32,12 +32,20 @@ class SignUp extends Component {
   };
 
 
+
   signUp = event => {
     event.preventDefault();
-    this.props.addNewGuideToStore(this.state);
-    this.props.signUp(this.state).then(() => {
-      this.props.history.push('/signin');
-    });
+    if (this.state.isTourGuide) {
+      this.props.addNewGuideToStore(this.state)
+      this.props.signUp(this.state).then(() => {
+        this.props.history.push('/signin');
+      });
+    } else {
+      this.props.addNewTouristToStore(this.state)
+      this.props.signUp(this.state).then(() => {
+        this.props.history.push('/signin');
+      });
+    }
   };
 
   render() {
@@ -118,5 +126,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { signUp, addNewGuideToStore },
+  { signUp, addNewGuideToStore, addNewTouristToStore },
 )(SignUp);

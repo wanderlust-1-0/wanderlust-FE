@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -162,4 +164,10 @@ class NavBarPreLogin extends React.Component {
   }
 }
 
-export default NavBarPreLogin;
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer.guide
+  }
+}
+
+export default connect(mapStateToProps, {})(NavBarPreLogin);
