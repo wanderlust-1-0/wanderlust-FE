@@ -1,0 +1,36 @@
+{
+  "guides": [
+    {
+      "guideid": 1,
+      "firstname": "guide",
+      "lastname": "columbus",
+      "phonenumber": "2132",
+      "email": "columbus@world.com",
+      "istourguide": true,
+      "offeredtours": [
+        {
+          "tourid": 1,
+          "tourname": "Awesome New York City Tour",
+          "tourdescription": "We will visit the empire state building and so much more!",
+          "recommendedage": 6,
+          "whattobring": "Bring with you some fun!",
+          "category": "city",
+          "area": "newyork",
+          "price": 20.0,
+          "durationhrs": 3,
+          "getTogetherAddress": "29 3rd St #203 New City, New York(NY), 10956",
+          "meetingaddress": "(511) 355-2121",
+          "likes": 102,
+          "guide": {
+            "guideid": 1,
+            "firstname": "guide",
+            "lastname": "columbus",
+            "phonenumber": "2132",
+            "email": "columbus@world.com",
+            "istourguide": true
+          }
+        }
+      ]
+    }
+  ]
+}

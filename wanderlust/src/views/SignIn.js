@@ -98,7 +98,7 @@ class Home extends React.Component {
             </MDBCollapse>
           </MDBNavbar>
         </header>
-        <MDBView src='https://i.imgur.com/Khv7HRX.png'>
+        <MDBView src='https://i.imgur.com/4ox5JIo.png'>
           <MDBMask
             overlay='black-light'
             className='flex-center flex-column text-white text-center'>

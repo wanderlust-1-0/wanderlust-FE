@@ -82,21 +82,21 @@ class Settings extends React.Component {
                   </MDBDropdown>
                 </MDBNavItem>
               ) : (
-                <MDBNavItem
-                  style={{
-                    marginLeft: '1rem',
-                    marginRight: '1rem',
-                    fontSize: '1.3rem',
-                    fontWeight: '400',
-                  }}>
-                  <MDBNavLink to='#'>My offered Tours</MDBNavLink>
-                </MDBNavItem>
-              )}
+                  <MDBNavItem
+                    style={{
+                      marginLeft: '1rem',
+                      marginRight: '1rem',
+                      fontSize: '1.3rem',
+                      fontWeight: '400',
+                    }}>
+                    <MDBNavLink to='#'>My offered Tours</MDBNavLink>
+                  </MDBNavItem>
+                )}
             </MDBNavbarNav>
           </MDBCollapse>
         </MDBNavbar>
 
-        <MDBView src='https://i.imgur.com/Khv7HRX.png'>
+        <MDBView src='https://i.imgur.com/4ox5JIo.png'>
           <MDBMask
             overlay='black-light'
             className='flex-center flex-column text-white text-center'>

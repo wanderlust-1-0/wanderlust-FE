@@ -16,17 +16,21 @@ const Guide = props => (
         <MDBCard wide>
           <MDBCardBody
             cascade
-            style={{ height: '15rem', width: '15rem', margin: '1rem' }}>
+            style={{ height: '100%', width: '15rem', margin: '1rem' }}>
             <MDBCardTitle style={{ textAlign: 'center' }}>
-              ID: {props.guide.guideid}
+              <strong>ID:</strong> {props.guide.guideid}
               <br />
-              {props.guide.email}
+              <strong>Email:</strong> {props.guide.email}
               <br />
-              first: {props.guide.firstname}
+              <strong>First:</strong> {props.guide.firstname}
               <br />
-              last: {props.guide.lastname}
+              <strong>Last:</strong> {props.guide.lastname}
               <br />
-              {props.guide.phonenumber}
+              <strong>Phone:</strong> {props.guide.phonenumber}
+              <br />
+              <strong>OfferedTours:</strong>
+              {JSON.stringify(props.guide.tours, null, 4)}
+              <br />
             </MDBCardTitle>
           </MDBCardBody>
         </MDBCard>

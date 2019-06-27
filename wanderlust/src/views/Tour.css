@@ -15,12 +15,13 @@
 .bg-image {
   background-image: url(/assets/running-in-forrest.jpg);
   background-repeat: no-repeat;
-  background-position: top;
+  background-position: top center ;
   padding-bottom: 20rem;
   width: 80rem;
   min-width: 80rem;
-  height: 20rem;
-  min-height: 20rem;
+  height: 40rem;
+  min-height: 40rem;
+  
 }
 
 .tour-header {
@@ -42,14 +43,14 @@
 
 .nav-middle {
   margin-left: 12rem;
-  margin-top: 2rem;
+  margin-top: 0rem;
 }
 
 .nav-right {
   display: flex;
   justify-content: space-around;
-  margin-top: 2rem;
-  margin-left: 25rem;
+  margin-top: 0rem;
+  margin-left: 20rem;
 }
 
 .nav-right a {
@@ -117,9 +118,8 @@
 .info-symbol {
   background-image: url(/assets/info-symbol.png);
   background-repeat: no-repeat;
-  width: 8rem;
+  width: 3rem;
   height: 5rem;
-  margin-right: 1rem;
   margin-top: 2rem;
   margin-left: 0.2rem;
 }
@@ -169,6 +169,7 @@
   font-size: 1.2rem;
   font-weight: 500;
   padding-right: 26.6rem;
+  margin-left: 0.5rem;
 }
 
 .people-text {
@@ -218,7 +219,6 @@
   justify-content: space-around;
   border-bottom: 1px solid grey;
   margin-left: 2rem;
-  margin-right: 2rem;
 }
 
 .price {
@@ -233,7 +233,7 @@
   align-items: center;
 }
 
-.tiny {
+.price-tiny {
   font-size: 1.1rem;
 }
 
@@ -262,6 +262,14 @@
   height: 5rem;
 }
 
+.heart-symbol:hover {
+  background-image: url(/assets/heart-red-hover-over-half-filled.png);
+}
+
+.heart-symbol:active {
+  background-image: url(/assets/heart-red-filled.png);
+}
+
 .favorites {
   font-size: 1.3rem;
   font-weight: 600;
@@ -271,7 +279,7 @@
   background-image: url(/assets/avatar_dracarys.png);
   background-repeat: no-repeat;
   width: 30rem;
-  height: 50rem;
+  height: 13rem;
   margin-right: 1rem;
   margin-left: 5rem;
   margin-top: 2rem;
@@ -279,7 +287,14 @@
 
 .avatar-text {
   margin-left: 7rem;
-  margin-bottom: 10.5rem;
   font-size: 1.3rem;
   font-weight: 600;
+}
+.tiny {
+    margin-left: 2rem;
+    text-align: center;
+}
+
+.description-header {
+  margin-left: 0.9rem;
 }

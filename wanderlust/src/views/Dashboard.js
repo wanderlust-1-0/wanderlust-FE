@@ -20,6 +20,11 @@ import {
   MDBDropdownItem,
 } from 'mdbreact';
 
+import ShowTourList from '../components/ShowTourList';
+import { getAllTours } from '../actions';
+import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -36,7 +41,15 @@ class Dashboard extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.props.getAllTours();
+    /* console.log('These are all the tours: ', tours); */
+  }
+
   render() {
+    if (localStorage.getItem("auth-token") === null) {
+      return <Redirect to="/" />
+    }
     return (
       <div>
         <header>
@@ -146,23 +159,13 @@ class Dashboard extends React.Component {
         </header>
 
         <main>
+          <h2 style={{ marginLeft: "20%", marginTop: "4rem", fontSize: "1.3rem", fontWeight: "bold" }}>Your Tour Offers</h2>
           <MDBContainer className='text-center my-5'>
-            <p align='justify'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+
+            <div className="allToursWrapper">
+              <ShowTourList allTours={this.props.tourProps} />
+            </div>
+
           </MDBContainer>
         </main>
       </div>
@@ -170,11 +173,9 @@ class Dashboard extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    guide: state.userReducer.guide
-  }
-}
+const mapStateToProps = state => ({ tourProps: state.tourReducer.tours, guide: state.userReducer.guide });
 
-export default connect(mapStateToProps, {})(Dashboard)
+export default connect(
+  mapStateToProps,
+  { getAllTours },
+)(Dashboard);
