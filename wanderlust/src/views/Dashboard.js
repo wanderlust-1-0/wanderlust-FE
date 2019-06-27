@@ -23,6 +23,7 @@ import ShowTourList from '../components/ShowTourList';
 import { getAllTours } from '../actions';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -46,8 +47,10 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    if (localStorage.getItem("auth-token") === null) {
-      return <Redirect to="/" />
+    if (localStorage.getItem("auth-token") === null || localStorage.getItem("username") === null || localStorage.getItem("user") === null) {
+      return <Redirect to="/" />;
+    } else if (!JSON.parse(localStorage.getItem("user")).istourguide) {
+      return <Redirect to="/explore-tours" />
     }
     return (
       <div>
@@ -116,13 +119,17 @@ class Dashboard extends React.Component {
                   <MDBNavItem style={{ display: 'hide' }}>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
-                        {this.props.guide.username}
+                        {JSON.parse(localStorage.getItem("user")).firstname}
                       </MDBDropdownToggle>
-                      <MDBDropdownMenu color='unique-color'>
-                        <MDBDropdownItem>My offered Tours</MDBDropdownItem>
-                        <MDBDropdownItem>Settings</MDBDropdownItem>
-                        <MDBDropdownItem>Logout</MDBDropdownItem>
-                      </MDBDropdownMenu>
+                      {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
+                        <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
+                        <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                        <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                      </MDBDropdownMenu> : <MDBDropdownMenu color='unique-color'>
+                          <MDBDropdownItem href="/explore-tours">Explore Tours</MDBDropdownItem>
+                          <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                          <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                        </MDBDropdownMenu>}
                     </MDBDropdown>
                   </MDBNavItem>
                 ) : (
@@ -133,7 +140,14 @@ class Dashboard extends React.Component {
                         fontSize: '1.3rem',
                         fontWeight: '400',
                       }}>
-                      <MDBNavLink to='#'>My offered Tours</MDBNavLink>
+                      {JSON.parse(localStorage.getItem("user")).istourguide ?
+                        <><MDBNavLink to='/dashboard'>My offered Tours</MDBNavLink>
+                          <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                          <MDBNavLink to='/logout'>Logout</MDBNavLink></>
+                        :
+                        <><MDBNavLink to='/explore-tours'>Explore Tours</MDBNavLink>
+                          <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                          <MDBNavLink to='logout'>Logout</MDBNavLink></>}
                     </MDBNavItem>
                   )}
               </MDBNavbarNav>

@@ -28,6 +28,7 @@ import {
   MDBCardTitle,
   MDBCardText,
 } from 'mdbreact';
+import { Redirect } from 'react-router';
 
 class Settings extends React.Component {
   constructor(props) {
@@ -58,6 +59,9 @@ class Settings extends React.Component {
   }
 
   render() {
+    if (localStorage.getItem("auth-token") === null) {
+      return <Redirect to="/" />
+    }
     return (
       <div>
         <MDBNavbar

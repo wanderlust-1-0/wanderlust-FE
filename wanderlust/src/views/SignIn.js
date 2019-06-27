@@ -78,8 +78,9 @@ class Home extends React.Component {
                     marginRight: '1rem',
                     fontSize: '1.1rem',
                     fontWeight: '400',
+                    marginTop: "0.5rem"
                   }}>
-                  <MDBNavLink to='#'>About</MDBNavLink>
+                  <a href="https://blissful-hermann-d8bbc9.netlify.com/" style={{ textDecoration: "none", color: "white" }}>About</a>
                 </MDBNavItem>
                 <MDBNavItem
                   style={{

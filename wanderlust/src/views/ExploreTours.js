@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllTours } from '../actions';
 import ShowTourList from '../components/ShowTourList';
-
+import { Redirect } from 'react-router';
 import './explore-tours.css';
 
 import {
@@ -60,6 +60,11 @@ class ExploreTours extends Component {
   }
 
   render() {
+    if (localStorage.getItem("auth-token") === null || localStorage.getItem("username") === null || localStorage.getItem("user") === null) {
+      return <Redirect to="/" />
+    } else if (JSON.parse(localStorage.getItem("user")).istourguide) {
+      return <Redirect to="/dashboard" />
+    }
     return (
       <div>
         <header>
@@ -127,13 +132,17 @@ class ExploreTours extends Component {
                   <MDBNavItem style={{ display: 'hide' }}>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
-                        Username
+                        {JSON.parse(localStorage.getItem("user")).firstname}
                       </MDBDropdownToggle>
-                      <MDBDropdownMenu color='unique-color'>
-                        <MDBDropdownItem>My offered Tours</MDBDropdownItem>
-                        <MDBDropdownItem>Settings</MDBDropdownItem>
-                        <MDBDropdownItem>Logout</MDBDropdownItem>
-                      </MDBDropdownMenu>
+                      {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
+                        <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
+                        <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                        <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                      </MDBDropdownMenu> : <MDBDropdownMenu color='unique-color'>
+                          <MDBDropdownItem href="/explore-tours">Explore Tours</MDBDropdownItem>
+                          <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                          <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                        </MDBDropdownMenu>}
                     </MDBDropdown>
                   </MDBNavItem>
                 ) : (
@@ -144,7 +153,14 @@ class ExploreTours extends Component {
                         fontSize: '1.3rem',
                         fontWeight: '400',
                       }}>
-                      <MDBNavLink to='#'>My offered Tours</MDBNavLink>
+                      {JSON.parse(localStorage.getItem("user")).istourguide ?
+                        <><MDBNavLink to='/dashboard'>My offered Tours</MDBNavLink>
+                          <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                          <MDBNavLink to='/logout'>Logout</MDBNavLink></>
+                        :
+                        <><MDBNavLink to='/explore-tours'>Explore Tours</MDBNavLink>
+                          <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                          <MDBNavLink to='logout'>Logout</MDBNavLink></>}
                     </MDBNavItem>
                   )}
               </MDBNavbarNav>
