@@ -31,6 +31,7 @@ class ExploreTours extends Component {
     this.state = {
       collapse: false,
       isWideEnough: false,
+      selected: "",
     };
     this.onClick = this.onClick.bind(this);
   }
@@ -42,9 +43,21 @@ class ExploreTours extends Component {
   }
 
   componentDidMount() {
-    const tours = this.props.getAllTours();
-    console.log('These are all the tours: ', tours);
+    this.props.getAllTours();
+    /* console.log('These are all the tours: ', tours); */
   }
+
+  handleInput = event => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  setSelected(searchterm) {
+       this.setState({
+      selected: searchterm,
+    });
+  } 
 
   render() {
     return (
@@ -76,7 +89,7 @@ class ExploreTours extends Component {
                     fontSize: '1.3rem',
                     fontWeight: '400',
                   }}>
-                  <MDBNavLink to='#'>Popular</MDBNavLink>
+                  <MDBNavLink to='#' onClick={() => this.setSelected("")}>Popular</MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem
                   style={{
@@ -85,7 +98,7 @@ class ExploreTours extends Component {
                     fontSize: '1.3rem',
                     fontWeight: '400',
                   }}>
-                  <MDBNavLink to='#'>Deals</MDBNavLink>
+                  <MDBNavLink to='#' onClick={() => this.setSelected(100)}>Deals</MDBNavLink>
                 </MDBNavItem>
 
                 <MDBNavItem
@@ -100,11 +113,11 @@ class ExploreTours extends Component {
                       Categories
                     </MDBDropdownToggle>
                     <MDBDropdownMenu color='unique-color'>
-                      <MDBDropdownItem>Mountain Biking</MDBDropdownItem>
-                      <MDBDropdownItem>Hiking</MDBDropdownItem>
-                      <MDBDropdownItem>Rafting</MDBDropdownItem>
-                      <MDBDropdownItem>Rock Climbing</MDBDropdownItem>
-                      <MDBDropdownItem>City</MDBDropdownItem>
+                      <MDBDropdownItem onClick={() => this.setSelected("Jungle")}>Jungle</MDBDropdownItem>
+                      <MDBDropdownItem onClick={() => this.setSelected("Desert")}>Desert</MDBDropdownItem>
+                      <MDBDropdownItem onClick={() => this.setSelected("Cruise")}>Cruise</MDBDropdownItem>
+                      <MDBDropdownItem onClick={() => this.setSelected("Outdoor")}>Outdoor</MDBDropdownItem>
+                      <MDBDropdownItem onClick={() => this.setSelected("City")}>City</MDBDropdownItem>
                     </MDBDropdownMenu>
                   </MDBDropdown>
                 </MDBNavItem>
@@ -145,40 +158,48 @@ class ExploreTours extends Component {
               <h2
                 className='poppins-font'
                 style={{ fontSize: '6rem', fontWeight: 'bold' }}>
-                MAKE THE LEAP
+                TRAVEL THE WORLD
               </h2>
               <h5>
-                Beeing a tour guide can make the day of thousands of people
-                better.
+                There was never a better time in history to explore the world than today!
               </h5>
             </MDBMask>
           </MDBView>
         </header>
-
         <div
           style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: '50px',
-          }}>
-          <input type='text' />
-          <button>Search</button>
-        </div>
+            paddingTop: "10rem",
+            position: "absolute",
+            bottom: "-2.7rem",
+            marginLeft: "20%",
 
-        <div className="allToursWrapper">
-          <ShowTourList allTours={this.props.allTours} />
+          }}>
+          <input type='text' style={{ padding: "2rem", width: "60vw", outline: "none" }} maxlength="50" value={this.state.selected} name="selected" onChange={this.handleInput} autoComplete='off'>
+          </input>
+          <button className="search-button" style={{ position: "absolute", right: "2rem", bottom: "1.3rem" }}>Search</button>
         </div>
+        <main>
+          <h2 style={{ marginLeft: "20%", marginTop: "4rem", fontSize: "1.3rem", fontWeight: "bold" }}>Popular tours</h2>
+          <MDBContainer className='text-center my-5'>
+            
+            <div className="allToursWrapper">
+              <ShowTourList allTours={this.state.selected.length == 0 ? this.props.tourProps : this.props.tourProps.filter(tour => typeof this.state.selected == 'number' ? this.state.selected >= tour.price : tour.tourname.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.tourdescription.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.category.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.area.toLowerCase().includes(this.state.selected.toLowerCase()))} />
+            </div>
+
+          </MDBContainer>
+        </main>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log('mstp: ', state)
-  return {
-    allTours: state.tourReducer.tours
-  }
-}
+const mapStateToProps = state => ({ tourProps: state.tourReducer.tours });
 
-export default connect(mapStateToProps, { getAllTours })(ExploreTours)
+export default connect(
+  mapStateToProps,
+  { getAllTours },
+)(ExploreTours);
+

@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 // Sign Up Action Creator
 export const SIGNUP_FETCHING = 'SIGNUP_FETCHING';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
@@ -21,7 +20,7 @@ export const signUp = accountData => dispatch => {
       dispatch({ type: SIGNUP_SUCCESS, payload: response });
     })
     .catch(error => {
-      dispatch({ type: SIGNUP_FAILURE, payload: 'Signin failed.' });
+      dispatch({ type: SIGNUP_FAILURE, payload: error });
     });
 };
 
@@ -249,14 +248,10 @@ export const getAllTours = () => dispatch => {
       dispatch({ type: FETCHING_TOURS_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      console.log('Get all tours err: ', 'get all tours err');
-      dispatch({ type: FETCHING_TOURS_FAILURE, payload: 'get all tours err' });
+      console.log('Get all tours err: ', err);
+      dispatch({ type: FETCHING_TOURS_FAILURE, payload: err });
     });
 };
-
-
-
-
 
 // Get single tours by id
 export const FETCHING_SINGLETOUR_START = 'FETCH_SINGLETOUR_START';

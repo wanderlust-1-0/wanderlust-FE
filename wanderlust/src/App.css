@@ -33,3 +33,14 @@
   border-color: #ff8800;
   background-color: #ff8800;
 }
+
+.search-button {
+  background-color: #7289da;
+  width: 10rem;
+  color: white;
+  height: 3rem;
+  font-size: 1.3rem;
+  margin-top: 3rem;
+  outline: none;
+  border: none;
+}

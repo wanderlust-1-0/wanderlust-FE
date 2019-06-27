@@ -21,7 +21,7 @@ function App() {
       <Route exact path='/signin' render={props => <SignIn {...props} />} />
       <Route exact path='/dashboard' render={() => <Dashboard />} />
       <Route exact path='/explore-tours' render={() => <ExploreTours />} />
-      <Route exact path='/tours/:id' render={() => <Tour />} />
+      <Route exact path='/tours/:id' render={(props) => <Tour {...props} />} />
       <Route exact path='/add-tour' render={() => <AddTour />} />
 
       <Route exact path='/create-account' render={() => <CreatAccount />} />
