@@ -49,6 +49,7 @@ export const signin = user => dispatch => {
     .then(res => {
       console.log('token response: ', res);
       localStorage.setItem('auth-token', res.data.access_token);
+      localStorage.setItem('username', user.username);
       dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
     })
     .catch(err => {
@@ -149,10 +150,12 @@ export const UPDATE_GUIDE_INFO_FETCHING = 'UPDATE_GUIDE_INFO_FETCHING';
 export const UPDATE_GUIDE_INFO_SUCCESS = 'UPDATE_GUIDE_INFO_SUCCESS';
 export const UPDATE_GUIDE_INFO_FAILURE = 'UPDATE_GUIDE_INFO_FAILURE';
 
-export const updateGuideInfo = id => dispatch => {
+export const updateGuideById = (guide, id) => dispatch => {
+  console.table(guide);
   dispatch({ type: UPDATE_GUIDE_INFO_FETCHING });
   axios
     .put(`https://roger-wanderlust.herokuapp.com/guides/guide/${id}`,
+      guide,
       {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('auth-token')}`
@@ -160,8 +163,8 @@ export const updateGuideInfo = id => dispatch => {
       }
     )
     .then(res => {
-      console.log('Update Guide Info Response: ', res.config.data);
-      dispatch({ type: UPDATE_GUIDE_INFO_SUCCESS, payload: res.config.data });
+      console.log('Update Guide Info Response: ', res);
+      dispatch({ type: UPDATE_GUIDE_INFO_SUCCESS, payload: res.data });
     })
     .catch(err => {
       console.log('Update Guide Info Err: ', err.response);
@@ -258,6 +261,31 @@ export const getSingleTouristById = (id) => dispatch => {
     .catch(err => {
       console.log('get single tourist err: ', err.response)
       dispatch({ type: FETCHING_SINGLE_TOURIST_FAILURE })
+    })
+}
+
+// Update a tourist profile
+export const UPDATING_SINGLE_TOURIST_START = 'UPDATING_SINGLE_TOURIST_START';
+export const UPDATING_SINGLE_TOURIST_SUCCESS = 'UPDATING_SINGLE_TOURIST_SUCCESS';
+export const UPDATING_SINGLE_TOURIST_FAILURE = 'UPDATING_SINGLE_TOURIST_FAILURE';
+
+export const updateTouristById = (tourist, id) => dispatch => {
+  dispatch({ type: UPDATING_SINGLE_TOURIST_START })
+  axios
+    .put(`https://roger-wanderlust.herokuapp.com/tourists/tourist/${id}`,
+      tourist,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('auth-token')}`,
+        },
+      }
+    ).then(res => {
+      console.log('updated tourist: ', res.data)
+      dispatch({ type: UPDATING_SINGLE_TOURIST_SUCCESS, payload: res.data })
+    })
+    .catch(err => {
+      console.log('updated tourist err: ', err.response)
+      dispatch({ type: UPDATING_SINGLE_TOURIST_FAILURE })
     })
 }
 
