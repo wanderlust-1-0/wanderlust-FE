@@ -46,7 +46,11 @@ const Tour = props => (
                                 <li>{tourist.email}</li>
                             ))}
                             <br />
-                            <strong>guideemail:</strong> {props.tour.guide.email}
+                            <strong>Guide:</strong>
+                            {JSON.stringify(props.tour.guide, null, 4)}
+                            <br />
+                            <strong>Tourists:</strong>
+                            {JSON.stringify(props.tour.tourists, null, 4)}
                             <br />
                             <strong>guideid:</strong> {props.tour.guide.guideid}
                         </MDBCardTitle>

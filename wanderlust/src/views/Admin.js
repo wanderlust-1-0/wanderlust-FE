@@ -2,21 +2,33 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Guide from '../components/Guide';
 import Tour from '../components/Tour';
+import Tourist from '../components/Tourist';
 import { getAllGuides, getAllTourists, getAllTours } from '../actions';
 
 class Admin extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      touristarray: [],
+    };
   }
 
   componentDidMount() {
-    /*  this.props.getAllTourists(); */
+    this.props.getAllTourists();
     this.props.getAllGuides();
     this.props.getAllTours();
   }
 
+  setTourists(tourists) {
+    console.log("HERE: ", tourists)
+    this.setState({
+      touristarray: tourists,
+    });
+  }
+
   render() {
+    console.log('Rendering of Tourists: ', this.props.touristProps);
+
     console.log('Rendering of Guides: ', this.props.guideProps);
     console.log('Rendering of Tours: ', this.props.tourProps);
     return (
@@ -29,8 +41,17 @@ class Admin extends React.Component {
         }}>
         <h2>List of all Users from DB</h2>
         <br />
+        <button style={{ width: "2rem", height: "2rem" }} onClick={() => this.setTourists(this.props.touristProps)}></button>
         <h3>Tourists:</h3>
         <br />
+
+        <div
+          className='tourist-list'
+          style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {this.state.touristarray.map(tourist => (
+            <Tourist tourist={tourist} key={tourist.touristid} />
+          ))}
+        </div>
         <h3>Guides:</h3>
         <div
           className='guide-list'
@@ -53,7 +74,7 @@ class Admin extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ guideProps: state.userReducer.guides, touristProps: state.userReducer.tourists, tourProps: state.tourReducer.tours });
+const mapStateToProps = state => ({ guideProps: state.userReducer.guides, touristProps: state.userReducer.tourist, tourProps: state.tourReducer.tours });
 
 export default connect(
   mapStateToProps,
