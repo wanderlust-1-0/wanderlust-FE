@@ -9,6 +9,8 @@ import {
   MDBCardText,
 } from 'mdbreact';
 
+import {MDBModal, MDBModalBody, MDBModalHeader } from 'mdbreact';
+
 /* import { Link } from 'react-router-dom'; */
 class EditInfoForm extends Component {
   constructor(props) {
@@ -23,6 +25,7 @@ class EditInfoForm extends Component {
       istourguide: '',
       collapse: false,
       isWideEnough: false,
+      modal: false,
     };
     this.onClick = this.onClick.bind(this);
   }
@@ -38,6 +41,12 @@ class EditInfoForm extends Component {
       [e.target.name]: e.target.value,
     });
   };
+
+   toggle = () => {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
 
   // updateUserInfo = e => {
   //   e.preventDefault();
@@ -77,7 +86,7 @@ class EditInfoForm extends Component {
           lastname: userObj.lastname,
           phonenumber: userObj.phonenumber,
           istourguide: userObj.isTourGuide,
-          guideid: userObj.id
+          guideid: userObj.guideid
         } :
         {
           email: userObj.email,
@@ -86,7 +95,7 @@ class EditInfoForm extends Component {
           phonenumber: userObj.phonenumber,
           istourguide: userObj.isTourGuide,
           tourists: userObj.tourists,
-          touristid: userObj.id
+          touristid: userObj.touristid
         })
   }
 
@@ -138,7 +147,7 @@ class EditInfoForm extends Component {
                           <span
                             className='h3 poppins-font main-color-blue'
                             style={{ paddingBottom: '4rem' }}>
-                            Hello {this.state.username}!
+                            Hello {this.state.firstname}!
                           </span>
                           <span className='h5 poppins-font main-color-blue'>
                             Profile Photo
@@ -228,20 +237,30 @@ class EditInfoForm extends Component {
                               success='right'
                               autoComplete='off'
                               name='phonenumber'
-                              value={this.state.phone}
+                              value={this.state.phonenumber}
                               onChange={this.handleInputChanges}
                               style={{ width: '15rem', marginBottom: '0rem' }}
                             />
                           </div>
                           <div
                             className='text-left'
-                            style={{ marginLeft: '1.5rem' }}>
-                            <MDBBtn
+                            style={{ marginLeft: '0.8rem' }}>
+                            <MDBContainer>
+                            <MDBBtn gradient='blue' type='submit' color="indigo" onClick={this.toggle} style={{ width: '15rem' }}>Save</MDBBtn>
+                            <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+                              <MDBModalHeader toggle={this.toggle} style={{ border: "none" }}></MDBModalHeader>
+                              <MDBModalBody style={{ textAlign: "center", paddingBottom: "4rem", fontSize: "1.8rem", color: "green" }}>
+                                Your settings has been updated!
+                            </MDBModalBody>
+                              </MDBModal>
+                            </MDBContainer>
+
+                          {/*   <MDBBtn
                               gradient='blue'
                               type='submit'
                               style={{ width: '15rem' }}>
                               Save
-                            </MDBBtn>
+                            </MDBBtn> */}
                           </div>
                         </div>
                       </div>

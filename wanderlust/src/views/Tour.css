@@ -166,7 +166,6 @@
   font-size: 1.2rem;
   font-weight: 500;
   padding-right: 26.6rem;
-  margin-left: 0.5rem;
 }
 
 .people-text {
@@ -274,8 +273,18 @@
   font-weight: 600;
 }
 
-.avatar {
+.avatar_dracarys {
   background-image: url(/assets/avatar_dracarys.png);
+  background-repeat: no-repeat;
+  width: 30rem;
+  height: 13rem;
+  margin-right: 1rem;
+  margin-left: 5rem;
+  margin-top: 2rem;
+}
+
+.avatar_reeves {
+  background-image: url(/assets/avatar_reeves.png);
   background-repeat: no-repeat;
   width: 30rem;
   height: 13rem;
@@ -295,7 +304,7 @@
 }
 
 .description-header {
-  margin-left: 0.9rem;
+  margin-left: 1.2rem;
 }
 
 .guide-info {

@@ -31,8 +31,13 @@ class Tour extends React.Component {
       modal: false,
       collapse: false,
       isWideEnough: false,
+      randomAvatarValue: 0,
     }
     this.onClick = this.onClick.bind(this);
+  }
+  
+  random() {
+
   }
 
   onClick() {
@@ -40,6 +45,14 @@ class Tour extends React.Component {
       collapse: !this.state.collapse,
     });
   }
+
+   toggleAndBook = () => {
+    this.setState({
+      modal: !this.state.modal
+    });
+    this.bookTour()
+  }
+
   toggle = () => {
     this.setState({
       modal: !this.state.modal
@@ -48,6 +61,7 @@ class Tour extends React.Component {
 
   componentDidMount() {
     this.props.getTourById(this.props.location.pathname.split("/")[2])
+    this.setState({ randomAvatarValue: Math.random() * 100 })
   }
 
   bookTour() {
@@ -144,7 +158,7 @@ class Tour extends React.Component {
               <div className='info-symbol' />
               <div className='description-wrapper'>
                 <div className="description-header" style={{ paddingBottom: "0.3rem" }}>About this tour</div>
-                <span className='decent-text' style={{ textAlign: "left", marginLeft: "1rem" }}>
+                <span className='decent-text' style={{ textAlign: "left", marginLeft: "1.2rem" }}>
                   {this.props.tourProps.tour.tourdescription}
                 </span>
               </div>
@@ -196,7 +210,7 @@ class Tour extends React.Component {
               </div>
               <div className='booking'>
                 {JSON.parse(localStorage.getItem("user")).istourguide ? <></> : <MDBContainer>
-                  <MDBBtn color="indigo" onClick={this.toggle} style={{ marginLeft: "0.5rem", marginTop: "3rem" }}>Book Now</MDBBtn>
+                  <MDBBtn color="indigo" onClick={this.toggleAndBook} style={{ marginLeft: "0.5rem", marginTop: "3rem" }}>Book Now</MDBBtn>
                   <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
                     <MDBModalHeader toggle={this.toggle} style={{ border: "none" }}></MDBModalHeader>
                     <MDBModalBody style={{ textAlign: "center", paddingBottom: "4rem", fontSize: "1.8rem", color: "green" }}>
@@ -211,7 +225,7 @@ class Tour extends React.Component {
               <div className='heart-symbol' />
               <div className='favorites'>Add to favorites</div>
             </div>
-            <div className='avatar' />
+            <div className={this.state.randomAvatarValue > 50 ? 'avatar_dracarys' : 'avatar_reeves'} />
             <span className='avatar-text'>Your Tour Guide</span>
             <div className="guide-info">
               {this.props.tourProps.tour.guide && <span className='tiny'>{this.props.tourProps.tour.guide.firstname} {this.props.tourProps.tour.guide.lastname}</span>}
