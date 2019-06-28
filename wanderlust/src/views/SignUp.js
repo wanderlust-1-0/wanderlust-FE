@@ -67,7 +67,7 @@ class Home extends React.Component {
                     fontWeight: '400',
                     marginTop: "0.5rem"
                   }}>
-                  <a href="https://blissful-hermann-d8bbc9.netlify.com/" style={{ textDecoration: "none", color: "white" }}>About</a>
+                  <a href="https://lambdawanderlust.netlify.com/" style={{ textDecoration: "none", color: "white" }}>About</a>
                 </MDBNavItem>
                 <MDBNavItem
                   style={{
