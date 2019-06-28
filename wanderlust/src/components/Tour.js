@@ -22,7 +22,7 @@ const Tour = props => (
                             <br />
                             <strong>Name:</strong>{props.tour.tourname}
                             <br />
-                            <strong>Descr:</strong>{props.tour.tourdescription}
+                            <strong>Description:</strong>{props.tour.tourdescription}
                             <br />
                             <strong>Phone:</strong>{props.tour.tourguidephonenumber}
                             <br />
@@ -52,8 +52,7 @@ const Tour = props => (
                             <strong>Tourists:</strong>
                             {JSON.stringify(props.tour.tourists, null, 4)}
                             <br />
-                            {console.log("GODDAMN: ", props.tour.guide)}
-                            <strong>guideid:</strong> {props.tour.guide.guideid}  
+                            {/* <strong>guideid:</strong> {props.tour.guide.guideid} */}
                         </MDBCardTitle>
                     </MDBCardBody>
                 </MDBCard>
