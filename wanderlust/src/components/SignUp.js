@@ -62,7 +62,7 @@ class SignUp extends Component {
                   <MDBInput
                     label='Type your username'
                     group
-                    type='text' // Todo: change back type to email
+                    type='text'
                     validate
                     error='wrong'
                     success='right'
@@ -83,7 +83,6 @@ class SignUp extends Component {
                   />
                 </div>
 
-                {/* Material checked */}
                 <MDBInput
                   label='Are you a tour guide?'
                   type='checkbox'
@@ -116,8 +115,7 @@ class SignUp extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  /*  console.log(state); */
+const mapStateToProps = () => {
   return {};
 };
 

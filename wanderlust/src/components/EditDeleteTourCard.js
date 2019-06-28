@@ -27,10 +27,7 @@ class EditDeleteTourCard extends Component {
     e.stopPropagation();
     this.props.history.push(`/tours/${this.props.offeredTours.tourid}`)
   }
-  // const functioncall = () => <Redirect to='/dashboard' />;
 
-  //   to = { "/tours/" + props.offeredTours.tourid } style = {{ color: "white", textDecoration: "none" }
-  // }
   render() {
     return (
       <div className='card-background-forrest' onClick={(e) => this.displayTour(e)}>
