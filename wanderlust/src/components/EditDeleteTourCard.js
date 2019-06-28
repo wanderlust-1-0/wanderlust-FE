@@ -11,7 +11,7 @@ class EditDeleteTourCard extends Component {
   deleteTour = (e) => {
     e.stopPropagation();
     // functioncall()
-    this.props.deleteTour(123)
+    this.props.deleteTour(this.props.offeredTours.tourid)
     this.props.history.push('/dashboard');
     window.location.reload()
   }
@@ -28,7 +28,7 @@ class EditDeleteTourCard extends Component {
     return (
       <div className='card-background' onClick={(e) => this.displayTour(e)}>
         <div>
-          <div className='heart-icon' onClick={(e) => this.deleteTour(e)} />
+          <div className='paperbin-icon' onClick={(e) => this.deleteTour(e)} />
           <h3
             className='font-poppins background'
             style={{

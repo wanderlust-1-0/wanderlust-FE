@@ -23,8 +23,8 @@
   cursor: pointer;
 }
 
-.heart-icon {
-  background-image: url('/assets/heart.PNG');
+.paperbin-icon {
+  background-image: url('/assets/paperbin-white.png');
   background-repeat: no-repeat;
   background-size: 2.4rem 2.4rem;
   width: 2.5rem;
