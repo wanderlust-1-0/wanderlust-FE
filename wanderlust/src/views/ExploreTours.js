@@ -136,10 +136,12 @@ class ExploreTours extends Component {
                       </MDBDropdownToggle>
                       {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
                         <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
+                        <MDBDropdownItem href="/add-tour">Add a Tour</MDBDropdownItem>
                         <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
                         <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
                       </MDBDropdownMenu> : <MDBDropdownMenu color='unique-color'>
                           <MDBDropdownItem href="/explore-tours">Explore Tours</MDBDropdownItem>
+
                           <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
                           <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
                         </MDBDropdownMenu>}
@@ -155,6 +157,7 @@ class ExploreTours extends Component {
                       }}>
                       {JSON.parse(localStorage.getItem("user")).istourguide ?
                         <><MDBNavLink to='/dashboard'>My offered Tours</MDBNavLink>
+                          <MDBNavLink to="/add-tour">Add a Tour</MDBNavLink>
                           <MDBNavLink to='/settings'>Settings</MDBNavLink>
                           <MDBNavLink to='/logout'>Logout</MDBNavLink></>
                         :

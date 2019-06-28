@@ -221,20 +221,16 @@
   align-items: center;
 }
 
-.tourPriceWrapper {
-  padding: 1rem;
-  border-bottom: 1px solid grey;
-}
-
 .tourPrice {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 0;
+  justify-content: flex-start;
 }
 
 .tourPriceInput {
   width: 2rem;
+  padding-left: 2rem;
+  color: black;
 }
 
 .aboutGuide {

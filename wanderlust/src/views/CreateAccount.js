@@ -86,13 +86,19 @@ class Settings extends React.Component {
                 <MDBNavItem style={{ display: 'hide' }}>
                   <MDBDropdown>
                     <MDBDropdownToggle nav caret color='unique-color'>
-                      {this.props.guide.username}
+                      {JSON.parse(localStorage.getItem("user")).firstname}
                     </MDBDropdownToggle>
-                    <MDBDropdownMenu color='unique-color'>
-                      <MDBDropdownItem>My offered Tours</MDBDropdownItem>
-                      <MDBDropdownItem>Settings</MDBDropdownItem>
-                      <MDBDropdownItem>Logout</MDBDropdownItem>
-                    </MDBDropdownMenu>
+                    {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
+                      <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
+                      <MDBDropdownItem href="/add-tour">Add a Tour</MDBDropdownItem>
+                      <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                      <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                    </MDBDropdownMenu> : <MDBDropdownMenu color='unique-color'>
+                        <MDBDropdownItem href="/explore-tours">Explore Tours</MDBDropdownItem>
+
+                        <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                        <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                      </MDBDropdownMenu>}
                   </MDBDropdown>
                 </MDBNavItem>
               ) : (
@@ -103,7 +109,15 @@ class Settings extends React.Component {
                       fontSize: '1.3rem',
                       fontWeight: '400',
                     }}>
-                    <MDBNavLink to='#'>My offered Tours</MDBNavLink>
+                    {JSON.parse(localStorage.getItem("user")).istourguide ?
+                      <><MDBNavLink to='/dashboard'>My offered Tours</MDBNavLink>
+                        <MDBNavLink to="/add-tour">Add a Tour</MDBNavLink>
+                        <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                        <MDBNavLink to='/logout'>Logout</MDBNavLink></>
+                      :
+                      <><MDBNavLink to='/explore-tours'>Explore Tours</MDBNavLink>
+                        <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                        <MDBNavLink to='logout'>Logout</MDBNavLink></>}
                   </MDBNavItem>
                 )}
             </MDBNavbarNav>

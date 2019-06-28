@@ -3,22 +3,30 @@ import './Tour.css';
 import { connect } from 'react-redux';
 import { getTourById, addTouristToTour } from '../actions';
 import { Redirect } from 'react-router';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 
 class Tour extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       test: "",
-      currentUserID: "1"
+      currentUserID: "1",
+      modal: false,
     }
   }
+
+  toggle = () => {
+  this.setState({
+    modal: !this.state.modal
+  });
+}
 
   componentDidMount() {
     this.props.getTourById(this.props.location.pathname.split("/")[2])
   }
 
   bookTour() {
-    this.props.addTouristToTour(this.state.currentUserID, this.props.location.pathname.split("/")[2])
+    this.props.addTouristToTour(JSON.parse(localStorage.getItem("user")).touristid, this.props.location.pathname.split("/")[2])
   }
 
   render() {
@@ -107,8 +115,17 @@ class Tour extends React.Component {
                 <span className='price-tiny'>per person</span>
               </div>
               <div className='booking'>
-                <button className='bookingButton' style={{ marginLeft: "0.5rem" }} onClick={() => this.bookTour()}> Book Now</button>
+                {JSON.parse(localStorage.getItem("user")).istourguide ? <></>: <MDBContainer>
+              <MDBBtn onClick={this.toggle} style={{ marginLeft: "0.5rem", marginTop: "3rem" }}>Book Now</MDBBtn>
+              <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+                <MDBModalHeader toggle={this.toggle} style={{border: "none"}}></MDBModalHeader>
+                <MDBModalBody style={{textAlign: "center", paddingBottom: "4rem", fontSize: "1.8rem", color: "green"}}>
+                  Your tour has been booked!
+                </MDBModalBody>
+              </MDBModal>
+            </MDBContainer>}
               </div>
+              
             </div>
             <div className='social-media-wrapper'>
               <div className='heart-symbol' />
