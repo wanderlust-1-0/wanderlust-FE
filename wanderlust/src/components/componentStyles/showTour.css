@@ -4,7 +4,7 @@
   margin-left: 10%;
 }
 
-.card-background {
+.card-background-forrest {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -18,6 +18,36 @@
   width: 15rem;
   height: 15rem;
 }
+
+/* .card-background-canyons {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-image: url('/assets/pedro-lastra-137923-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-weight: bolder;
+  margin: 1rem;
+  width: 15rem;
+  height: 15rem;
+}
+
+.card-background-rocks{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-image: url('/assets/mountains2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-weight: bolder;
+  margin: 1rem;
+  width: 15rem;
+  height: 15rem;
+} */
 
 .card-background:hover {
   cursor: pointer;

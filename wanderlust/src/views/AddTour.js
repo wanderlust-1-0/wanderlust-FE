@@ -23,7 +23,7 @@ import {
   MDBDropdownItem,
 } from 'mdbreact';
 
-import {MDBModal, MDBModalBody, MDBModalHeader, MDBBtn } from 'mdbreact';
+import { MDBModal, MDBModalBody, MDBModalHeader, MDBBtn } from 'mdbreact';
 
 class AddTour extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ class AddTour extends Component {
     });
   }
 
-   toggle = () => {
+  toggle = () => {
     this.setState({
       modal: !this.state.modal
     });
@@ -70,10 +70,10 @@ class AddTour extends Component {
     e.preventDefault();
     this.props.addTour({
       tourname: this.state.tourTitle, category: this.state.tourCategory, tourdescription: this.state.tourDescription, recommendedage: this.state.recommendedAge, durationhrs: this.state.tourLength,
-      price: this.state.tourPrice, whattobring: this.state.whatTheyShouldBring, meetingaddress: this.state.tourAddress, guide: {guideid: JSON.parse(localStorage.getItem("user")).guideid}
+      price: this.state.tourPrice, whattobring: this.state.whatTheyShouldBring, meetingaddress: this.state.tourAddress, guide: { guideid: JSON.parse(localStorage.getItem("user")).guideid }
     });
   }
-/* ,guide: {guideid: JSON.parse(localStorage.getItem("user")).guideid, email: JSON.parse(localStorage.getItem("user")).email, firstname: JSON.parse(localStorage.getItem("user")).firstname, lastname: JSON.parse(localStorage.getItem("user")).lastname, phonenumber: JSON.parse(localStorage.getItem("user")).phonenumber, istourguide: JSON.parse(localStorage.getItem("user")).istourguide} */
+  /* ,guide: {guideid: JSON.parse(localStorage.getItem("user")).guideid, email: JSON.parse(localStorage.getItem("user")).email, firstname: JSON.parse(localStorage.getItem("user")).firstname, lastname: JSON.parse(localStorage.getItem("user")).lastname, phonenumber: JSON.parse(localStorage.getItem("user")).phonenumber, istourguide: JSON.parse(localStorage.getItem("user")).istourguide} */
 
 
   componentDidMount() {
@@ -164,7 +164,7 @@ class AddTour extends Component {
               <div className="addTourWrapper">
                 <div className="tourTitleWrapper">
                   <div className="tourTitle">
-                    <input className='title' type="text" placeholder="Title Your Tour" name="tourTitle" maxLength="35" value={this.state.tourTitle} onChange={this.handleInputChanges} style={{ outline: "none", border: "none", fontSize: "2rem"}} />
+                    <input className='title' type="text" placeholder="Title Your Tour" name="tourTitle" maxLength="35" value={this.state.tourTitle} onChange={this.handleInputChanges} style={{ outline: "none", border: "none", fontSize: "2rem" }} />
                     <input className="category" type="text" placeholder="Category" name="tourCategory" maxLength="15" value={this.state.tourCategory} onChange={this.handleInputChanges} style={{ outline: "none", border: "none" }} />
                   </div>
                 </div>
@@ -176,7 +176,7 @@ class AddTour extends Component {
           <main>
             <div className="addTourAboutWrapper">
               <div className='addTourAbout'>
-                <h2 style={{paddingLeft: "4rem"}}>What is your tour about?</h2>
+                <h2 style={{ paddingLeft: "4rem" }}>What is your tour about?</h2>
                 <form onSubmit={this.addTour}>
                   <div className="info">
                     <i className='infoSymbol'></i>
@@ -185,9 +185,9 @@ class AddTour extends Component {
                   <div className="tourPriceWrapper">
                     <div className="tourPrice">
                       <div><strong style={{ fontWeight: "bold" }}>US $ </strong></div>
-                      <input className="tourPriceInput" type="number" name='tourPrice' value={this.state.tourPrice} onChange={this.handleInputChanges} style={{color: "black", width: "5rem"}}/>
-                       &nbsp;<div style={{fontWeight: 500, textAlign: "left"}}>per person</div>
-                  </div>
+                      <input className="tourPriceInput" type="number" name='tourPrice' value={this.state.tourPrice} onChange={this.handleInputChanges} style={{ color: "black", width: "5rem" }} />
+                      &nbsp;<div style={{ fontWeight: 500, textAlign: "left" }}>per person</div>
+                    </div>
                   </div>
                   <div className='clock'>
                     <i className="clockSymbol"></i>
@@ -206,19 +206,18 @@ class AddTour extends Component {
                     <input className="tourAddress" type="text" placeholder="What is the address" name="tourAddress" value={this.state.tourAddress} onChange={this.handleInputChanges} />
                   </div>
                   <div>
-                  <MDBContainer>
-                    <MDBBtn className="btnAddTour" gradient='blue' type='submit' onClick={this.toggle}>Save</MDBBtn>
-                    <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-                      <MDBModalHeader toggle={this.toggle} style={{ border: "none" }}></MDBModalHeader>
-                      <MDBModalBody style={{ textAlign: "center", paddingBottom: "4rem", fontSize: "1.8rem", color: "green" }}>
-                        Your tour is now published!
+                    <MDBContainer style={{ marginLeft: "1.5rem" }}>
+                      <MDBBtn className="btnAddTour" gradient='blue' type='submit' onClick={this.toggle} style={{ width: "10rem" }}>Save</MDBBtn>
+                      <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+                        <MDBModalHeader toggle={this.toggle} style={{ border: "none" }}></MDBModalHeader>
+                        <MDBModalBody style={{ textAlign: "center", paddingBottom: "4rem", fontSize: "1.8rem", color: "green" }}>
+                          Your tour is now published!
                     </MDBModalBody>
                       </MDBModal>
-                      <MDBBtn className="btnCancel" color="danger" type='submit' onClick={() => this.redirectDashBoard()}>Cancel</MDBBtn>
+                      <MDBBtn className="btnCancel" color="danger" type='submit' onClick={() => this.redirectDashBoard()} style={{ width: "10rem", marginLeft: "1.5rem" }}>Cancel</MDBBtn>
                       {/* <button className="btnCancel"  onClick={() => this.redirectDashBoard()}>Cancel</button> */}
                     </MDBContainer>
                     {/* <button className="btnAddTour" type='submit'>Add Tour</button> */}
-                    
                   </div>
                 </form>
               </div>

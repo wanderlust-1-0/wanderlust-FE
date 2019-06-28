@@ -17,6 +17,7 @@ Wanderlust provides an airbnb like platform for travelers and guides to match up
 * [Redux-Thunk](https://github.com/reduxjs/redux-thunk) - Redux Middleware for asynchronous state operations
 * [Axios](https://github.com/axios/axios) - Promised based HTTP client to make requests to the backend
 * [MDBReact](https://mdbootstrap.com/) - Material Design Bootstrap Framework for React
+* [Axios-Progress-Bar](https://www.npmjs.com/package/axios-progress-bar) - A library to incluse a progress bar into the webpage that makes visualizes to the user after a HTTP request how long it will take for him to wait.
 
 ## Architecture and Workflow
 The backend and database is handled by [Rogelio Caballero](https://github.com/rogercp) with a solution of Java Spring Boot and PostgreSQL. The backend is RESTful and will provide specific endpoints to communicate with the Frontend through HTTP requests and JSON-Objects. The backend is deployed at Heroku.

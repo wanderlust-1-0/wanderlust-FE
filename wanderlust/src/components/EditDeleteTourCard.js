@@ -6,6 +6,13 @@ import { connect } from 'react-redux';
 class EditDeleteTourCard extends Component {
   constructor(props) {
     super();
+    this.state = {
+      randomCardValue: 0,
+    }
+  }
+
+  componentDidMount() {
+    this.setState({ randomCardValue: Math.random() * 100 })
   }
 
   deleteTour = (e) => {
@@ -26,7 +33,7 @@ class EditDeleteTourCard extends Component {
   // }
   render() {
     return (
-      <div className='card-background' onClick={(e) => this.displayTour(e)}>
+      <div className='card-background-forrest' onClick={(e) => this.displayTour(e)}>
         <div>
           <div className='paperbin-icon' onClick={(e) => this.deleteTour(e)} />
           <h3
