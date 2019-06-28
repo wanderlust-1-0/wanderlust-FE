@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { loadProgressBar } from 'axios-progress-bar'
 
 // Sign Up Action Creator
 export const SIGNUP_FETCHING = 'SIGNUP_FETCHING';
@@ -11,6 +12,7 @@ export const signUp = accountData => dispatch => {
   accountData.isTourGuide
     ? (api_path = 'https://roger-wanderlust.herokuapp.com/createnewguide')
     : (api_path = 'https://roger-wanderlust.herokuapp.com/createnewtourist');
+  loadProgressBar()
   return axios
     .post(api_path, accountData)
     .then(response => {
@@ -39,6 +41,7 @@ export const signin = user => dispatch => {
   };
   console.log('This is the header: ');
   dispatch({ type: SIGNIN_FETCHING });
+  loadProgressBar()
   return axios
     .post(
       'https://roger-wanderlust.herokuapp.com/oauth/token',
@@ -50,8 +53,8 @@ export const signin = user => dispatch => {
       console.log('token response: ', res);
       localStorage.setItem('auth-token', res.data.access_token);
       localStorage.setItem('username', user.username);
-      localStorage.setItem('user', { "touristid": 4, "email": "guide@test.com", "firstname": "hero", "lastname": "king", "phonenumber": "1223434", "istourguide": false, "tours": [] })
-      localStorage.setItem('extra', { "guideid": 2, "email": "guide@test.com", "firstname": "hero", "lastname": "king", "phonenumber": "1223434", "istourguide": true, "tours": [] })
+      localStorage.setItem('user', JSON.stringify({ "touristid": 4, "email": "guide@test.com", "firstname": "hero", "lastname": "king", "phonenumber": "1223434", "istourguide": false, "tours": [] }))
+      localStorage.setItem('extra', JSON.stringify({ "guideid": 2, "email": "guide@test.com", "firstname": "hero", "lastname": "king", "phonenumber": "1223434", "istourguide": true, "tours": [] }))
       dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
     })
     .catch(err => {
@@ -69,6 +72,7 @@ export const FETCHING_GUIDES_FAILURE = 'FETCHING_GUIDES_FAILURE';
 
 export const getAllGuides = () => dispatch => {
   dispatch({ type: FETCHING_GUIDES_START });
+  loadProgressBar()
   axios
     .get('https://roger-wanderlust.herokuapp.com/guides/guides', {
       headers: {
@@ -92,6 +96,7 @@ export const GET_SINGLE_GUIDE_FAILURE = 'GET_SINGLE_GUIDE_FAILURE';
 
 export const getSingleGuideById = (id) => dispatch => {
   dispatch({ type: GET_SINGLE_GUIDE_FETCHING })
+  loadProgressBar()
   axios
     .get(`https://roger-wanderlust.herokuapp.com/guides/guide/${id}`,
       {
@@ -117,6 +122,7 @@ export const ADD_NEW_GUIDE_FAILURE = 'ADD_NEW_GUIDE_FAILURE';
 
 export const addNewGuide = (guide) => dispatch => {
   dispatch({ type: ADD_NEW_GUIDE_FETCHING })
+  loadProgressBar()
   axios
     .post('https://roger-wanderlust.herokuapp.com/guides/guide/add', guide,
       {
@@ -155,6 +161,7 @@ export const UPDATE_GUIDE_INFO_FAILURE = 'UPDATE_GUIDE_INFO_FAILURE';
 export const updateGuideById = (guide, id) => dispatch => {
   console.table(guide);
   dispatch({ type: UPDATE_GUIDE_INFO_FETCHING });
+  loadProgressBar()
   axios
     .put(`https://roger-wanderlust.herokuapp.com/guides/guide/${id}`,
       guide,
@@ -187,6 +194,7 @@ export const FETCHING_TOURISTS_FAILURE = 'FETCHING_TOURISTS_FAILURE';
 
 export const getAllTourists = () => dispatch => {
   dispatch({ type: FETCHING_TOURISTS_START });
+  loadProgressBar()
   axios
     .get('https://roger-wanderlust.herokuapp.com/tourists/tourists',
       {
@@ -223,6 +231,7 @@ export const ADD_NEW_TOURIST_FAILURE = 'ADD_NEW_TOURIST_FAILURE';
 
 export const addNewTourist = (tourist) => dispatch => {
   dispatch({ type: ADD_NEW_TOURIST_FETCHING })
+  loadProgressBar()
   axios
     .post('https://roger-wanderlust.herokuapp.com/tourists/tourist/add', tourist,
       {
@@ -248,6 +257,7 @@ export const FETCHING_SINGLE_TOURIST_FAILURE = 'FETCHING_SINGLE_TOURIST_FAILURE'
 
 export const getSingleTouristById = (id) => dispatch => {
   dispatch({ type: FETCHING_SINGLE_TOURIST_START })
+  loadProgressBar()
   axios
     .get(`https://roger-wanderlust.herokuapp.com/tourists/${id}`,
       {
@@ -273,6 +283,7 @@ export const UPDATING_SINGLE_TOURIST_FAILURE = 'UPDATING_SINGLE_TOURIST_FAILURE'
 
 export const updateTouristById = (tourist, id) => dispatch => {
   dispatch({ type: UPDATING_SINGLE_TOURIST_START })
+  loadProgressBar()
   axios
     .put(`https://roger-wanderlust.herokuapp.com/tourists/tourist/${id}`,
       tourist,
@@ -301,6 +312,7 @@ export const FETCHING_TOURS_FAILURE = 'FETCHING_TOURS_FAILURE';
 
 export const getAllTours = () => dispatch => {
   dispatch({ type: FETCHING_TOURS_START });
+  loadProgressBar()
   axios
     .get('https://roger-wanderlust.herokuapp.com/tours/tours',
       {
@@ -326,6 +338,7 @@ export const FETCHING_SINGLETOUR_FAILURE = 'FETCHING_SINGLETOUR_FAILURE';
 
 export const getTourById = id => dispatch => {
   dispatch({ type: FETCHING_SINGLETOUR_START });
+  loadProgressBar()
   axios
     .get(`https://roger-wanderlust.herokuapp.com/tours/tour/${id}`, {
       headers: {
@@ -350,6 +363,7 @@ export const ADD_TOUR_FAILURE = 'ADD_TOUR_FAILURE';
 export const addTour = tour => dispatch => {
   console.log('THIS IS THE TOUR GETTING ADDED', tour);
   dispatch({ type: ADD_TOUR_START });
+  loadProgressBar()
   axios
     .post(
       'https://roger-wanderlust.herokuapp.com/tours/data/tours/add', tour,
@@ -376,6 +390,7 @@ export const UPDATE_TOUR_FAILURE = 'UPDATE_TOUR_FAILURE';
 
 export const updateTour = id => dispatch => {
   dispatch({ type: UPDATE_TOUR_START });
+  loadProgressBar()
   axios
     .put(`https://roger-wanderlust.herokuapp.comtours/data/tours/${id}`, {
       headers: {
@@ -399,6 +414,7 @@ export const DELETE_TOUR_FAILURE = 'DELETE_TOUR_FAILURE';
 
 export const deleteTour = id => dispatch => {
   dispatch({ type: DELETE_TOUR_START });
+  loadProgressBar()
   axios
     .delete(`https://roger-wanderlust.herokuapp.com/tours/data/${id}`, {
       headers: {
@@ -424,6 +440,7 @@ export const ADD_TOURIST_TO_TOUR_FAILURE = 'ADD_TOURIST_TO_TOUR_FAILURE';
 export const addTouristToTour = (touristid, tourid) =>
   dispatch => {
     dispatch({ type: ADD_TOURIST_TO_TOUR_START });
+    loadProgressBar()
     axios
       .put(`https://roger-wanderlust.herokuapp.com/tourists/tourist/assignTourist/${touristid}/${tourid}`, {
         headers: {

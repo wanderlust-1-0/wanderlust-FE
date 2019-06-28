@@ -195,7 +195,7 @@ class ExploreTours extends Component {
             marginLeft: "20%",
 
           }}>
-          <input type='text' style={{ padding: "2rem", width: "60vw", outline: "none" }} maxlength="50" value={this.state.selected} name="selected" onChange={this.handleInput} autoComplete='off'>
+          <input type='text' style={{ padding: "2rem", width: "60vw", outline: "none" }} maxLength="50" value={this.state.selected} name="selected" onChange={this.handleInput} autoComplete='off'>
           </input>
           <button className="search-button" style={{ position: "absolute", right: "2rem", bottom: "1.3rem" }}>Search</button>
         </div>

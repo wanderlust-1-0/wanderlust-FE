@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { deleteTour } from '../actions';
 import './componentStyles/showTour.css';
-import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class EditDeleteTourCard extends Component {
