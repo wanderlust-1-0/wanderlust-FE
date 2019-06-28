@@ -23,7 +23,6 @@ class OfferedToursList extends Component {
   }
 
   render() {
-    // console.log('filtered tours', this.guidesOfferedTours
     const singleGuideTours = this.guidesOfferedTours()
     return (
       <div className="showTourList">

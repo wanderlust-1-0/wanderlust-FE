@@ -9,9 +9,8 @@ import {
   MDBCardText,
 } from 'mdbreact';
 
-import {MDBModal, MDBModalBody, MDBModalHeader } from 'mdbreact';
+import { MDBModal, MDBModalBody, MDBModalHeader } from 'mdbreact';
 
-/* import { Link } from 'react-router-dom'; */
 class EditInfoForm extends Component {
   constructor(props) {
     super(props);
@@ -42,40 +41,13 @@ class EditInfoForm extends Component {
     });
   };
 
-   toggle = () => {
+  toggle = () => {
     this.setState({
       modal: !this.state.modal
     });
   }
 
-  // updateUserInfo = e => {
-  //   e.preventDefault();
-  //   this.props.updateGuideInfo(this.state);
-  // };
-
   componentDidMount() {
-    // prefill the inputs with the API call data of the current user
-    // this.setState({
-    //   username: 123,
-    //   password: 123,
-    //   firstname: 'sascha',
-    //   lastname: 'majewsky',
-    //   email: 'sascha@test.com',
-    //   phone: '12345',
-    //   isTourGuide: true,
-    // });
-    /*     console.log('MY STATE IS: ', this.state);
-        let obj = {
-          id: 1,
-          email: "guide@test.com",
-          firstname: "heroic",
-          lastname: "king",
-          phonenumber: "1223434",
-          istourguide: true,
-          tours: []
-        } */
-
-    /* localStorage.setItem('user', JSON.stringify(obj)) */
     const userObj = JSON.parse(localStorage.getItem('user'))
 
     this.setState(
@@ -110,17 +82,6 @@ class EditInfoForm extends Component {
 
   render() {
     return (
-      /*      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          border: '1px solid black',
-          height: '400px',
-          width: '500px',
-          marginTop: '50px',
-        }}> */
       <div>
         <MDBContainer>
           <MDBRow>
@@ -176,19 +137,6 @@ class EditInfoForm extends Component {
                           <div
                             className='grey-text'
                             style={{ marginLeft: '2rem' }}>
-                            {/*    <MDBInput
-                              label='Change your password here'
-                              group
-                              type='password' // Todo: change back type to email
-                              validate
-                              error='wrong'
-                              success='right'
-                              autoComplete='off'
-                              name='password'
-                              value={this.state.password}
-                              onChange={this.handleInputChanges}
-                              style={{ width: '15rem', marginBottom: '0rem' }}
-                            /> */}
                             <MDBInput
                               label='Type your first name'
                               group
@@ -246,21 +194,14 @@ class EditInfoForm extends Component {
                             className='text-left'
                             style={{ marginLeft: '0.8rem' }}>
                             <MDBContainer>
-                            <MDBBtn gradient='blue' type='submit' color="indigo" onClick={this.toggle} style={{ width: '15rem' }}>Save</MDBBtn>
-                            <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-                              <MDBModalHeader toggle={this.toggle} style={{ border: "none" }}></MDBModalHeader>
-                              <MDBModalBody style={{ textAlign: "center", paddingBottom: "4rem", fontSize: "1.8rem", color: "green" }}>
-                                Your settings has been updated!
+                              <MDBBtn gradient='blue' type='submit' color="indigo" onClick={this.toggle} style={{ width: '15rem' }}>Save</MDBBtn>
+                              <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+                                <MDBModalHeader toggle={this.toggle} style={{ border: "none" }}></MDBModalHeader>
+                                <MDBModalBody style={{ textAlign: "center", paddingBottom: "4rem", fontSize: "1.8rem", color: "green" }}>
+                                  Your settings has been updated!
                             </MDBModalBody>
                               </MDBModal>
                             </MDBContainer>
-
-                          {/*   <MDBBtn
-                              gradient='blue'
-                              type='submit'
-                              style={{ width: '15rem' }}>
-                              Save
-                            </MDBBtn> */}
                           </div>
                         </div>
                       </div>

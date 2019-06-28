@@ -9,7 +9,7 @@ import {
   MDBCardText,
 } from 'mdbreact';
 
-/* import { Link } from 'react-router-dom'; */
+
 class CreateAccountForm extends Component {
   constructor(props) {
     super(props);
@@ -93,17 +93,6 @@ class CreateAccountForm extends Component {
 
   render() {
     return (
-      /*      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          border: '1px solid black',
-          height: '400px',
-          width: '500px',
-          marginTop: '50px',
-        }}> */
       <div>
         <MDBContainer>
           <MDBRow>
@@ -240,9 +229,6 @@ const mapStateToProps = (state) => {
   return {
     guide: state.userReducer.guide,
     tourist: state.userReducer.tourist
-    // username: state.userReducer.guide.username,
-    // password: state.userReducer.guide.password,
-    // isTourGuide: state.userReducer.guide.isTourGuide
   };
 };
 

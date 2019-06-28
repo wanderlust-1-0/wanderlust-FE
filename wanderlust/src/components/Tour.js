@@ -50,7 +50,6 @@ const Tour = props => (
                             <strong>Tourists:</strong>
                             {JSON.stringify(props.tour.tourists, null, 4)}
                             <br />
-                            {/* <strong>guideid:</strong> {props.tour.guide.guideid} */}
                         </MDBCardTitle>
                     </MDBCardBody>
                 </MDBCard>
