@@ -348,6 +348,7 @@ export const ADD_TOUR_SUCCESS = 'ADD_TOUR_SUCCESS';
 export const ADD_TOUR_FAILURE = 'ADD_TOUR_FAILURE';
 
 export const addTour = tour => dispatch => {
+  console.log('THIS IS THE TOUR GETTING ADDED', tour);
   dispatch({ type: ADD_TOUR_START });
   axios
     .post(

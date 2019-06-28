@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllTours } from '../actions';
 import EditDeleteTourCard from './EditDeleteTourCard';
+import { Route } from 'react-router-dom';
 
 import './componentStyles/showTour.css';
 
@@ -12,19 +13,22 @@ class OfferedToursList extends Component {
   }
 
 
-  guidesOfferedTours = (id) => {
-    const offeredTours = this.props.allTours.filter(tour => {
-
-    })
-    return offeredTours;
-  }
+  // guidesOfferedTours = (id) => {
+  //   const offeredTours = this.props.allTours.filter(tour => {
+  //     if (tour.guide.guideid === 4) {
+  //       return tour;
+  //     }
+  //   })
+  //   return offeredTours;
+  // }
 
   render() {
     // console.log('filtered tours', this.guidesOfferedTours
+    // const singleGuideTours = this.guidesOfferedTours()
     return (
       <div className="showTourList">
-        {this.props.allTours.map(tour => {
-          return <EditDeleteTourCard offeredTours={tour} />
+        {this.props.alltours.map(tour => {
+          return <Route path="/dashboard" render={(props) => <EditDeleteTourCard offeredTours={tour} {...props} />} />
         })}
       </div>
     )

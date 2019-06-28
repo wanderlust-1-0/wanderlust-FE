@@ -23,6 +23,8 @@ import OfferedToursList from '../components/OfferedToursList';
 import { getAllTours } from '../actions';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
+import { Link, Route } from 'react-router-dom'
+
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -136,7 +138,8 @@ class Dashboard extends React.Component {
           <MDBContainer className='text-center my-5'>
 
             <div className="allToursWrapper">
-              <OfferedToursList allTours={this.props.tourProps} />
+              <Route path="/dashboard" render={(props) => <OfferedToursList {...props} allTours={this.props.tourProps} />} />
+
             </div>
 
           </MDBContainer>
