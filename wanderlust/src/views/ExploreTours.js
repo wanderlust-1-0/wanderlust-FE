@@ -204,9 +204,8 @@ class ExploreTours extends Component {
           <MDBContainer className='text-center my-5'>
 
             <div className="allToursWrapper">
-              <ShowTourList allTours={this.state.selected.length === 0 ? this.props.tourProps : this.props.tourProps.filter(tour => typeof this.state.selected == 'number' ? this.state.selected >= tour.price : tour.tourname.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.tourdescription.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.category.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.area.toLowerCase().includes(this.state.selected.toLowerCase()))} />
+              <ShowTourList allTours={this.state.selected.length === 0 ? this.props.tourProps : this.props.tourProps.filter(tour => typeof this.state.selected == 'number' ? this.state.selected >= tour.price : tour.tourname.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.tourdescription.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.category.toLowerCase().includes(this.state.selected.toLowerCase()))} />
             </div>
-
           </MDBContainer>
         </main>
       </div>
@@ -220,4 +219,3 @@ export default connect(
   mapStateToProps,
   { getAllTours, getAllTourists },
 )(ExploreTours);
-

@@ -35,10 +35,6 @@ class Tour extends React.Component {
     }
     this.onClick = this.onClick.bind(this);
   }
-  
-  random() {
-
-  }
 
   onClick() {
     this.setState({
@@ -46,7 +42,7 @@ class Tour extends React.Component {
     });
   }
 
-   toggleAndBook = () => {
+  toggleAndBook = () => {
     this.setState({
       modal: !this.state.modal
     });
@@ -246,4 +242,3 @@ export default connect(
   mapStateToProps,
   { getTourById, addTouristToTour },
 )(Tour);
-
