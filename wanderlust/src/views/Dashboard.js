@@ -23,7 +23,6 @@ import OfferedToursList from '../components/OfferedToursList';
 import { getAllTours } from '../actions';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
-import { Link } from 'react-router-dom'
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -77,7 +76,7 @@ class Dashboard extends React.Component {
                   <MDBNavItem style={{ display: 'hide' }}>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
-                        {JSON.parse(localStorage.getItem("user")).firstname}
+                        <span style={{ fontSize: "1.3rem" }}>{JSON.parse(localStorage.getItem("user")).firstname}</span>
                       </MDBDropdownToggle>
                       {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
                         <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>

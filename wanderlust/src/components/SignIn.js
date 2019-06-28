@@ -55,7 +55,6 @@ class SignIn extends React.Component {
                     validate
                     error='wrong'
                     success='right'
-                    type='text'
                     name='username'
                     value={this.state.username}
                     onChange={this.handleInput}

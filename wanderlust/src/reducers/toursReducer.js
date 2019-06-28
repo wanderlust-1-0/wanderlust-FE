@@ -45,8 +45,6 @@ const initialState = {
   fetchSingleTourErr: '',
   addingTouristToTour: false,
   addingTouristToTourError: '',
-  addingTour: false,
-  addingTourError: '',
 };
 
 const tourReducer = (state = initialState, action) => {
@@ -70,25 +68,6 @@ const tourReducer = (state = initialState, action) => {
         ...state,
         fetchingTours: false,
         fetchingToursErr: action.payload,
-      };
-    case ADD_TOUR_START:
-      return {
-        ...state,
-        addingTour: true,
-        addingTourErr: '',
-      };
-    case ADD_TOUR_SUCCESS:
-      return {
-        ...state,
-        tours: action.payload,
-        addingTour: false,
-        addingTourErr: '',
-      };
-    case ADD_TOUR_FAILURE:
-      return {
-        ...state,
-        addingTour: false,
-        addingTourErr: action.payload,
       };
     case UPDATE_TOUR_START:
       return {

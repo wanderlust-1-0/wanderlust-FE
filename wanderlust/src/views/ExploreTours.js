@@ -16,7 +16,6 @@ import {
   MDBContainer,
   MDBMask,
   MDBView,
-  MDBIcon,
 } from 'mdbreact';
 import {
   MDBDropdown,
@@ -132,7 +131,7 @@ class ExploreTours extends Component {
                   <MDBNavItem style={{ display: 'hide' }}>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
-                        {JSON.parse(localStorage.getItem("user")).firstname}
+                        <span style={{ fontSize: "1.3rem" }}>{JSON.parse(localStorage.getItem("user")).firstname}</span>
                       </MDBDropdownToggle>
                       {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
                         <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
@@ -205,7 +204,7 @@ class ExploreTours extends Component {
           <MDBContainer className='text-center my-5'>
 
             <div className="allToursWrapper">
-              <ShowTourList allTours={this.state.selected.length == 0 ? this.props.tourProps : this.props.tourProps.filter(tour => typeof this.state.selected == 'number' ? this.state.selected >= tour.price : tour.tourname.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.tourdescription.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.category.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.area.toLowerCase().includes(this.state.selected.toLowerCase()))} />
+              <ShowTourList allTours={this.state.selected.length === 0 ? this.props.tourProps : this.props.tourProps.filter(tour => typeof this.state.selected == 'number' ? this.state.selected >= tour.price : tour.tourname.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.tourdescription.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.category.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.area.toLowerCase().includes(this.state.selected.toLowerCase()))} />
             </div>
 
           </MDBContainer>

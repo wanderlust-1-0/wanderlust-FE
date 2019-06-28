@@ -18,13 +18,6 @@ import {
   MDBDropdownItem,
 } from 'mdbreact';
 
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
-  MDBCardText,
-} from 'mdbreact';
 import { Redirect } from 'react-router';
 
 class Settings extends React.Component {
@@ -76,7 +69,7 @@ class Settings extends React.Component {
                 <MDBNavItem style={{ display: 'hide' }}>
                   <MDBDropdown>
                     <MDBDropdownToggle nav caret color='unique-color'>
-                      {JSON.parse(localStorage.getItem("user")).firstname}
+                      <span style={{ fontSize: "1.3rem" }}>{JSON.parse(localStorage.getItem("user")).firstname}</span>
                     </MDBDropdownToggle>
                     {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
                       <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>

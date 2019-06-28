@@ -6,11 +6,8 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import {
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
   MDBCardText,
 } from 'mdbreact';
-import { FormHelperText } from '@material-ui/core';
 
 /* import { Link } from 'react-router-dom'; */
 class CreateAccountForm extends Component {
