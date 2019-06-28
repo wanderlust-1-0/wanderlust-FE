@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllTours } from '../actions';
+import { getAllTours, getAllTourists } from '../actions';
 import ShowTourList from '../components/ShowTourList';
-
+import { Redirect } from 'react-router';
 import './explore-tours.css';
 
 import {
@@ -16,7 +16,6 @@ import {
   MDBContainer,
   MDBMask,
   MDBView,
-  MDBIcon,
 } from 'mdbreact';
 import {
   MDBDropdown,
@@ -31,6 +30,7 @@ class ExploreTours extends Component {
     this.state = {
       collapse: false,
       isWideEnough: false,
+      selected: "",
     };
     this.onClick = this.onClick.bind(this);
   }
@@ -42,11 +42,28 @@ class ExploreTours extends Component {
   }
 
   componentDidMount() {
-    const tours = this.props.getAllTours();
-    console.log('These are all the tours: ', tours);
+    this.props.getAllTours();
+    /* console.log('These are all the tours: ', tours); */
+  }
+
+  handleInput = event => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  setSelected(searchterm) {
+    this.setState({
+      selected: searchterm,
+    });
   }
 
   render() {
+    if (localStorage.getItem("auth-token") === null || localStorage.getItem("username") === null || localStorage.getItem("user") === null) {
+      return <Redirect to="/" />
+    } else if (JSON.parse(localStorage.getItem("user")).istourguide) {
+      return <Redirect to="/dashboard" />
+    }
     return (
       <div>
         <header>
@@ -76,7 +93,7 @@ class ExploreTours extends Component {
                     fontSize: '1.3rem',
                     fontWeight: '400',
                   }}>
-                  <MDBNavLink to='#'>Popular</MDBNavLink>
+                  <MDBNavLink to='#' onClick={() => this.setSelected("")}>Popular</MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem
                   style={{
@@ -85,7 +102,7 @@ class ExploreTours extends Component {
                     fontSize: '1.3rem',
                     fontWeight: '400',
                   }}>
-                  <MDBNavLink to='#'>Deals</MDBNavLink>
+                  <MDBNavLink to='#' onClick={() => this.setSelected(100)}>Deals</MDBNavLink>
                 </MDBNavItem>
 
                 <MDBNavItem
@@ -100,11 +117,11 @@ class ExploreTours extends Component {
                       Categories
                     </MDBDropdownToggle>
                     <MDBDropdownMenu color='unique-color'>
-                      <MDBDropdownItem>Mountain Biking</MDBDropdownItem>
-                      <MDBDropdownItem>Hiking</MDBDropdownItem>
-                      <MDBDropdownItem>Rafting</MDBDropdownItem>
-                      <MDBDropdownItem>Rock Climbing</MDBDropdownItem>
-                      <MDBDropdownItem>City</MDBDropdownItem>
+                      <MDBDropdownItem onClick={() => this.setSelected("Jungle")}>Jungle</MDBDropdownItem>
+                      <MDBDropdownItem onClick={() => this.setSelected("Desert")}>Desert</MDBDropdownItem>
+                      <MDBDropdownItem onClick={() => this.setSelected("Cruise")}>Cruise</MDBDropdownItem>
+                      <MDBDropdownItem onClick={() => this.setSelected("Outdoor")}>Outdoor</MDBDropdownItem>
+                      <MDBDropdownItem onClick={() => this.setSelected("City")}>City</MDBDropdownItem>
                     </MDBDropdownMenu>
                   </MDBDropdown>
                 </MDBNavItem>
@@ -114,13 +131,19 @@ class ExploreTours extends Component {
                   <MDBNavItem style={{ display: 'hide' }}>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
-                        Username
+                        <span style={{ fontSize: "1.3rem" }}>{JSON.parse(localStorage.getItem("user")).firstname}</span>
                       </MDBDropdownToggle>
-                      <MDBDropdownMenu color='unique-color'>
-                        <MDBDropdownItem>My offered Tours</MDBDropdownItem>
-                        <MDBDropdownItem>Settings</MDBDropdownItem>
-                        <MDBDropdownItem>Logout</MDBDropdownItem>
-                      </MDBDropdownMenu>
+                      {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
+                        <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
+                        <MDBDropdownItem href="/add-tour">Add a Tour</MDBDropdownItem>
+                        <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                        <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                      </MDBDropdownMenu> : <MDBDropdownMenu color='unique-color'>
+                          <MDBDropdownItem href="/explore-tours">Explore Tours</MDBDropdownItem>
+
+                          <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                          <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                        </MDBDropdownMenu>}
                     </MDBDropdown>
                   </MDBNavItem>
                 ) : (
@@ -131,7 +154,15 @@ class ExploreTours extends Component {
                         fontSize: '1.3rem',
                         fontWeight: '400',
                       }}>
-                      <MDBNavLink to='#'>My offered Tours</MDBNavLink>
+                      {JSON.parse(localStorage.getItem("user")).istourguide ?
+                        <><MDBNavLink to='/dashboard'>My offered Tours</MDBNavLink>
+                          <MDBNavLink to="/add-tour">Add a Tour</MDBNavLink>
+                          <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                          <MDBNavLink to='/logout'>Logout</MDBNavLink></>
+                        :
+                        <><MDBNavLink to='/explore-tours'>Explore Tours</MDBNavLink>
+                          <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                          <MDBNavLink to='logout'>Logout</MDBNavLink></>}
                     </MDBNavItem>
                   )}
               </MDBNavbarNav>
@@ -145,40 +176,46 @@ class ExploreTours extends Component {
               <h2
                 className='poppins-font'
                 style={{ fontSize: '6rem', fontWeight: 'bold' }}>
-                MAKE THE LEAP
+                TRAVEL THE WORLD
               </h2>
               <h5>
-                Beeing a tour guide can make the day of thousands of people
-                better.
+                There was never a better time in history to explore the world than today!
               </h5>
             </MDBMask>
           </MDBView>
         </header>
-
         <div
           style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: '50px',
-          }}>
-          <input type='text' />
-          <button>Search</button>
-        </div>
+            paddingTop: "10rem",
+            position: "absolute",
+            bottom: "-2.7rem",
+            marginLeft: "20%",
 
-        <div className="allToursWrapper">
-          <ShowTourList allTours={this.props.allTours} />
+          }}>
+          <input type='text' style={{ padding: "2rem", width: "60vw", outline: "none" }} maxLength="50" value={this.state.selected} name="selected" onChange={this.handleInput} autoComplete='off'>
+          </input>
+          <button className="search-button" style={{ position: "absolute", right: "2rem", bottom: "1.3rem" }}>Search</button>
         </div>
+        <main>
+          <h2 style={{ marginLeft: "20%", marginTop: "4rem", fontSize: "1.3rem", fontWeight: "bold" }}>Popular tours</h2>
+          <MDBContainer className='text-center my-5'>
+
+            <div className="allToursWrapper">
+              <ShowTourList allTours={this.state.selected.length === 0 ? this.props.tourProps : this.props.tourProps.filter(tour => typeof this.state.selected == 'number' ? this.state.selected >= tour.price : tour.tourname.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.tourdescription.toLowerCase().includes(this.state.selected.toLowerCase()) || tour.category.toLowerCase().includes(this.state.selected.toLowerCase()))} />
+            </div>
+          </MDBContainer>
+        </main>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log('mstp: ', state)
-  return {
-    allTours: state.tourReducer.tours
-  }
-}
+const mapStateToProps = state => ({ tourProps: state.tourReducer.tours });
 
-export default connect(mapStateToProps, { getAllTours })(ExploreTours)
+export default connect(
+  mapStateToProps,
+  { getAllTours, getAllTourists },
+)(ExploreTours);

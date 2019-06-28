@@ -1,68 +1,62 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Wanderlust
 
-## Available Scripts
+[Visit Wanderlust](http://www.wanderlust.saschamajewsky.de)
 
-In the project directory, you can run:
+Wanderlust is a fullstack web applicaiton that has been built during the WEB20 buildweek_2 (24.06.2019-28.06.2019) by [LambdaSchool](https://lambdaschool.com/) students. Each student fulfills a role in the project to collectively build the app. (Roles listed below)
 
-### `npm start`
+Wanderlust provides an airbnb like platform for travelers and guides to match up. Tourists should have a fun experience visiting a foreign place so should easily be able to find tours to book. Guides should be able to utilize the platform to insert and edit own tours that will be displayed to tourists so their possible reached audience grows.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Built With
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+* [HTML](https://en.wikipedia.org/wiki/HTML) - Foundation of the webpage
+* [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) - Styling and sizing of the webpage
+* [JSX](https://reactjs.org/docs/introducing-jsx.html) - Syntax extension to JavaScript for reactive DOM elements
+* [JavaScript](https://en.wikipedia.org/wiki/JavaScript) - Language used to make the webpage interactive
+* [React.js](https://reactjs.org/) - JavaScript library for user interfaces
+* [Redux](https://redux.js.org/) - A predictable state container for React
+* [Redux-Thunk](https://github.com/reduxjs/redux-thunk) - Redux Middleware for asynchronous state operations
+* [Axios](https://github.com/axios/axios) - Promised based HTTP client to make requests to the backend
+* [MDBReact](https://mdbootstrap.com/) - Material Design Bootstrap Framework for React
+* [Axios-Progress-Bar](https://www.npmjs.com/package/axios-progress-bar) - A library to incluse a progress bar into the webpage that makes visualizes to the user after a HTTP request how long it will take for him to wait.
 
-### `npm test`
+## Architecture and Workflow
+The backend and database is handled by [Rogelio Caballero](https://github.com/rogercp) with a solution of Java Spring Boot and PostgreSQL. The backend is RESTful and will provide specific endpoints to communicate with the Frontend through HTTP requests and JSON-Objects. The backend is deployed at Heroku.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The Frontend is built by the authors mentioned below. It runs JavaScript and uses a State Driven Development (SDD) approach with React and React Redux. For the deployment a Continuous Deployment (CD) solution was chosen through [Netlify](https://www.netlify.com/) and then hosted under selfowned domains.
 
-### `npm run build`
+As working with 2 Frontend Developers the project progress needs to be commited in a way that keeps the amount of merge conflicts low. Thus before the project was built, design choices and modeling was done. The chosen branching strategy can be viewed [here](documentation/Branching_Strategy/branching-strategy-model.png). It was later further improved with the usage of Release Branches.
+The project is chunked in user stories/tasks which are provided to a trello board for developers to assign these for themself.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Before the development started the Frontend Developers did modeling and planning for the application and created use cases, detailed technical descriptions for use cases, models of JSON-Objects and a flowchart for the states that the application can go through.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+For the design aspect the group had a UX Design student dedicated to it who provided a design mockup for the whole application. The Frontend Developers tried to stick as close as possible to [this mockup](https://projects.invisionapp.com/share/U6SMIHDB2VJ#/screens).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Project Requirements and Documentation
 
-### `npm run eject`
+* [Initial Design Mockup from UX Designer](https://projects.invisionapp.com/share/U6SMIHDB2VJ#/screens)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* [Initial Project Description](https://docs.google.com/document/d/1HGTZDCltVTSM6LlF2qpyTJd8a17_B1iikEi_jIWlwOI/edit)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Frontend Model and Planning - Directory "documentation"
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* [Technical Design Documentation](documentation/Technical_Design_Documentation_Wanderlust.docx)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* [Grading/Rubric - Frontend Students](documentation/frontend-rubric-requirements.pdf)
 
-## Learn More
+* [Requirements and Milestones - Frontend Students](https://www.notion.so/Build-week-Schedule-and-Daily-Milestones-7f0aca2ad598459fa4492fdac9881d5b)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* [Policies and Procedures](https://www.notion.so/Build-Week-Culture-Document-19e679fc1a284b668d8132dd8d7228cd)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* [Daily Milestones](https://www.notion.so/Build-week-Schedule-and-Daily-Milestones-7f0aca2ad598459fa4492fdac9881d5b)
 
-### Code Splitting
+* [Retroperspective (Soon)]()
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Authors
 
-### Analyzing the Bundle Size
+**Role: Frontend Developer**
+* **[Jeff Oliver](https://github.com/codeOfTheFuture)** 
+* **[Sascha Majewsky](https://github.com/SaschaMajewsky)** 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## License
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

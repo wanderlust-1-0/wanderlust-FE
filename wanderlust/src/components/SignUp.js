@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { signUp } from '../actions';
+import { signUp, addNewGuideToStore, addNewTouristToStore } from '../actions';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 
 class SignUp extends Component {
@@ -9,7 +9,6 @@ class SignUp extends Component {
     username: '',
     password: '',
     isTourGuide: false,
-
   };
 
   handleInputChanges = e => {
@@ -32,11 +31,21 @@ class SignUp extends Component {
     }
   };
 
+
+
   signUp = event => {
     event.preventDefault();
-    this.props.signUp(this.state).then(() => {
-      this.props.history.push('/signin');
-    });
+    if (this.state.isTourGuide) {
+      this.props.addNewGuideToStore(this.state)
+      this.props.signUp(this.state).then(() => {
+        this.props.history.push('/signin');
+      });
+    } else {
+      this.props.addNewTouristToStore(this.state)
+      this.props.signUp(this.state).then(() => {
+        this.props.history.push('/signin');
+      });
+    }
   };
 
   render() {
@@ -53,16 +62,14 @@ class SignUp extends Component {
                   <MDBInput
                     label='Type your username'
                     group
-                    type='text' // Todo: change back type to email
+                    type='text'
                     validate
                     error='wrong'
                     success='right'
-                    type='text'
                     name='username'
                     value={this.state.username}
                     onChange={this.handleInputChanges}
                     autoComplete='off'
-                    name='username'
                   />
                   <MDBInput
                     label='Type your password'
@@ -73,11 +80,9 @@ class SignUp extends Component {
                     value={this.state.password}
                     onChange={this.handleInputChanges}
                     autoComplete='off'
-                    name='password'
                   />
                 </div>
 
-                {/* Material checked */}
                 <MDBInput
                   label='Are you a tour guide?'
                   type='checkbox'
@@ -110,12 +115,11 @@ class SignUp extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log(state);
+const mapStateToProps = () => {
   return {};
 };
 
 export default connect(
   mapStateToProps,
-  { signUp },
+  { signUp, addNewGuideToStore, addNewTouristToStore },
 )(SignUp);

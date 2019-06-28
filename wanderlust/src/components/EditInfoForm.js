@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
-import { updateUserInfo } from '../actions';
+import { updateGuideById, updateTouristById } from '../actions';
 import { connect } from 'react-redux';
 
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import {
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
   MDBCardText,
 } from 'mdbreact';
-import { FormHelperText } from '@material-ui/core';
 
-/* import { Link } from 'react-router-dom'; */
+import { MDBModal, MDBModalBody, MDBModalHeader } from 'mdbreact';
+
 class EditInfoForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      guideid: '',
+      touristid: '',
       firstname: '',
       lastname: '',
       email: '',
-      phone: '',
-      isTourGuide: '',
+      phonenumber: '',
+      istourguide: '',
       collapse: false,
       isWideEnough: false,
+      modal: false,
     };
     this.onClick = this.onClick.bind(this);
   }
@@ -42,38 +41,47 @@ class EditInfoForm extends Component {
     });
   };
 
-  updateUserInfo = e => {
-    e.preventDefault();
-    this.props.updateUserInfo(this.state);
-  };
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
 
   componentDidMount() {
-    //prefill the inputs with the API call data of the current user
-    this.setState({
-      username: 123,
-      password: 123,
-      firstname: 'sascha',
-      lastname: 'majewsky',
-      email: 'sascha@test.com',
-      phone: '12345',
-      isTourGuide: true,
-    });
-    console.log('MY STATE IS: ', this.state);
+    const userObj = JSON.parse(localStorage.getItem('user'))
+
+    this.setState(
+      JSON.parse(localStorage.getItem("user")).istourguide ?
+        {
+          email: userObj.email,
+          firstname: userObj.firstname,
+          lastname: userObj.lastname,
+          phonenumber: userObj.phonenumber,
+          istourguide: userObj.isTourGuide,
+          guideid: userObj.guideid
+        } :
+        {
+          email: userObj.email,
+          firstname: userObj.firstname,
+          lastname: userObj.lastname,
+          phonenumber: userObj.phonenumber,
+          istourguide: userObj.isTourGuide,
+          tourists: userObj.tourists,
+          touristid: userObj.touristid
+        })
+  }
+
+  updateUserInfo = (e) => {
+    e.preventDefault();
+    const { email, firstname, lastname, phonenumber } = this.state
+
+    JSON.parse(localStorage.getItem("user")).istourguide ?
+      this.props.updateGuideById({ email, firstname, lastname, phonenumber }, this.state.guideid) :
+      this.props.updateTouristById({ email, firstname, lastname, phonenumber }, this.state.touristid);
   }
 
   render() {
     return (
-      /*      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          border: '1px solid black',
-          height: '400px',
-          width: '500px',
-          marginTop: '50px',
-        }}> */
       <div>
         <MDBContainer>
           <MDBRow>
@@ -100,7 +108,7 @@ class EditInfoForm extends Component {
                           <span
                             className='h3 poppins-font main-color-blue'
                             style={{ paddingBottom: '4rem' }}>
-                            Hello {this.state.username}!
+                            Hello {this.state.firstname}!
                           </span>
                           <span className='h5 poppins-font main-color-blue'>
                             Profile Photo
@@ -130,19 +138,6 @@ class EditInfoForm extends Component {
                             className='grey-text'
                             style={{ marginLeft: '2rem' }}>
                             <MDBInput
-                              label='Change your password here'
-                              group
-                              type='password' // Todo: change back type to email
-                              validate
-                              error='wrong'
-                              success='right'
-                              autoComplete='off'
-                              name='password'
-                              value={this.state.password}
-                              onChange={this.handleInputChanges}
-                              style={{ width: '15rem', marginBottom: '0rem' }}
-                            />
-                            <MDBInput
                               label='Type your first name'
                               group
                               type='text'
@@ -153,7 +148,7 @@ class EditInfoForm extends Component {
                               name='firstname'
                               value={this.state.firstname}
                               onChange={this.handleInputChanges}
-                              style={{ width: '15rem', marginBottom: '0rem' }}
+                              style={{ width: '15rem', marginBottom: '0rem', marginTop: "3rem" }}
                             />
                             <MDBInput
                               label='Type your last name'
@@ -189,21 +184,24 @@ class EditInfoForm extends Component {
                               error='wrong'
                               success='right'
                               autoComplete='off'
-                              name='phone'
-                              value={this.state.phone}
+                              name='phonenumber'
+                              value={this.state.phonenumber}
                               onChange={this.handleInputChanges}
                               style={{ width: '15rem', marginBottom: '0rem' }}
                             />
                           </div>
                           <div
                             className='text-left'
-                            style={{ marginLeft: '1.5rem' }}>
-                            <MDBBtn
-                              gradient='blue'
-                              type='submit'
-                              style={{ width: '15rem' }}>
-                              Save
-                            </MDBBtn>
+                            style={{ marginLeft: '0.8rem' }}>
+                            <MDBContainer>
+                              <MDBBtn gradient='blue' type='submit' color="indigo" onClick={this.toggle} style={{ width: '15rem' }}>Save</MDBBtn>
+                              <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+                                <MDBModalHeader toggle={this.toggle} style={{ border: "none" }}></MDBModalHeader>
+                                <MDBModalBody style={{ textAlign: "center", paddingBottom: "4rem", fontSize: "1.8rem", color: "green" }}>
+                                  Your settings has been updated!
+                            </MDBModalBody>
+                              </MDBModal>
+                            </MDBContainer>
                           </div>
                         </div>
                       </div>
@@ -225,5 +223,5 @@ const mapStateToProps = () => {
 
 export default connect(
   mapStateToProps,
-  { updateUserInfo },
+  { updateGuideById, updateTouristById },
 )(EditInfoForm);

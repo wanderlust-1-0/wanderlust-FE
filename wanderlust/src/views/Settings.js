@@ -18,13 +18,7 @@ import {
   MDBDropdownItem,
 } from 'mdbreact';
 
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
-  MDBCardText,
-} from 'mdbreact';
+import { Redirect } from 'react-router';
 
 class Settings extends React.Component {
   constructor(props) {
@@ -48,6 +42,9 @@ class Settings extends React.Component {
   }
 
   render() {
+    if (localStorage.getItem("auth-token") === null || localStorage.getItem("username") === null || localStorage.getItem("user") === null) {
+      return <Redirect to="/" />
+    }
     return (
       <div>
         <MDBNavbar
@@ -72,31 +69,45 @@ class Settings extends React.Component {
                 <MDBNavItem style={{ display: 'hide' }}>
                   <MDBDropdown>
                     <MDBDropdownToggle nav caret color='unique-color'>
-                      Username
+                      <span style={{ fontSize: "1.3rem" }}>{JSON.parse(localStorage.getItem("user")).firstname}</span>
                     </MDBDropdownToggle>
-                    <MDBDropdownMenu color='unique-color'>
-                      <MDBDropdownItem>My offered Tours</MDBDropdownItem>
-                      <MDBDropdownItem>Settings</MDBDropdownItem>
-                      <MDBDropdownItem>Logout</MDBDropdownItem>
-                    </MDBDropdownMenu>
+                    {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
+                      <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
+                      <MDBDropdownItem href="/add-tour">Add a Tour</MDBDropdownItem>
+                      <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                      <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                    </MDBDropdownMenu> : <MDBDropdownMenu color='unique-color'>
+                        <MDBDropdownItem href="/explore-tours">Explore Tours</MDBDropdownItem>
+
+                        <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                        <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                      </MDBDropdownMenu>}
                   </MDBDropdown>
                 </MDBNavItem>
               ) : (
-                <MDBNavItem
-                  style={{
-                    marginLeft: '1rem',
-                    marginRight: '1rem',
-                    fontSize: '1.3rem',
-                    fontWeight: '400',
-                  }}>
-                  <MDBNavLink to='#'>My offered Tours</MDBNavLink>
-                </MDBNavItem>
-              )}
+                  <MDBNavItem
+                    style={{
+                      marginLeft: '1rem',
+                      marginRight: '1rem',
+                      fontSize: '1.3rem',
+                      fontWeight: '400',
+                    }}>
+                    {JSON.parse(localStorage.getItem("user")).istourguide ?
+                      <><MDBNavLink to='/dashboard'>My offered Tours</MDBNavLink>
+                        <MDBNavLink to="/add-tour">Add a Tour</MDBNavLink>
+                        <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                        <MDBNavLink to='/logout'>Logout</MDBNavLink></>
+                      :
+                      <><MDBNavLink to='/explore-tours'>Explore Tours</MDBNavLink>
+                        <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                        <MDBNavLink to='logout'>Logout</MDBNavLink></>}
+                  </MDBNavItem>
+                )}
             </MDBNavbarNav>
           </MDBCollapse>
         </MDBNavbar>
 
-        <MDBView src='https://i.imgur.com/Khv7HRX.png'>
+        <MDBView src='https://i.imgur.com/4ox5JIo.png'>
           <MDBMask
             overlay='black-light'
             className='flex-center flex-column text-white text-center'>
