@@ -7,9 +7,6 @@ import { Route } from 'react-router-dom';
 import './componentStyles/showTour.css';
 
 class OfferedToursList extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.getAllTours();

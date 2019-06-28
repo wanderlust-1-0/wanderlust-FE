@@ -66,12 +66,10 @@ class SignUp extends Component {
                     validate
                     error='wrong'
                     success='right'
-                    type='text'
                     name='username'
                     value={this.state.username}
                     onChange={this.handleInputChanges}
                     autoComplete='off'
-                    name='username'
                   />
                   <MDBInput
                     label='Type your password'
@@ -82,7 +80,6 @@ class SignUp extends Component {
                     value={this.state.password}
                     onChange={this.handleInputChanges}
                     autoComplete='off'
-                    name='password'
                   />
                 </div>
 

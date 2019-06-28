@@ -50,6 +50,8 @@ export const signin = user => dispatch => {
       console.log('token response: ', res);
       localStorage.setItem('auth-token', res.data.access_token);
       localStorage.setItem('username', user.username);
+      localStorage.setItem('user', { "touristid": 4, "email": "guide@test.com", "firstname": "hero", "lastname": "king", "phonenumber": "1223434", "istourguide": false, "tours": [] })
+      localStorage.setItem('extra', { "guideid": 2, "email": "guide@test.com", "firstname": "hero", "lastname": "king", "phonenumber": "1223434", "istourguide": true, "tours": [] })
       dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
     })
     .catch(err => {

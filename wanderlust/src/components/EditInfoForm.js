@@ -6,11 +6,8 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import {
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
   MDBCardText,
 } from 'mdbreact';
-import { FormHelperText } from '@material-ui/core';
 
 /* import { Link } from 'react-router-dom'; */
 class EditInfoForm extends Component {
@@ -58,18 +55,18 @@ class EditInfoForm extends Component {
     //   phone: '12345',
     //   isTourGuide: true,
     // });
-    console.log('MY STATE IS: ', this.state);
-    let obj = {
-      id: 1,
-      email: "guide@test.com",
-      firstname: "hero",
-      lastname: "king",
-      phonenumber: "1223434",
-      istourguide: true,
-      tours: []
-    }
+    /*     console.log('MY STATE IS: ', this.state);
+        let obj = {
+          id: 1,
+          email: "guide@test.com",
+          firstname: "heroic",
+          lastname: "king",
+          phonenumber: "1223434",
+          istourguide: true,
+          tours: []
+        } */
 
-    localStorage.setItem('user', JSON.stringify(obj))
+    /* localStorage.setItem('user', JSON.stringify(obj)) */
     const userObj = JSON.parse(localStorage.getItem('user'))
 
     this.setState(
@@ -170,7 +167,7 @@ class EditInfoForm extends Component {
                           <div
                             className='grey-text'
                             style={{ marginLeft: '2rem' }}>
-                            <MDBInput
+                            {/*    <MDBInput
                               label='Change your password here'
                               group
                               type='password' // Todo: change back type to email
@@ -182,7 +179,7 @@ class EditInfoForm extends Component {
                               value={this.state.password}
                               onChange={this.handleInputChanges}
                               style={{ width: '15rem', marginBottom: '0rem' }}
-                            />
+                            /> */}
                             <MDBInput
                               label='Type your first name'
                               group
@@ -194,7 +191,7 @@ class EditInfoForm extends Component {
                               name='firstname'
                               value={this.state.firstname}
                               onChange={this.handleInputChanges}
-                              style={{ width: '15rem', marginBottom: '0rem' }}
+                              style={{ width: '15rem', marginBottom: '0rem', marginTop: "3rem" }}
                             />
                             <MDBInput
                               label='Type your last name'

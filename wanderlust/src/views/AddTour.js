@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { addTour } from '../actions';
 import './AddTour.css';
 import { Redirect } from 'react-router';
-import { Link } from 'react-router-dom'
 
 import {
   MDBNavbar,
@@ -56,8 +55,10 @@ class AddTour extends Component {
 
   addTour = (e) => {
     e.preventDefault();
-    this.props.addTour({ tourname: this.state.tourtTitle, category: this.state.tourCategory, tourdescription: this.state.tourDescription, recommendedag: this.state.recommendedAge, durationhrs: this.state.tourLength,
-    price: this.state.tourPrice,   whattobring:this.state.whatTheyShouldBring, meetingaddress:this.state.tourAddress});
+    this.props.addTour({
+      tourname: this.state.tourtTitle, category: this.state.tourCategory, tourdescription: this.state.tourDescription, recommendedag: this.state.recommendedAge, durationhrs: this.state.tourLength,
+      price: this.state.tourPrice, whattobring: this.state.whatTheyShouldBring, meetingaddress: this.state.tourAddress
+    });
   }
 
   componentDidMount() {
@@ -96,7 +97,7 @@ class AddTour extends Component {
                   <MDBNavItem style={{ display: 'hide' }}>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
-                        {JSON.parse(localStorage.getItem("user")).firstname}
+                        <span style={{ fontSize: "1.3rem" }}>{JSON.parse(localStorage.getItem("user")).firstname}</span>
                       </MDBDropdownToggle>
                       {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
                         <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
@@ -169,16 +170,16 @@ class AddTour extends Component {
 
                     <textarea className="tourDescription" name="tourDescription" value={this.state.tourDescription} placeholder='Tour description' onChange={this.handleInputChanges} cols="40" rows="5">Description</textarea>
                   </div>
-                   <div className="tourPriceWrapper">
-                  <div className="tourPrice">
-                    <div><strong style={{fontWeight: "bold"}}>US$ </strong></div>
-                    <input className="tourPriceInput" type="text" name='tourPrice' value={this.state.tourPrice} onChange={this.handleInputChanges} />
-                     per person
+                  <div className="tourPriceWrapper">
+                    <div className="tourPrice">
+                      <div><strong style={{ fontWeight: "bold" }}>US$ </strong></div>
+                      <input className="tourPriceInput" type="text" name='tourPrice' value={this.state.tourPrice} onChange={this.handleInputChanges} />
+                      per person
                   </div>
-                  <div>
-                    
+                    <div>
+
+                    </div>
                   </div>
-                </div>
                   <div className='clock'>
                     <i className="clockSymbol"></i>
                     <input className="tourLength" type="number" placeholder='How long is it' name="tourLength" value={this.state.tourLength} onChange={this.handleInputChanges} />
@@ -189,7 +190,7 @@ class AddTour extends Component {
                   </div>
                   <div className='note'>
                     <i className='noteSymbol'></i>
-                    <textarea className="itemsToBring" name="itemsToBring" name='whatTheyShouldBring' value={this.state.whatTheyShouldBring} placeholder='What should tourists bring with them?' onChange={this.handleInputChanges} cols="40" rows="5">What should they bring</textarea>
+                    <textarea className="itemsToBring" name='whatTheyShouldBring' value={this.state.whatTheyShouldBring} placeholder='What should tourists bring with them?' onChange={this.handleInputChanges} cols="40" rows="5">What should they bring</textarea>
                   </div>
                   <div className="target">
                     <i className="targetSymbol"></i>

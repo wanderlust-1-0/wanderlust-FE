@@ -1,8 +1,5 @@
 import React from 'react';
 import SignUp from '../components/SignUp';
-import SignIn from '../components/SignIn';
-import { connect } from 'react-redux';
-import NavBarPreLogin from '../components/NavBarPreLogin';
 import { Route } from 'react-router-dom';
 import {
   MDBNavbar,
@@ -12,23 +9,13 @@ import {
   MDBCollapse,
   MDBNavItem,
   MDBNavLink,
-  MDBContainer,
   MDBMask,
   MDBView,
 } from 'mdbreact';
-import {
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
-} from 'mdbreact';
 
 import {
-  MDBBtn,
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
   MDBCardText,
   MDBCol,
 } from 'mdbreact';
