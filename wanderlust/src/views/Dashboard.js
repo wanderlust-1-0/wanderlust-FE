@@ -72,48 +72,6 @@ class Dashboard extends React.Component {
               <MDBNavbarToggler onClick={this.onClick} />
             )}
             <MDBCollapse isOpen={this.state.collapse} navbar>
-              {/* This part can be used for the explore-page */}
-              {/* <MDBNavbarNav left style={{ marginLeft: '35%' }}>
-                <MDBNavItem
-                  style={{
-                    marginLeft: '1rem',
-                    marginRight: '1rem',
-                    fontSize: '1.3rem',
-                    fontWeight: '400',
-                  }}>
-                  <MDBNavLink to='#'>Popular</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem
-                  style={{
-                    marginLeft: '1rem',
-                    marginRight: '1rem',
-                    fontSize: '1.3rem',
-                    fontWeight: '400',
-                  }}>
-                  <MDBNavLink to='#'>Deals</MDBNavLink>
-                </MDBNavItem>
-
-                <MDBNavItem
-                  style={{
-                    marginLeft: '1rem',
-                    marginRight: '1rem',
-                    fontSize: '1.3rem',
-                    fontWeight: '400',
-                  }}>
-                  <MDBDropdown>
-                    <MDBDropdownToggle nav caret color='unique-color'>
-                      Categories
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu color='unique-color'>
-                      <MDBDropdownItem>Mountain Biking</MDBDropdownItem>
-                      <MDBDropdownItem>Hiking</MDBDropdownItem>
-                      <MDBDropdownItem>Rafting</MDBDropdownItem>
-                      <MDBDropdownItem>Rock Climbing</MDBDropdownItem>
-                      <MDBDropdownItem>City</MDBDropdownItem>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
-                </MDBNavItem>
-              </MDBNavbarNav> */}
               <MDBNavbarNav right style={{}}>
                 {!this.state.collapse ? (
                   <MDBNavItem style={{ display: 'hide' }}>
@@ -123,10 +81,12 @@ class Dashboard extends React.Component {
                       </MDBDropdownToggle>
                       {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
                         <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
+                        <MDBDropdownItem href="/add-tour">Add a Tour</MDBDropdownItem>
                         <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
                         <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
                       </MDBDropdownMenu> : <MDBDropdownMenu color='unique-color'>
                           <MDBDropdownItem href="/explore-tours">Explore Tours</MDBDropdownItem>
+
                           <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
                           <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
                         </MDBDropdownMenu>}
@@ -142,6 +102,7 @@ class Dashboard extends React.Component {
                       }}>
                       {JSON.parse(localStorage.getItem("user")).istourguide ?
                         <><MDBNavLink to='/dashboard'>My offered Tours</MDBNavLink>
+                          <MDBNavLink to="/add-tour">Add a Tour</MDBNavLink>
                           <MDBNavLink to='/settings'>Settings</MDBNavLink>
                           <MDBNavLink to='/logout'>Logout</MDBNavLink></>
                         :

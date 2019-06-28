@@ -349,21 +349,20 @@ export const addTour = tour => dispatch => {
   dispatch({ type: ADD_TOUR_START });
   axios
     .post(
-      'https://roger-wanderlust.herokuapp.com/tours/data/tours/add',
+      'https://roger-wanderlust.herokuapp.com/tours/data/tours/add',tour,
       {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('auth-token')}`,
         },
-      },
-      tour,
+      }
     )
     .then(res => {
-      console.log('add a tour: ', res.config.data);
-      dispatch({ type: ADD_TOUR_SUCCESS, payload: res.config.data });
+      console.log('add a tour SUCCESSFULL: ', res);
+      dispatch({ type: ADD_TOUR_SUCCESS, payload: res.data });
     })
-    .then(err => {
-      console.log('add a tour err: ', err.response);
-      dispatch({ type: ADD_TOUR_FAILURE, payload: err.response });
+    .catch(err => {
+      console.log('add a tour err: ', err);
+      dispatch({ type: ADD_TOUR_FAILURE, payload: err });
     });
 };
 

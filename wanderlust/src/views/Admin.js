@@ -32,7 +32,6 @@ class Admin extends React.Component {
       return <Redirect to="/" />
     }
     console.log('Rendering of Tourists: ', this.props.touristProps);
-
     console.log('Rendering of Guides: ', this.props.guideProps);
     console.log('Rendering of Tours: ', this.props.tourProps);
     return (

@@ -33,11 +33,11 @@ class AddTour extends Component {
       tourTitle: '',
       tourCategory: '',
       tourDescription: '',
-      tourLength: null,
+      tourLength: '',
       recommendedAge: '',
       whatTheyShouldBring: '',
       tourAddress: '',
-      tourPrice: null
+      tourPrice: ''
     };
     this.onClick = this.onClick.bind(this);
   }
@@ -56,7 +56,8 @@ class AddTour extends Component {
 
   addTour = (e) => {
     e.preventDefault();
-    this.props.addTour(this.state);
+    this.props.addTour({ tourname: this.state.tourtTitle, category: this.state.tourCategory, tourdescription: this.state.tourDescription, recommendedag: this.state.recommendedAge, durationhrs: this.state.tourLength,
+    price: this.state.tourPrice,   whattobring:this.state.whatTheyShouldBring, meetingaddress:this.state.tourAddress});
   }
 
   componentDidMount() {
@@ -65,7 +66,7 @@ class AddTour extends Component {
   }
 
   render() {
-   if (localStorage.getItem("auth-token") === null || localStorage.getItem("username") === null || localStorage.getItem("user") === null) {
+    if (localStorage.getItem("auth-token") === null || localStorage.getItem("username") === null || localStorage.getItem("user") === null) {
       return <Redirect to="/" />;
     } else if (!JSON.parse(localStorage.getItem("user")).istourguide) {
       return <Redirect to="/explore-tours" />
@@ -99,6 +100,7 @@ class AddTour extends Component {
                       </MDBDropdownToggle>
                       {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
                         <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
+                        <MDBDropdownItem href="/add-tour">Add a Tour</MDBDropdownItem>
                         <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
                         <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
                       </MDBDropdownMenu> : <MDBDropdownMenu color='unique-color'>
@@ -118,6 +120,7 @@ class AddTour extends Component {
                       }}>
                       {JSON.parse(localStorage.getItem("user")).istourguide ?
                         <><MDBNavLink to='/dashboard'>My offered Tours</MDBNavLink>
+                          <MDBNavLink to="/add-tour">Add a Tour</MDBNavLink>
                           <MDBNavLink to='/settings'>Settings</MDBNavLink>
                           <MDBNavLink to='/logout'>Logout</MDBNavLink></>
                         :
@@ -146,8 +149,8 @@ class AddTour extends Component {
               <div className="addTourWrapper">
                 <div className="tourTitleWrapper">
                   <div className="tourTitle">
-                    <input className='title' type="text" placeholder="Title Your Tour" name="tourTitle" maxlength="35" value={this.state.tourTitle} onChange={this.handleInputChanges} style={{outline: "none", backgroundColor: "darkgrey", border: "none", fontSize: "2rem", color: "white"}}/>
-                    <input className="category" type="text" placeholder="Category" name="tourCategory" maxlength="15" value={this.state.tourCategory} onChange={this.handleInputChanges} style={{outline: "none", backgroundColor: "darkgrey", border: "none", color: "white"}}/>
+                    <input className='title' type="text" placeholder="Title Your Tour" name="tourTitle" maxLength="35" value={this.state.tourTitle} onChange={this.handleInputChanges} style={{ outline: "none", backgroundColor: "darkgrey", border: "none", fontSize: "2rem", color: "white" }} />
+                    <input className="category" type="text" placeholder="Category" name="tourCategory" maxLength="15" value={this.state.tourCategory} onChange={this.handleInputChanges} style={{ outline: "none", backgroundColor: "darkgrey", border: "none", color: "white" }} />
                   </div>
                 </div>
               </div>
@@ -155,41 +158,53 @@ class AddTour extends Component {
           </MDBView>
         </header>
 
-       
-          <MDBContainer className='text-center my-5'style={{height: "100%"}}>
-             <main>
+        <MDBContainer className='text-center my-5' style={{ height: "100%" }}>
+          <main>
             <div className="addTourAboutWrapper">
-            <div className='addTourAbout'>
-              <h2>What is your tour about?</h2>
-              <div className="info">
-                <i className='infoSymbol'></i>
-                <textarea className="tourDescription" name="tourDescription" value={this.state.tourDescription} placeholder='Tour description' onChange={this.handleInputChanges} cols="40" rows="5">Description</textarea>
+              <div className='addTourAbout'>
+                <h2>What is your tour about?</h2>
+                <form onSubmit={this.addTour}>
+                  <div className="info">
+                    <i className='infoSymbol'></i>
+
+                    <textarea className="tourDescription" name="tourDescription" value={this.state.tourDescription} placeholder='Tour description' onChange={this.handleInputChanges} cols="40" rows="5">Description</textarea>
+                  </div>
+                   <div className="tourPriceWrapper">
+                  <div className="tourPrice">
+                    <div><strong style={{fontWeight: "bold"}}>US$ </strong></div>
+                    <input className="tourPriceInput" type="text" name='tourPrice' value={this.state.tourPrice} onChange={this.handleInputChanges} />
+                     per person
+                  </div>
+                  <div>
+                    
+                  </div>
+                </div>
+                  <div className='clock'>
+                    <i className="clockSymbol"></i>
+                    <input className="tourLength" type="number" placeholder='How long is it' name="tourLength" value={this.state.tourLength} onChange={this.handleInputChanges} />
+                  </div>
+                  <div className='people'>
+                    <i className='peopleSymbol'></i>
+                    <input className="recommendedAge" type="number" placeholder='Recommended age' name="recommendedAge" value={this.state.recommendedAge} onChange={this.handleInputChanges} />
+                  </div>
+                  <div className='note'>
+                    <i className='noteSymbol'></i>
+                    <textarea className="itemsToBring" name="itemsToBring" name='whatTheyShouldBring' value={this.state.whatTheyShouldBring} placeholder='What should tourists bring with them?' onChange={this.handleInputChanges} cols="40" rows="5">What should they bring</textarea>
+                  </div>
+                  <div className="target">
+                    <i className="targetSymbol"></i>
+                    <input className="tourAddress" type="text" placeholder="What is the address" name="tourAddress" value={this.state.tourAddress} onChange={this.handleInputChanges} />
+                  </div>
+                  <div>
+                    <button className="btnAddTour" type='submit'>Add Tour</button>
+                    <button className="btnCancel">Cancel</button>
+                  </div>
+                </form>
               </div>
-              <div className='clock'>
-                <i className="clockSymbol"></i>
-                <input className="tourLength" type="number" placeholder='How long is it' name="tourLength" value={this.state.tourLength} onChange={this.handleInputChanges} />
-              </div>
-              <div className='people'>
-                <i className='peopleSymbol'></i>
-                <input className="recommendedAge" type="number" placeholder='Recommended age' name="recommendedAge" value={this.state.recommendedAge} onChange={this.handleInputChanges} />
-              </div>
-              <div className='note'>
-                <i className='noteSymbol'></i>
-                <textarea className="itemsToBring" name="itemsToBring" name='whatTheyShouldBring' value={this.state.whatTheyShouldBring} placeholder='What should tourists bring with them?' onChange={this.handleInputChanges} cols="40" rows="5">What should they bring</textarea>
-              </div>
-              <div className="target">
-                <i className="targetSymbol"></i>
-                <input className="tourAddress" type="text" placeholder="What is the address" name="tourAddress" value={this.state.tourAddress} onChange={this.handleInputChanges} />
-              </div>
-              <div>
-                <button className="btnAddTour" type='submit'>Add Tour</button>
-                <button className="btnCancel">Cancel</button>
-              </div>
-            </div>             
-            </div>            
-        
-        </main>
-          </MDBContainer>
+            </div>
+
+          </main>
+        </MDBContainer>
         {/*     
 
           <div className="addTourAboutWrapper">
@@ -246,9 +261,7 @@ class AddTour extends Component {
     )
   }
 } */}
-        <form onSubmit={this.addTour}>
-          Test
-</form>
+
       </div>
     );
   }
