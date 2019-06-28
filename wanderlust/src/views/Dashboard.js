@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -18,6 +19,13 @@ import {
   MDBDropdownItem,
 } from 'mdbreact';
 
+import OfferedToursList from '../components/OfferedToursList';
+import { getAllTours } from '../actions';
+import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
+import { Route } from 'react-router-dom'
+
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +42,17 @@ class Dashboard extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.props.getAllTours();
+    /* console.log('These are all the tours: ', tours); */
+  }
+
   render() {
+    if (localStorage.getItem("auth-token") === null || localStorage.getItem("username") === null || localStorage.getItem("user") === null) {
+      return <Redirect to="/" />;
+    } else if (!JSON.parse(localStorage.getItem("user")).istourguide) {
+      return <Redirect to="/explore-tours" />
+    }
     return (
       <div>
         <header>
@@ -55,73 +73,45 @@ class Dashboard extends React.Component {
               <MDBNavbarToggler onClick={this.onClick} />
             )}
             <MDBCollapse isOpen={this.state.collapse} navbar>
-              {/* This part can be used for the explore-page */}
-              {/* <MDBNavbarNav left style={{ marginLeft: '35%' }}>
-                <MDBNavItem
-                  style={{
-                    marginLeft: '1rem',
-                    marginRight: '1rem',
-                    fontSize: '1.3rem',
-                    fontWeight: '400',
-                  }}>
-                  <MDBNavLink to='#'>Popular</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem
-                  style={{
-                    marginLeft: '1rem',
-                    marginRight: '1rem',
-                    fontSize: '1.3rem',
-                    fontWeight: '400',
-                  }}>
-                  <MDBNavLink to='#'>Deals</MDBNavLink>
-                </MDBNavItem>
-
-                <MDBNavItem
-                  style={{
-                    marginLeft: '1rem',
-                    marginRight: '1rem',
-                    fontSize: '1.3rem',
-                    fontWeight: '400',
-                  }}>
-                  <MDBDropdown>
-                    <MDBDropdownToggle nav caret color='unique-color'>
-                      Categories
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu color='unique-color'>
-                      <MDBDropdownItem>Mountain Biking</MDBDropdownItem>
-                      <MDBDropdownItem>Hiking</MDBDropdownItem>
-                      <MDBDropdownItem>Rafting</MDBDropdownItem>
-                      <MDBDropdownItem>Rock Climbing</MDBDropdownItem>
-                      <MDBDropdownItem>City</MDBDropdownItem>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
-                </MDBNavItem>
-              </MDBNavbarNav> */}
               <MDBNavbarNav right style={{}}>
                 {!this.state.collapse ? (
                   <MDBNavItem style={{ display: 'hide' }}>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
-                        Username
+                        <span style={{ fontSize: "1.3rem" }}>{JSON.parse(localStorage.getItem("user")).firstname}</span>
                       </MDBDropdownToggle>
-                      <MDBDropdownMenu color='unique-color'>
-                        <MDBDropdownItem>My offered Tours</MDBDropdownItem>
-                        <MDBDropdownItem>Settings</MDBDropdownItem>
-                        <MDBDropdownItem>Logout</MDBDropdownItem>
-                      </MDBDropdownMenu>
+                      {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
+                        <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
+                        <MDBDropdownItem href="/add-tour">Add a Tour</MDBDropdownItem>
+                        <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                        <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                      </MDBDropdownMenu> : <MDBDropdownMenu color='unique-color'>
+                          <MDBDropdownItem href="/explore-tours">Explore Tours</MDBDropdownItem>
+
+                          <MDBDropdownItem href="/settings">Settings</MDBDropdownItem>
+                          <MDBDropdownItem href="/logout">Logout</MDBDropdownItem>
+                        </MDBDropdownMenu>}
                     </MDBDropdown>
                   </MDBNavItem>
                 ) : (
-                  <MDBNavItem
-                    style={{
-                      marginLeft: '1rem',
-                      marginRight: '1rem',
-                      fontSize: '1.3rem',
-                      fontWeight: '400',
-                    }}>
-                    <MDBNavLink to='#'>My offered Tours</MDBNavLink>
-                  </MDBNavItem>
-                )}
+                    <MDBNavItem
+                      style={{
+                        marginLeft: '1rem',
+                        marginRight: '1rem',
+                        fontSize: '1.3rem',
+                        fontWeight: '400',
+                      }}>
+                      {JSON.parse(localStorage.getItem("user")).istourguide ?
+                        <><MDBNavLink to='/dashboard'>My offered Tours</MDBNavLink>
+                          <MDBNavLink to="/add-tour">Add a Tour</MDBNavLink>
+                          <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                          <MDBNavLink to='/logout'>Logout</MDBNavLink></>
+                        :
+                        <><MDBNavLink to='/explore-tours'>Explore Tours</MDBNavLink>
+                          <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                          <MDBNavLink to='logout'>Logout</MDBNavLink></>}
+                    </MDBNavItem>
+                  )}
               </MDBNavbarNav>
             </MDBCollapse>
           </MDBNavbar>
@@ -144,23 +134,14 @@ class Dashboard extends React.Component {
         </header>
 
         <main>
+          <h2 style={{ marginLeft: "20%", marginTop: "4rem", fontSize: "1.3rem", fontWeight: "bold" }}>Your Tour Offers</h2>
           <MDBContainer className='text-center my-5'>
-            <p align='justify'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+
+            <div className="allToursWrapper">
+              <Route path="/dashboard" render={(props) => <OfferedToursList {...props} allTours={this.props.tourProps} />} />
+
+            </div>
+
           </MDBContainer>
         </main>
       </div>
@@ -168,4 +149,9 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = state => ({ tourProps: state.tourReducer.tours, guide: state.userReducer.guide });
+
+export default connect(
+  mapStateToProps,
+  { getAllTours },
+)(Dashboard);

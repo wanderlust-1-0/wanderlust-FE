@@ -1,8 +1,5 @@
 import React from 'react';
-import SignUp from '../components/SignUp';
 import SignIn from '../components/SignIn';
-import { connect } from 'react-redux';
-import NavBarPreLogin from '../components/NavBarPreLogin';
 import { Route } from 'react-router-dom';
 import {
   MDBNavbar,
@@ -12,23 +9,13 @@ import {
   MDBCollapse,
   MDBNavItem,
   MDBNavLink,
-  MDBContainer,
   MDBMask,
   MDBView,
 } from 'mdbreact';
-import {
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
-} from 'mdbreact';
 
 import {
-  MDBBtn,
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
   MDBCardText,
   MDBCol,
 } from 'mdbreact';
@@ -78,8 +65,9 @@ class Home extends React.Component {
                     marginRight: '1rem',
                     fontSize: '1.1rem',
                     fontWeight: '400',
+                    marginTop: "0.5rem"
                   }}>
-                  <MDBNavLink to='#'>About</MDBNavLink>
+                  <a href="https://blissful-hermann-d8bbc9.netlify.com/" style={{ textDecoration: "none", color: "white" }}>About</a>
                 </MDBNavItem>
                 <MDBNavItem
                   style={{
@@ -91,14 +79,14 @@ class Home extends React.Component {
                   {this.props.location.pathname === '/' ? (
                     <MDBNavLink to='/signin'>Sign In</MDBNavLink>
                   ) : (
-                    <MDBNavLink to='/'>Sign Up</MDBNavLink>
-                  )}
+                      <MDBNavLink to='/'>Sign Up</MDBNavLink>
+                    )}
                 </MDBNavItem>
               </MDBNavbarNav>
             </MDBCollapse>
           </MDBNavbar>
         </header>
-        <MDBView src='https://i.imgur.com/Khv7HRX.png'>
+        <MDBView src='https://i.imgur.com/4ox5JIo.png'>
           <MDBMask
             overlay='black-light'
             className='flex-center flex-column text-white text-center'>
@@ -113,7 +101,7 @@ class Home extends React.Component {
                   }}>
                   <MDBCardBody>
                     <MDBCardText>
-                       <SignIn />
+                      <Route path="/signin" render={(props) => <SignIn {...props} />} />
                     </MDBCardText>
                   </MDBCardBody>
                 </MDBCard>

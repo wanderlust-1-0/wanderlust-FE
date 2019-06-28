@@ -15,16 +15,10 @@ class SignIn extends React.Component {
 
   signin = event => {
     event.preventDefault();
-    this.props.signin(this.state);
+    this.props.signin(this.state).then(() => {
+      this.props.history.push('/create-account');
+    });
   };
-
-  // this.props.signin(this.state.accountData).then(() =>
-  //     this.props.history.push('/dashboard');
-  //   });
-
-  //   this.props.signin(this.state.accountData).then(() =>
-  //     this.props.history.push('/explore-tours');
-  //   });
 
   handleInput = event => {
     this.setState({
@@ -33,9 +27,6 @@ class SignIn extends React.Component {
   };
 
   render() {
-    // if (localStorage.getItem('authentication_token')) {
-    //   return <Redirect to='/' />;
-    // }
     return (
       <div>
         <span className='h4 poppins-font main-color-blue'>
@@ -49,11 +40,10 @@ class SignIn extends React.Component {
                   <MDBInput
                     label='Type your username'
                     group
-                    type='text' // Todo: change back type to email
+                    type='text'
                     validate
                     error='wrong'
                     success='right'
-                    type='text'
                     name='username'
                     value={this.state.username}
                     onChange={this.handleInput}
