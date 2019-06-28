@@ -60,7 +60,7 @@ const tourReducer = (state = initialState, action) => {
       console.log('Reducing of TOURS: ', action.payload);
       return {
         ...state,
-        tours: [...action.payload],
+        tours: action.payload,
         fetchingTours: false,
         fetchingToursErr: '',
       };

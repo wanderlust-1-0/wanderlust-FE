@@ -39,6 +39,22 @@
  -ms-user-select: none;
 }
 
+.heart-icon {
+  background-image: url('/assets/heart.PNG');
+  background-repeat: no-repeat;
+  background-size: 2.4rem 2.4rem;
+  width: 2.5rem;
+  height: 2.4rem;
+  background-position: 95% 5%;
+  margin-left: 12rem;
+  margin-bottom: 8.3rem;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+ -ms-user-select: none;
+}
+
 .heart-icon:hover {
   background-image: url('/assets/heart-red-hover-over-half-filled.png')
 }
