@@ -13,21 +13,21 @@ class OfferedToursList extends Component {
   }
 
 
-  // guidesOfferedTours = (id) => {
-  //   const offeredTours = this.props.allTours.filter(tour => {
-  //     if (tour.guide.guideid === 4) {
-  //       return tour;
-  //     }
-  //   })
-  //   return offeredTours;
-  // }
+  guidesOfferedTours = (id) => {
+    const offeredTours = this.props.allTours.filter(tour => {
+      if (tour.guide.guideid === JSON.parse(localStorage.getItem("user")).guideid) {
+        return tour;
+      }
+    })
+    return offeredTours;
+  }
 
   render() {
     // console.log('filtered tours', this.guidesOfferedTours
-    // const singleGuideTours = this.guidesOfferedTours()
+    const singleGuideTours = this.guidesOfferedTours()
     return (
       <div className="showTourList">
-        {this.props.alltours.map(tour => {
+        {singleGuideTours.map(tour => {
           return <Route path="/dashboard" render={(props) => <EditDeleteTourCard offeredTours={tour} {...props} />} />
         })}
       </div>
