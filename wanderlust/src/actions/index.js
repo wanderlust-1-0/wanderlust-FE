@@ -48,13 +48,12 @@ export const signin = user => dispatch => {
       `grant_type=password&username=${user.username}&password=${user.password}`,
       header,
     )
-
     .then(res => {
       console.log('token response: ', res);
       localStorage.setItem('auth-token', res.data.access_token);
       localStorage.setItem('username', user.username);
-      localStorage.setItem('user', JSON.stringify({ "touristid": 4, "email": "guide@test.com", "firstname": "hero", "lastname": "king", "phonenumber": "1223434", "istourguide": false, "tours": [] }))
-      localStorage.setItem('extra', JSON.stringify({ "guideid": 2, "email": "guide@test.com", "firstname": "hero", "lastname": "king", "phonenumber": "1223434", "istourguide": true, "tours": [] }))
+      localStorage.setItem('user', JSON.stringify({ "touristid": 4, "email": "visitor@gmail.com", "firstname": "sascha", "lastname": "majewsky", "phonenumber": "49015776251", "istourguide": false, "tours": [] }))
+      localStorage.setItem('extra', JSON.stringify({ "guideid": 2, "email": "guide@gmail.com", "firstname": "jeff", "lastname": "oliver", "phonenumber": "555557843548", "istourguide": true, "tours": [] }))
       dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
     })
     .catch(err => {
