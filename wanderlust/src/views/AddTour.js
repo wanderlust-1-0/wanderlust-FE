@@ -207,14 +207,14 @@ class AddTour extends Component {
                   </div>
                   <div>
                     <MDBContainer style={{ marginLeft: "1.5rem" }}>
-                      <MDBBtn className="btnAddTour" gradient='blue' type='submit' onClick={this.toggle} style={{ width: "10rem" }}>Save</MDBBtn>
+                      <MDBBtn className="btnAddTour" gradient='blue' type='submit' onClick={this.toggle} style={{ width: "10rem", height: "3rem" }}>Save</MDBBtn>
                       <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
                         <MDBModalHeader toggle={this.toggle} style={{ border: "none" }}></MDBModalHeader>
                         <MDBModalBody style={{ textAlign: "center", paddingBottom: "4rem", fontSize: "1.8rem", color: "green" }}>
                           Your tour is now published!
                     </MDBModalBody>
                       </MDBModal>
-                      <MDBBtn className="btnCancel" color="danger" type='submit' onClick={() => this.redirectDashBoard()} style={{ width: "10rem", marginLeft: "1.5rem" }}>Cancel</MDBBtn>
+                      <MDBBtn className="btnCancel" color="danger" type='submit' onClick={() => this.redirectDashBoard()} style={{ width: "10rem", marginLeft: "1.5rem", height: "3rem" }}>Cancel</MDBBtn>
                       {/* <button className="btnCancel"  onClick={() => this.redirectDashBoard()}>Cancel</button> */}
                     </MDBContainer>
                     {/* <button className="btnAddTour" type='submit'>Add Tour</button> */}
