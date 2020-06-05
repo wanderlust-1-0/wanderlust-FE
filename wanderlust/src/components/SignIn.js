@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { signin } from "../actions";
+import { signIn } from "../actions";
 import { Link } from "react-router-dom";
 import {
   MDBContainer,
@@ -21,11 +21,17 @@ class SignIn extends React.Component {
     };
   }
 
-  signin = (event) => {
+  // signin = (event) => {
+  //   event.preventDefault();
+  //   this.props.signin(this.state).then(() => {
+  //     this.props.history.push("/create-account");
+  //   });
+  // };
+
+  signIn = (event) => {
     event.preventDefault();
-    this.props.signin(this.state).then(() => {
-      this.props.history.push("/create-account");
-    });
+    const { email, password } = this.state;
+    this.props.signIn({ email, password });
   };
 
   handleInput = (event) => {
@@ -43,7 +49,7 @@ class SignIn extends React.Component {
         <MDBContainer>
           <MDBRow>
             <MDBCol>
-              <form onSubmit={this.signin}>
+              <form onSubmit={this.signIn}>
                 <div className='grey-text'>
                   <MDBInput
                     label='Email'
@@ -146,4 +152,4 @@ const mapStateToProps = (state) => {
   return {};
 };
 
-export default connect(mapStateToProps, { signin })(SignIn);
+export default connect(mapStateToProps, { signIn })(SignIn);

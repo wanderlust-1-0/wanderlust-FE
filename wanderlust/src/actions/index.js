@@ -53,57 +53,78 @@ export const SIGNIN_FETCHING = "SIGNIN_FETCHING";
 export const SIGNIN_SUCCESS = "SIGNIN_SUCCESS";
 export const SIGNIN_FAILURE = "SIGNIN_FAILURE";
 
-export const signin = (user) => (dispatch) => {
-  console.log("User Signin: ", user);
-  let header = {
-    headers: {
-      Authorization: `Basic ${btoa("client:secret")}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
+// export const signin = (user) => (dispatch) => {
+//   console.log("User Signin: ", user);
+//   let header = {
+//     headers: {
+//       Authorization: `Basic ${btoa("client:secret")}`,
+//       "Content-Type": "application/x-www-form-urlencoded",
+//     },
+//   };
+//   console.log("This is the header: ");
+//   dispatch({ type: SIGNIN_FETCHING });
+//   loadProgressBar();
+//   return axios
+//     .post(
+//       "https://roger-wanderlust.herokuapp.com/oauth/token",
+//       `grant_type=password&username=${user.username}&password=${user.password}`,
+//       header
+//     )
+//     .then((res) => {
+//       console.log("token response: ", res);
+//       localStorage.setItem("auth-token", res.data.access_token);
+//       localStorage.setItem("username", user.username);
+//       localStorage.setItem(
+//         "user",
+//         JSON.stringify({
+//           touristid: 4,
+//           email: "visitor@gmail.com",
+//           firstname: "sascha",
+//           lastname: "majewsky",
+//           phonenumber: "49015776251",
+//           istourguide: false,
+//           tours: [],
+//         })
+//       );
+//       localStorage.setItem(
+//         "extra",
+//         JSON.stringify({
+//           guideid: 2,
+//           email: "guide@gmail.com",
+//           firstname: "jeff",
+//           lastname: "oliver",
+//           phonenumber: "555557843548",
+//           istourguide: true,
+//           tours: [],
+//         })
+//       );
+//       dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
+//     })
+//     .catch((err) => {
+//       console.log("token err: ", err);
+//       dispatch({ type: SIGNIN_FAILURE, payload: err });
+//     });
+// };
+
+export const signIn = (credentials) => {
+  return async (dispatch, getState, { getFirebase }) => {
+    dispatch({ type: SIGNIN_FETCHING });
+    loadProgressBar();
+    const firebase = getFirebase();
+
+    try {
+      const { email, password } = credentials;
+      const user = firebase.auth().signInWithEmailAndPassword(email, password);
+
+      const idToken = await firebase.auth().currentUser.getIdToken(true);
+
+      localStorage.setItem("firebase_jwt", idToken);
+
+      dispatch({ type: SIGNIN_SUCCESS, payload: user });
+    } catch (error) {
+      dispatch({ type: SIGNIN_FAILURE, payload: error });
+    }
   };
-  console.log("This is the header: ");
-  dispatch({ type: SIGNIN_FETCHING });
-  loadProgressBar();
-  return axios
-    .post(
-      "https://roger-wanderlust.herokuapp.com/oauth/token",
-      `grant_type=password&username=${user.username}&password=${user.password}`,
-      header
-    )
-    .then((res) => {
-      console.log("token response: ", res);
-      localStorage.setItem("auth-token", res.data.access_token);
-      localStorage.setItem("username", user.username);
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          touristid: 4,
-          email: "visitor@gmail.com",
-          firstname: "sascha",
-          lastname: "majewsky",
-          phonenumber: "49015776251",
-          istourguide: false,
-          tours: [],
-        })
-      );
-      localStorage.setItem(
-        "extra",
-        JSON.stringify({
-          guideid: 2,
-          email: "guide@gmail.com",
-          firstname: "jeff",
-          lastname: "oliver",
-          phonenumber: "555557843548",
-          istourguide: true,
-          tours: [],
-        })
-      );
-      dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
-    })
-    .catch((err) => {
-      console.log("token err: ", err);
-      dispatch({ type: SIGNIN_FAILURE, payload: err });
-    });
 };
 
 // Guides
