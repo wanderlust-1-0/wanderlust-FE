@@ -1,81 +1,83 @@
-import { SIGNUP_FETCHING, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../actions';
-import { SIGNIN_FETCHING, SIGNIN_SUCCESS, SIGNIN_FAILURE } from '../actions';
+import { SIGNUP_FETCHING, SIGNUP_SUCCESS, SIGNUP_FAILURE } from "../actions";
+import { SIGNIN_FETCHING, SIGNIN_SUCCESS, SIGNIN_FAILURE } from "../actions";
 
 import {
   FETCHING_GUIDES_START,
   FETCHING_GUIDES_SUCCESS,
   FETCHING_GUIDES_FAILURE,
-} from '../actions';
+} from "../actions";
 
 import {
   ADD_NEW_GUIDE_FETCHING,
   ADD_NEW_GUIDE_SUCCESS,
-  ADD_NEW_GUIDE_FAILURE
-} from '../actions';
+  ADD_NEW_GUIDE_FAILURE,
+} from "../actions";
 
 import {
   FETCHING_TOURISTS_START,
   FETCHING_TOURISTS_SUCCESS,
   FETCHING_TOURISTS_FAILURE,
-} from '../actions';
+} from "../actions";
 
 import {
   UPDATE_GUIDE_INFO_FETCHING,
   UPDATE_GUIDE_INFO_SUCCESS,
   UPDATE_GUIDE_INFO_FAILURE,
-} from '../actions';
+} from "../actions";
 
 import {
   ADD_NEW_GUIDE_STORE_SUCCESS,
-  ADD_NEW_TOURIST_STORE_SUCCESS
-} from '../actions';
+  ADD_NEW_TOURIST_STORE_SUCCESS,
+} from "../actions";
 
 import {
   ADD_NEW_TOURIST_FETCHING,
   ADD_NEW_TOURIST_SUCCESS,
-  ADD_NEW_TOURIST_FAILURE
-} from '../actions';
+  ADD_NEW_TOURIST_FAILURE,
+} from "../actions";
 
 import {
   UPDATING_SINGLE_TOURIST_START,
-  UPDATING_SINGLE_TOURIST_SUCCESS, UPDATING_SINGLE_TOURIST_FAILURE
-} from '../actions';
+  UPDATING_SINGLE_TOURIST_SUCCESS,
+  UPDATING_SINGLE_TOURIST_FAILURE,
+} from "../actions";
 
 const initialState = {
+  user: {},
   guides: [],
   tourists: [],
   guide: {
-    username: '',
-    password: '',
+    username: "",
+    password: "",
     isTourGuide: false,
-    firstname: '',
-    lastname: '',
-    email: '',
-    phone: ''
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
   },
   tourist: {
-    username: '',
-    password: '',
+    username: "",
+    password: "",
     isTourGuide: false,
-    firstname: '',
-    lastname: '',
-    email: '',
-    phone: ''
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
   },
   signingUp: false,
   signingIn: false,
   updatingUser: false,
   updatingTourist: false,
-  updatingTouristErr: '',
+  updatingTouristErr: "",
   fetchingAllGuides: false,
-  signUpErr: '',
-  signInErr: '',
-  fetchAllGuidesErr: '',
-  updatingUserErr: '',
-  addingNewGuide: '',
-  addingNewGuideErr: '',
+  signUpErr: "",
+  signInErr: "",
+  fetchAllGuidesErr: "",
+  updatingUserErr: "",
+  addingNewGuide: "",
+  addingNewGuideErr: "",
   addingNewTourist: false,
-  addingNewTouristErr: ''
+  addingNewTouristErr: "",
 };
 
 const userReducer = (state = initialState, action) => {
@@ -125,69 +127,69 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         addingNewGuide: true,
-        addingNewGuideErr: ''
-      }
+        addingNewGuideErr: "",
+      };
     case ADD_NEW_GUIDE_SUCCESS:
-      console.log('add new user success: ', action.payload.username)
+      console.log("add new user success: ", action.payload.username);
       return {
         ...state,
         guide: action.payload,
         addingNewGuide: false,
-        addingNewGuideErr: ''
-      }
+        addingNewGuideErr: "",
+      };
     case ADD_NEW_GUIDE_FAILURE:
       return {
         ...state,
         addingNewGuide: false,
-        addingNewGuideErr: ''
-      }
+        addingNewGuideErr: "",
+      };
     // Add new guide to the redux store
     case ADD_NEW_GUIDE_STORE_SUCCESS:
       return {
         ...state,
-        guide: action.payload
-      }
+        guide: action.payload,
+      };
     // Add new tourist
     case ADD_NEW_TOURIST_FETCHING:
       return {
         ...state,
         addingNewTourist: true,
-        addingNewTouristErr: ''
-      }
+        addingNewTouristErr: "",
+      };
     case ADD_NEW_TOURIST_SUCCESS:
       return {
         ...state,
         addingNewTourist: false,
         tourist: action.payload,
-        addingNewTouristErr: ''
-      }
+        addingNewTouristErr: "",
+      };
     case ADD_NEW_TOURIST_FAILURE:
       return {
         ...state,
         addingNewTourist: false,
-        addingNewTouristErr: action.payload
-      }
+        addingNewTouristErr: action.payload,
+      };
 
     // Add new tourist to redux store
     case ADD_NEW_TOURIST_STORE_SUCCESS:
       return {
         ...state,
-        tourist: action.payload
-      }
+        tourist: action.payload,
+      };
 
     // Update guide info
     case UPDATE_GUIDE_INFO_FETCHING:
       return {
         ...state,
         updatingUser: true,
-        error: '',
+        error: "",
       };
     case UPDATE_GUIDE_INFO_SUCCESS:
       return {
         ...state,
         guide: action.payload,
         updatingUser: false,
-        error: '',
+        error: "",
       };
     case UPDATE_GUIDE_INFO_FAILURE:
       return {
@@ -201,20 +203,20 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         updatingTourist: true,
-        updatingTouristErr: '',
-      }
+        updatingTouristErr: "",
+      };
     case UPDATING_SINGLE_TOURIST_SUCCESS:
       return {
         ...state,
         updatingTourist: false,
         tourist: action.payload,
-        updatingTouristErr: '',
-      }
+        updatingTouristErr: "",
+      };
     case UPDATING_SINGLE_TOURIST_FAILURE:
       return {
         ...state,
         updatingTourist: false,
-        updatingTouristErr: action.payload
+        updatingTouristErr: action.payload,
       };
     case FETCHING_GUIDES_START:
       return {
@@ -222,14 +224,14 @@ const userReducer = (state = initialState, action) => {
         fetchingAllGuides: true,
       };
     case FETCHING_GUIDES_SUCCESS:
-      console.log('Reducing of GUIDES: ', action.payload);
+      console.log("Reducing of GUIDES: ", action.payload);
       return {
         ...state,
         fetchingAllGuides: false,
         guides: action.payload,
       };
     case FETCHING_GUIDES_FAILURE:
-      console.log('GET GUIDES ERR: ', action.payload);
+      console.log("GET GUIDES ERR: ", action.payload);
       return {
         ...state,
         fetchingAllGuides: false,
@@ -241,14 +243,14 @@ const userReducer = (state = initialState, action) => {
         fetchingAllGuides: true,
       };
     case FETCHING_TOURISTS_SUCCESS:
-      console.log('Reducing of TOURISTS: ', action.payload);
+      console.log("Reducing of TOURISTS: ", action.payload);
       return {
         ...state,
         fetchingAllGuides: false,
         tourist: [...action.payload],
       };
     case FETCHING_TOURISTS_FAILURE:
-      console.log('GET TOURISTS ERR: ', action.payload);
+      console.log("GET TOURISTS ERR: ", action.payload);
       return {
         ...state,
         fetchingAllGuides: false,

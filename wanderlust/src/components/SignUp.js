@@ -16,8 +16,8 @@ class SignUp extends Component {
   state = {
     email: "",
     password: "",
-    isTourGuide: false,
-    error: null,
+    // isTourGuide: false,
+    // error: null,
   };
 
   handleInputChanges = (e) => {
@@ -26,33 +26,39 @@ class SignUp extends Component {
     });
   };
 
-  checkedTourGuide = () => {
-    if (this.state.isTourGuide) {
-      this.setState((prevState) => ({
-        ...prevState,
-        isTourGuide: false,
-      }));
-    } else {
-      this.setState((prevState) => ({
-        ...prevState,
-        isTourGuide: true,
-      }));
-    }
-  };
+  // checkedTourGuide = () => {
+  //   if (this.state.isTourGuide) {
+  //     this.setState((prevState) => ({
+  //       ...prevState,
+  //       isTourGuide: false,
+  //     }));
+  //   } else {
+  //     this.setState((prevState) => ({
+  //       ...prevState,
+  //       isTourGuide: true,
+  //     }));
+  //   }
+  // };
+
+  // signUp = (event) => {
+  //   event.preventDefault();
+  //   if (this.state.isTourGuide) {
+  //     this.props.addNewGuideToStore(this.state);
+  //     this.props.signUp(this.state).then(() => {
+  //       this.props.history.push("/signin");
+  //     });
+  //   } else {
+  //     this.props.addNewTouristToStore(this.state);
+  //     this.props.signUp(this.state).then(() => {
+  //       this.props.history.push("/signin");
+  //     });
+  //   }
+  // };
 
   signUp = (event) => {
     event.preventDefault();
-    if (this.state.isTourGuide) {
-      this.props.addNewGuideToStore(this.state);
-      this.props.signUp(this.state).then(() => {
-        this.props.history.push("/signin");
-      });
-    } else {
-      this.props.addNewTouristToStore(this.state);
-      this.props.signUp(this.state).then(() => {
-        this.props.history.push("/signin");
-      });
-    }
+    const { email, password } = this.state;
+    this.props.signUp({ email, password });
   };
 
   render() {
