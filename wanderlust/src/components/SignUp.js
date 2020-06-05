@@ -95,6 +95,7 @@ class SignUp extends Component {
                   style={{
                     display: "flex",
                     alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   <MDBInput
