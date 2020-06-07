@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { signUp, addNewGuideToStore, addNewTouristToStore } from "../actions";
+import { signUp, signUpWithGoogle } from "../actions";
 import {
   MDBContainer,
   MDBRow,
@@ -58,7 +58,15 @@ class SignUp extends Component {
   signUp = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
-    this.props.signUp({ email, password });
+    this.props.signUp({ email, password }).then(() => {
+      this.props.history.push("/create-account");
+    });
+  };
+
+  signUpWithGoogle = () => {
+    this.props.signUpWithGoogle().then(() => {
+      this.props.history.push("/create-account");
+    });
   };
 
   render() {
@@ -138,6 +146,7 @@ class SignUp extends Component {
                   Sign In with Facebook
                 </MDBBtn>
                 <MDBBtn
+                  onClick={this.signUpWithGoogle}
                   color='red'
                   size='sm'
                   style={{
@@ -176,6 +185,5 @@ const mapStateToProps = () => {
 
 export default connect(mapStateToProps, {
   signUp,
-  addNewGuideToStore,
-  addNewTouristToStore,
+  signUpWithGoogle,
 })(SignUp);

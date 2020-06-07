@@ -29,9 +29,50 @@ export const signUp = (accountData) => {
         }
       );
 
-      dispatch({ type: SIGNUP_SUCCESS, payload: user });
+      dispatch({ type: SIGNUP_SUCCESS, payload: user.data });
     } catch (error) {
       dispatch({ type: SIGNUP_FAILURE, payload: error });
+    }
+  };
+};
+
+// Sign Up with Google
+export const SIGNIN_GOOGLE_FETCHING = "SIGNIN_GOOGLE_FETCHING";
+export const SIGNIN_GOOGLE_SUCCESS = "SIGNIN_GOOGLE_SUCCESS";
+export const SIGNIN_GOOGLE_FAILURE = "SIGNIN_GOOGLE_FAILURE";
+
+export const signUpWithGoogle = () => {
+  return async (dispatch, getState, { getFirebase }) => {
+    dispatch({ type: SIGNIN_GOOGLE_FETCHING });
+    loadProgressBar();
+    const firebase = getFirebase();
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+
+      const accessToken = result.credential.accessToken;
+      firebase.auth().signInWithPopup(provider);
+
+      const current = await firebase.auth().currentUser;
+      console.log("user: ", current);
+      const idToken = await firebase.auth().currentUser.getIdToken(true);
+
+      localStorage.setItem("firebase_jwt", idToken);
+
+      const user = await axios.post(
+        "http://localhost:4000/api/auth/register",
+        {},
+        {
+          headers: {
+            Authorization: idToken,
+          },
+        }
+      );
+
+      dispatch({ type: SIGNIN_GOOGLE_SUCCESS, payload: user.data });
+    } catch (error) {
+      dispatch({ type: SIGNIN_GOOGLE_FAILURE, payload: error });
     }
   };
 };
@@ -40,59 +81,6 @@ export const signUp = (accountData) => {
 export const SIGNIN_FETCHING = "SIGNIN_FETCHING";
 export const SIGNIN_SUCCESS = "SIGNIN_SUCCESS";
 export const SIGNIN_FAILURE = "SIGNIN_FAILURE";
-
-// export const signin = (user) => (dispatch) => {
-//   console.log("User Signin: ", user);
-//   let header = {
-//     headers: {
-//       Authorization: `Basic ${btoa("client:secret")}`,
-//       "Content-Type": "application/x-www-form-urlencoded",
-//     },
-//   };
-//   console.log("This is the header: ");
-//   dispatch({ type: SIGNIN_FETCHING });
-//   loadProgressBar();
-//   return axios
-//     .post(
-//       "https://roger-wanderlust.herokuapp.com/oauth/token",
-//       `grant_type=password&username=${user.username}&password=${user.password}`,
-//       header
-//     )
-//     .then((res) => {
-//       console.log("token response: ", res);
-//       localStorage.setItem("auth-token", res.data.access_token);
-//       localStorage.setItem("username", user.username);
-//       localStorage.setItem(
-//         "user",
-//         JSON.stringify({
-//           touristid: 4,
-//           email: "visitor@gmail.com",
-//           firstname: "sascha",
-//           lastname: "majewsky",
-//           phonenumber: "49015776251",
-//           istourguide: false,
-//           tours: [],
-//         })
-//       );
-//       localStorage.setItem(
-//         "extra",
-//         JSON.stringify({
-//           guideid: 2,
-//           email: "guide@gmail.com",
-//           firstname: "jeff",
-//           lastname: "oliver",
-//           phonenumber: "555557843548",
-//           istourguide: true,
-//           tours: [],
-//         })
-//       );
-//       dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
-//     })
-//     .catch((err) => {
-//       console.log("token err: ", err);
-//       dispatch({ type: SIGNIN_FAILURE, payload: err });
-//     });
-// };
 
 export const signIn = (credentials) => {
   console.log("working");
@@ -107,7 +95,7 @@ export const signIn = (credentials) => {
 
       localStorage.setItem("firebase_jwt", idToken);
 
-      await axios.post(
+      const user = await axios.post(
         "http://localhost:4000/api/auth/login",
         {},
         {
@@ -117,7 +105,7 @@ export const signIn = (credentials) => {
         }
       );
 
-      dispatch({ type: SIGNIN_SUCCESS });
+      dispatch({ type: SIGNIN_SUCCESS, payload: user.data });
     } catch (error) {
       dispatch({ type: SIGNIN_FAILURE, payload: error });
     }
