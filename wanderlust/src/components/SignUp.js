@@ -105,7 +105,7 @@ class SignUp extends Component {
                   }}
                 >
                   <MDBInput
-                    label='Are you a tour guide?'
+                    label='Remember Me?'
                     type='checkbox'
                     id='checkbox2'
                     checked={this.state.isTourGuide}

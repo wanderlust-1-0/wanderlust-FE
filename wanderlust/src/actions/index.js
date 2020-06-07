@@ -6,26 +6,6 @@ export const SIGNUP_FETCHING = "SIGNUP_FETCHING";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 
-// export const signUp = accountData => dispatch => {
-//   dispatch({ type: SIGNUP_FETCHING });
-//   let api_path;
-//   accountData.isTourGuide
-//     ? (api_path = 'https://roger-wanderlust.herokuapp.com/createnewguide')
-//     : (api_path = 'https://roger-wanderlust.herokuapp.com/createnewtourist');
-//   loadProgressBar()
-//   return axios
-//     .post(api_path, accountData)
-//     .then(response => {
-//       console.log('RESPONSE', response.data);
-//       // localStorage.setItem('authentication_token', 'loggedIn');
-//       // /* dispatch({ type: SIGNUP_SUCCESS, payload: response.data }); */
-//       dispatch({ type: SIGNUP_SUCCESS, payload: response });
-//     })
-//     .catch(error => {
-//       dispatch({ type: SIGNUP_FAILURE, payload: error });
-//     });
-// };
-
 export const signUp = (accountData) => {
   return async (dispatch, getState, { getFirebase }) => {
     dispatch({ type: SIGNUP_FETCHING });
@@ -34,12 +14,20 @@ export const signUp = (accountData) => {
 
     try {
       const { email, password } = accountData;
-      const user = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
       const idToken = await firebase.auth().currentUser.getIdToken(true);
 
       localStorage.setItem("firebase_jwt", idToken);
+
+      const user = await axios.post(
+        "http://localhost:4000/api/auth/register",
+        {},
+        {
+          headers: {
+            Authorization: idToken,
+          },
+        }
+      );
 
       dispatch({ type: SIGNUP_SUCCESS, payload: user });
     } catch (error) {
@@ -107,20 +95,29 @@ export const SIGNIN_FAILURE = "SIGNIN_FAILURE";
 // };
 
 export const signIn = (credentials) => {
+  console.log("working");
   return async (dispatch, getState, { getFirebase }) => {
     dispatch({ type: SIGNIN_FETCHING });
     loadProgressBar();
     const firebase = getFirebase();
-
     try {
       const { email, password } = credentials;
-      const user = firebase.auth().signInWithEmailAndPassword(email, password);
-
+      await firebase.auth().signInWithEmailAndPassword(email, password);
       const idToken = await firebase.auth().currentUser.getIdToken(true);
 
       localStorage.setItem("firebase_jwt", idToken);
 
-      dispatch({ type: SIGNIN_SUCCESS, payload: user });
+      await axios.post(
+        "http://localhost:4000/api/auth/login",
+        {},
+        {
+          headers: {
+            Authorization: idToken,
+          },
+        }
+      );
+
+      dispatch({ type: SIGNIN_SUCCESS });
     } catch (error) {
       dispatch({ type: SIGNIN_FAILURE, payload: error });
     }
