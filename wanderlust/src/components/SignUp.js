@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { signUp, signUpWithGoogle } from "../actions";
+import { signUp } from "../actions";
 import {
   MDBContainer,
   MDBRow,
@@ -26,45 +26,10 @@ class SignUp extends Component {
     });
   };
 
-  // checkedTourGuide = () => {
-  //   if (this.state.isTourGuide) {
-  //     this.setState((prevState) => ({
-  //       ...prevState,
-  //       isTourGuide: false,
-  //     }));
-  //   } else {
-  //     this.setState((prevState) => ({
-  //       ...prevState,
-  //       isTourGuide: true,
-  //     }));
-  //   }
-  // };
-
-  // signUp = (event) => {
-  //   event.preventDefault();
-  //   if (this.state.isTourGuide) {
-  //     this.props.addNewGuideToStore(this.state);
-  //     this.props.signUp(this.state).then(() => {
-  //       this.props.history.push("/signin");
-  //     });
-  //   } else {
-  //     this.props.addNewTouristToStore(this.state);
-  //     this.props.signUp(this.state).then(() => {
-  //       this.props.history.push("/signin");
-  //     });
-  //   }
-  // };
-
-  signUp = (event) => {
+  handleSignUp = (event, method) => {
     event.preventDefault();
     const { email, password } = this.state;
-    this.props.signUp({ email, password }).then(() => {
-      this.props.history.push("/create-account");
-    });
-  };
-
-  signUpWithGoogle = () => {
-    this.props.signUpWithGoogle().then(() => {
+    this.props.signUp(method, { email, password }).then(() => {
       this.props.history.push("/create-account");
     });
   };
@@ -78,7 +43,7 @@ class SignUp extends Component {
         <MDBContainer>
           <MDBRow>
             <MDBCol>
-              <form onSubmit={this.signUp}>
+              <form onSubmit={(event) => this.handleSignUp(event, "email")}>
                 <div className='grey-text'>
                   <MDBInput
                     label='Email'
@@ -135,6 +100,7 @@ class SignUp extends Component {
               <p className='text-center my-3'>or</p>
               <div style={{ display: "flex" }}>
                 <MDBBtn
+                  onClick={(event) => this.handleSignUp(event, "facebook")}
                   color='blue'
                   size='sm'
                   style={{
@@ -146,7 +112,7 @@ class SignUp extends Component {
                   Sign In with Facebook
                 </MDBBtn>
                 <MDBBtn
-                  onClick={this.signUpWithGoogle}
+                  onClick={(event) => this.handleSignUp(event, "google")}
                   color='red'
                   size='sm'
                   style={{
@@ -185,5 +151,4 @@ const mapStateToProps = () => {
 
 export default connect(mapStateToProps, {
   signUp,
-  signUpWithGoogle,
 })(SignUp);

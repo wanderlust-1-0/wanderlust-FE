@@ -6,15 +6,32 @@ export const SIGNUP_FETCHING = "SIGNUP_FETCHING";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 
-export const signUp = (accountData) => {
+export const signUp = (method, accountData) => {
   return async (dispatch, getState, { getFirebase }) => {
     dispatch({ type: SIGNUP_FETCHING });
     loadProgressBar();
     const firebase = getFirebase();
+    let provider;
 
     try {
-      const { email, password } = accountData;
-      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      // Sign up with email and password
+      if (method === "email") {
+        const { email, password } = accountData;
+        await firebase.auth().createUserWithEmailAndPassword(email, password);
+      } else if (method === "facebook") {
+        // Sign up with Facebook
+        provider = await new firebase.auth.FacebookAuthProvider();
+
+        const result = await firebase.auth().signInWithPopup(provider);
+
+        // const accessToken = result.credential.accessToken;
+      } else {
+        // Sign up with Google
+        provider = await new firebase.auth.GoogleAuthProvider();
+
+        const result = await firebase.auth().signInWithPopup(provider);
+      }
+
       const idToken = await firebase.auth().currentUser.getIdToken(true);
 
       localStorage.setItem("firebase_jwt", idToken);
@@ -36,61 +53,34 @@ export const signUp = (accountData) => {
   };
 };
 
-// Sign Up with Google
-export const SIGNIN_GOOGLE_FETCHING = "SIGNIN_GOOGLE_FETCHING";
-export const SIGNIN_GOOGLE_SUCCESS = "SIGNIN_GOOGLE_SUCCESS";
-export const SIGNIN_GOOGLE_FAILURE = "SIGNIN_GOOGLE_FAILURE";
-
-export const signUpWithGoogle = () => {
-  return async (dispatch, getState, { getFirebase }) => {
-    dispatch({ type: SIGNIN_GOOGLE_FETCHING });
-    loadProgressBar();
-    const firebase = getFirebase();
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    try {
-      const result = await firebase.auth().signInWithPopup(provider);
-
-      const accessToken = result.credential.accessToken;
-      firebase.auth().signInWithPopup(provider);
-
-      const current = await firebase.auth().currentUser;
-      console.log("user: ", current);
-      const idToken = await firebase.auth().currentUser.getIdToken(true);
-
-      localStorage.setItem("firebase_jwt", idToken);
-
-      const user = await axios.post(
-        "http://localhost:4000/api/auth/register",
-        {},
-        {
-          headers: {
-            Authorization: idToken,
-          },
-        }
-      );
-
-      dispatch({ type: SIGNIN_GOOGLE_SUCCESS, payload: user.data });
-    } catch (error) {
-      dispatch({ type: SIGNIN_GOOGLE_FAILURE, payload: error });
-    }
-  };
-};
-
 // Sign In Action Creator
 export const SIGNIN_FETCHING = "SIGNIN_FETCHING";
 export const SIGNIN_SUCCESS = "SIGNIN_SUCCESS";
 export const SIGNIN_FAILURE = "SIGNIN_FAILURE";
 
-export const signIn = (credentials) => {
-  console.log("working");
+export const signIn = (method, credentials) => {
   return async (dispatch, getState, { getFirebase }) => {
     dispatch({ type: SIGNIN_FETCHING });
     loadProgressBar();
     const firebase = getFirebase();
+    let provider;
+
     try {
-      const { email, password } = credentials;
-      await firebase.auth().signInWithEmailAndPassword(email, password);
+      // Sign in with Email
+      if (method === "email") {
+        const { email, password } = credentials;
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+      } else if (method === "facebook") {
+        // Sign in with Facebook
+        provider = await new firebase.auth.FacebookAuthProvider();
+
+        const result = await firebase.auth().signInWithPopup(provider);
+      } else {
+        // Sign up with Google
+        provider = await new firebase.auth.GoogleAuthProvider();
+
+        const result = await firebase.auth().signInWithPopup(provider);
+      }
       const idToken = await firebase.auth().currentUser.getIdToken(true);
 
       localStorage.setItem("firebase_jwt", idToken);

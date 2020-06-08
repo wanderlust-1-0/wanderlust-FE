@@ -28,10 +28,12 @@ class SignIn extends React.Component {
   //   });
   // };
 
-  signIn = (event) => {
+  handleSignIn = (event, method) => {
     event.preventDefault();
     const { email, password } = this.state;
-    this.props.signIn({ email, password });
+    this.props.signIn(method, { email, password }).then(() => {
+      this.props.history.push("/explore-tours");
+    });
   };
 
   handleInput = (event) => {
@@ -49,7 +51,7 @@ class SignIn extends React.Component {
         <MDBContainer>
           <MDBRow>
             <MDBCol>
-              <form onSubmit={this.signIn}>
+              <form onSubmit={(event) => this.handleSignIn(event, "email")}>
                 <div className='grey-text'>
                   <MDBInput
                     label='Email'
@@ -105,6 +107,7 @@ class SignIn extends React.Component {
               <p className='text-center my-3'>or</p>
               <div style={{ display: "flex" }}>
                 <MDBBtn
+                  onClick={(event) => this.handleSignIn(event, "facebook")}
                   color='blue'
                   size='sm'
                   style={{
@@ -116,6 +119,7 @@ class SignIn extends React.Component {
                   Sign In with Facebook
                 </MDBBtn>
                 <MDBBtn
+                  onClick={(event) => this.handleSignIn(event, "google")}
                   color='red'
                   size='sm'
                   style={{
