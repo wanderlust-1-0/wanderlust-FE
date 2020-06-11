@@ -8,8 +8,8 @@ export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 
 export const signUp = (method, accountData) => {
   return async (dispatch, getState, { getFirebase }) => {
-    dispatch({ type: SIGNUP_FETCHING });
     loadProgressBar();
+    dispatch({ type: SIGNUP_FETCHING });
     const firebase = getFirebase();
     let provider;
 
@@ -60,8 +60,8 @@ export const SIGNIN_FAILURE = "SIGNIN_FAILURE";
 
 export const signIn = (method, credentials) => {
   return async (dispatch, getState, { getFirebase }) => {
-    dispatch({ type: SIGNIN_FETCHING });
     loadProgressBar();
+    dispatch({ type: SIGNIN_FETCHING });
     const firebase = getFirebase();
     let provider;
 
@@ -128,92 +128,62 @@ export const getAllGuides = () => (dispatch) => {
     });
 };
 
-// Get a guide by id action creator
-export const GET_SINGLE_GUIDE_FETCHING = "GET_SINGLE_GUIDE_FETCHING";
-export const GET_SINGLE_GUIDE_SUCCESS = "GET_SINGLE_GUIDE_SUCCESS";
-export const GET_SINGLE_GUIDE_FAILURE = "GET_SINGLE_GUIDE_FAILURE";
+// Get a user by id action creator
+export const GET_SINGLE_USER_FETCHING = "GET_SINGLE_USER_FETCHING";
+export const GET_SINGLE_USER_SUCCESS = "GET_SINGLE_USER_SUCCESS";
+export const GET_SINGLE_USER_FAILURE = "GET_SINGLE_USER_FAILURE";
 
-export const getSingleGuideById = (id) => (dispatch) => {
-  dispatch({ type: GET_SINGLE_GUIDE_FETCHING });
-  loadProgressBar();
-  axios
-    .get(`https://roger-wanderlust.herokuapp.com/guides/guide/${id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
-      },
-    })
-    .then((res) => {
-      console.log("Get single guide: ", res.data);
-      dispatch({ type: GET_SINGLE_GUIDE_SUCCESS, payload: res.data });
-    })
-    .catch((err) => {
-      console.log("Get single guide err: ", err.response);
-      dispatch({ type: GET_SINGLE_GUIDE_FAILURE, payload: err.response });
-    });
-};
+export const getSingleUserById = () => {
+  return async (dispatch, getState, { getFirebase }) => {
+    loadProgressBar();
+    dispatch({ type: GET_SINGLE_USER_FETCHING });
+    try {
+      const idToken = await localStorage.getItem("firebase_jwt");
 
-// Add a new guide
-export const ADD_NEW_GUIDE_FETCHING = "ADD_NEW_GUIDE_FETCHING";
-export const ADD_NEW_GUIDE_SUCCESS = "ADD_NEW_GUIDE_SUCCESS";
-export const ADD_NEW_GUIDE_FAILURE = "ADD_NEW_GUIDE_FAILURE";
+      const user = await axios.get("http://localhost:4000/api/users/userId", {
+        headers: {
+          Authorization: idToken,
+        },
+      });
 
-export const addNewGuide = (guide) => (dispatch) => {
-  dispatch({ type: ADD_NEW_GUIDE_FETCHING });
-  loadProgressBar();
-  axios
-    .post("https://roger-wanderlust.herokuapp.com/guides/guide/add", guide, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
-      },
-    })
-    .then((res) => {
-      console.log("add new guide: ", res.data);
-      dispatch({ type: ADD_NEW_GUIDE_SUCCESS, payload: res.data });
-    })
-    .catch((err) => {
-      console.log("add new guide err", err.response);
-      dispatch({ type: ADD_NEW_GUIDE_FAILURE, payload: err.response });
-    });
-};
-
-// Add a new guide
-// export const ADD_NEW_GUIDE_STORE_FETCHING = 'ADD_NEW_GUIDE_FETCHING';
-export const ADD_NEW_GUIDE_STORE_SUCCESS = "ADD_NEW_GUIDE_SUCCESS";
-// export const ADD_NEW_GUIDE_STORE_FAILURE = 'ADD_NEW_GUIDE_FAILURE';
-
-export const addNewGuideToStore = (guide) => {
-  return {
-    type: ADD_NEW_GUIDE_STORE_SUCCESS,
-    payload: guide,
+      dispatch({ type: GET_SINGLE_USER_SUCCESS, payload: user.data });
+      console.log("Get single guide: ", user.data);
+    } catch (error) {
+      console.log("Get single guide err: ", error.response);
+      dispatch({ type: GET_SINGLE_USER_FAILURE, payload: error.response });
+    }
   };
 };
 
 // Update Guide Info by id Action Creator
-export const UPDATE_GUIDE_INFO_FETCHING = "UPDATE_GUIDE_INFO_FETCHING";
-export const UPDATE_GUIDE_INFO_SUCCESS = "UPDATE_GUIDE_INFO_SUCCESS";
-export const UPDATE_GUIDE_INFO_FAILURE = "UPDATE_GUIDE_INFO_FAILURE";
+export const UPDATE_USER_INFO_FETCHING = "UPDATE_USER_INFO_FETCHING";
+export const UPDATE_USER_INFO_SUCCESS = "UPDATE_USER_INFO_SUCCESS";
+export const UPDATE_USER_INFO_FAILURE = "UPDATE_USER_INFO_FAILURE";
 
-export const updateGuideById = (guide, id) => (dispatch) => {
-  console.table(guide);
-  dispatch({ type: UPDATE_GUIDE_INFO_FETCHING });
-  loadProgressBar();
-  axios
-    .put(`https://roger-wanderlust.herokuapp.com/guides/guide/${id}`, guide, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
-      },
-    })
-    .then((res) => {
-      console.log("Update Guide Info Response: ", res);
-      dispatch({ type: UPDATE_GUIDE_INFO_SUCCESS, payload: res.data });
-    })
-    .catch((err) => {
-      console.log("Update Guide Info Err: ", err.response);
-      dispatch({
-        type: UPDATE_GUIDE_INFO_FAILURE,
-        payload: err.response,
-      });
-    });
+export const updateUserById = (userData) => {
+  return async (dispatch, getState, { getFirebase }) => {
+    dispatch({ type: UPDATE_USER_INFO_FETCHING });
+    loadProgressBar();
+
+    try {
+      const idToken = localStorage.getItem("firebase_jwt");
+
+      const updatedUser = await axios.put(
+        "http://localhost:4000/api/users/update/user",
+        userData,
+        {
+          headers: {
+            Authorization: idToken,
+          },
+        }
+      );
+
+      dispatch({ type: UPDATE_USER_INFO_SUCCESS, payload: updatedUser });
+      console.log("updatedUser in actions>>>", updatedUser);
+    } catch (error) {
+      dispatch({ type: UPDATE_USER_INFO_FAILURE, payload: error });
+    }
+  };
 };
 
 // Tourists

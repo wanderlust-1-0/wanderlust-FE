@@ -30,7 +30,12 @@ class SignUp extends Component {
     event.preventDefault();
     const { email, password } = this.state;
     this.props.signUp(method, { email, password }).then(() => {
-      this.props.history.push("/create-account");
+      const { isRegistered } = this.props.currentUser;
+      if (isRegistered) {
+        this.props.history.push("/create-account");
+      } else {
+        this.props.history.push("/explore-tours");
+      }
     });
   };
 
@@ -145,8 +150,10 @@ class SignUp extends Component {
   }
 }
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.userReducer.currentUser,
+  };
 };
 
 export default connect(mapStateToProps, {

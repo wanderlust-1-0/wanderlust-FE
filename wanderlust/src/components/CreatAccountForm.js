@@ -1,25 +1,51 @@
 import React, { Component } from "react";
-// import { addNewGuideToStore, addNewGuide, addNewTouristToStore, addNewTourist } from '../actions';
 import { connect } from "react-redux";
+import { getSingleUserById, updateUserById } from "../actions";
+import firebase from "firebase/app";
 
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from "mdbreact";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBInput,
+  MDBSelect,
+  MDBSelectInput,
+  MDBSelectOptions,
+  MDBSelectOption,
+  MDBBtn,
+} from "mdbreact";
 import { MDBCard, MDBCardBody, MDBCardText } from "mdbreact";
 
 class CreateAccountForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      firstname: "",
-      lastname: "",
-      password: "",
-      email: "",
-      phone: "",
-      isTourGuide: "",
-      collapse: false,
-      isWideEnough: false,
+      isTourGuide: false,
+      first_name: "",
+      last_name: "",
+      phone_number: "",
+      isRegistered: true,
+      // displayName: "",
+      // profilePhoto: "",
     };
     this.onClick = this.onClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getSingleUserById();
+    //   const firebaseUser = firebase.auth().currentUser;
+
+    //   this.setState((state) => {
+    //     return {
+    //       ...state,
+    //       displayName: firebaseUser.displayName,
+    //       profilePhoto: firebaseUser.photoURL,
+    //     };
+    //   });
+  }
+
+  componentWillReceiveProps() {
+    console.log("Current user", this.props.user);
   }
 
   onClick() {
@@ -28,61 +54,44 @@ class CreateAccountForm extends Component {
     });
   }
 
+  handleSelect = (value) => {
+    if (value) {
+      this.setState((state) => {
+        return {
+          ...state,
+          isTourGuide: !state.isTourGuide,
+        };
+      });
+    } else {
+      this.setState((state) => {
+        return {
+          ...state,
+          isTourGuide: !state.isTourGuide,
+        };
+      });
+    }
+  };
+
   handleInputChanges = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  // addUser = (e) => {
-  //   if (this.props.guide.isTourGuide) {
-  //     this.addNewGuide(e)
-  //   } else {
-  //     this.addNewTourist(e)
-  //   }
-  // }
-
-  // addNewGuide = (e) => {
-  //   e.preventDefault();
-
-  //   const { username, firstname, lastname, password, email, phone, isTourGuide } = this.state;
-
-  //   this.props.addNewGuideToStore({ username, firstname, lastname, password, email, phone, isTourGuide })
-
-  //   this.props.addNewGuide({ username, firstname, lastname, password, email, phone })
-
-  //   this.props.history.push('/dashboard')
-  // }
-
-  // addNewTourist = (e) => {
-  //   e.preventDefault();
-
-  //   const { username, firstname, lastname, password, email, phone, isTourGuide } = this.state
-
-  //   this.props.addNewTouristToStore({ username, firstname, lastname, password, email, phone, isTourGuide })
-
-  //   this.props.addNewTourist({ firstname, lastname })
-
-  //   this.props.history.push('/explore-tours')
-  // }
-
-  // componentDidMount() {
-  //   console.log('CDM: ', this.props.guide.isTourGuide)
-  //   if (this.props.isTourGuide) {
-  //     this.setState({
-  //       username: this.props.guide.username,
-  //       password: this.props.guide.password,
-  //       isTourGuide: this.props.guide.isTourGuide
-  //     })
-  //   } else {
-  //     this.setState({
-  //       username: this.props.tourist.username,
-  //       password: this.props.tourist.password,
-  //       isTourGuide: this.props.tourist.isTourGuide
-  //     })
-  //   }
-  //   console.log('Is this a guide or tourist: ', this.state.isTourGuide)
-  // }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.updateUserById(this.state).then(() => {
+      this.setState((state) => {
+        return {
+          ...state,
+          first_name: "",
+          last_name: "",
+          phone_number: "",
+        };
+      });
+      this.props.history.push("/explore-tours");
+    });
+  };
 
   render() {
     return (
@@ -92,17 +101,17 @@ class CreateAccountForm extends Component {
             <MDBCol style={{ maxWidth: "50rem", minHeight: "65vh" }}>
               <MDBCard
                 style={{
-                  marginTop: "0%",
-                  marginLeft: "0rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                   padding: "5rem",
-                  paddingTop: "1.7rem",
                   width: "50rem",
                   height: "65vh",
                 }}
               >
                 <MDBCardBody>
                   <MDBCardText>
-                    <form>
+                    <form onSubmit={this.handleSubmit}>
                       <div className='seperator' style={{ display: "flex" }}>
                         <div
                           className='left-side'
@@ -111,12 +120,15 @@ class CreateAccountForm extends Component {
                             flexDirection: "column",
                           }}
                         >
-                          <span
-                            className='h3 poppins-font main-color-blue'
+                          <h2
+                            className='h2 poppins-font main-color-blue'
                             style={{ paddingBottom: "4rem" }}
                           >
-                            Hello {this.state.username}!
-                          </span>
+                            Welcome!
+                          </h2>
+                          <h3 className='h3 poppins-font main-color-blue'>
+                            {this.state.displayName}
+                          </h3>
                           <span className='h5 poppins-font main-color-blue'>
                             Profile Photo
                           </span>
@@ -132,81 +144,105 @@ class CreateAccountForm extends Component {
                               marginTop: "25%",
                             }}
                           >
-                            Upload an image
+                            <image
+                              src={`${this.state.profilePhoto}`}
+                              style={{
+                                borderRadius: "50%",
+                                width: "100%",
+                              }}
+                            />
                           </div>
                         </div>
                         <div
                           className='right-side'
-                          style={{ marginLeft: "3rem" }}
+                          style={{ marginLeft: "5rem" }}
                         >
                           <span className='h5 poppins-font main-color-blue'>
                             Create Your Account
                           </span>
                           <div
                             className='grey-text'
-                            style={{ marginLeft: "2rem" }}
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: "100%",
+                            }}
                           >
+                            <MDBSelect
+                              required
+                              getValue={this.handleSelect}
+                              className='form-control'
+                              color='secondary'
+                              outline
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                margin: "4rem 0 0 0",
+                                width: "100%",
+                              }}
+                            >
+                              <MDBSelectInput />
+                              <MDBSelectOptions>
+                                <MDBSelectOption disabled>
+                                  Choose account type
+                                </MDBSelectOption>
+                                <MDBSelectOption value={true}>
+                                  Tour Guide
+                                </MDBSelectOption>
+                                <MDBSelectOption value={false}>
+                                  Tourist
+                                </MDBSelectOption>
+                              </MDBSelectOptions>
+                            </MDBSelect>
+
                             <MDBInput
-                              label='Type your first name'
+                              label='First Name'
                               group
                               type='text'
                               validate
                               error='wrong'
                               success='right'
                               autoComplete='off'
-                              name='firstname'
-                              value={this.state.firstname}
+                              name='first_name'
+                              value={this.state.first_name}
                               onChange={this.handleInputChanges}
-                              style={{ width: "15rem", marginBottom: "0rem" }}
+                              style={{ width: "20rem", marginBottom: "0rem" }}
                             />
                             <MDBInput
-                              label='Type your last name'
+                              label='Last Name'
                               group
                               type='text'
                               validate
                               error='wrong'
                               success='right'
                               autoComplete='off'
-                              name='lastname'
-                              value={this.state.lastname}
+                              name='last_name'
+                              value={this.state.last_name}
                               onChange={this.handleInputChanges}
-                              style={{ width: "15rem", marginBottom: "0rem" }}
+                              style={{ width: "20rem", marginBottom: "0rem" }}
                             />
                             <MDBInput
-                              label='Type your email'
+                              label='Phone Number'
                               group
                               type='text'
                               validate
                               error='wrong'
                               success='right'
-                              autoComplete='off'
-                              name='email'
-                              value={this.state.email}
+                              autoComplete='on'
+                              name='phone_number'
+                              value={this.state.phone_number}
                               onChange={this.handleInputChanges}
-                              style={{ width: "15rem", marginBottom: "0rem" }}
-                            />
-                            <MDBInput
-                              label='Type your phonenumber'
-                              group
-                              type='text'
-                              validate
-                              error='wrong'
-                              success='right'
-                              autoComplete='off'
-                              name='phone'
-                              value={this.state.phone}
-                              onChange={this.handleInputChanges}
-                              style={{ width: "15rem", marginBottom: "0rem" }}
+                              style={{ width: "20rem", marginBottom: "0rem" }}
                             />
                           </div>
-                          <div
-                            className='text-left'
-                            style={{ marginLeft: "1.5rem" }}
-                          >
+                          <div className='text-left'>
                             <MDBBtn
                               gradient='blue'
                               type='submit'
-                              style={{ width: "15rem" }}
+                              style={{ width: "20rem", marginTop: "1rem" }}
                             >
                               Save
                             </MDBBtn>
@@ -228,9 +264,10 @@ class CreateAccountForm extends Component {
 const mapStateToProps = (state) => {
   console.log("MStp in create guide form", state);
   return {
-    guide: state.userReducer.guide,
-    tourist: state.userReducer.tourist,
+    user: state.userReducer.currentUser,
   };
 };
 
-export default connect(mapStateToProps, {})(CreateAccountForm);
+export default connect(mapStateToProps, { getSingleUserById, updateUserById })(
+  CreateAccountForm
+);

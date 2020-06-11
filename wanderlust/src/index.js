@@ -8,6 +8,8 @@ import logger from "redux-logger";
 import { BrowserRouter as Router } from "react-router-dom";
 import firebase from "./firebase";
 import { getFirebase, ReactReduxFirebaseProvider } from "react-redux-firebase";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
 import "./index.css";
 import App from "./App";
 
