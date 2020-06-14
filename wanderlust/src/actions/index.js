@@ -316,10 +316,13 @@ export const FETCHING_TOURS_FAILURE = "FETCHING_TOURS_FAILURE";
 export const getAllTours = () => (dispatch) => {
   dispatch({ type: FETCHING_TOURS_START });
   loadProgressBar();
+
+  const idToken = localStorage.getItem("firebase_jwt");
+
   axios
-    .get("https://roger-wanderlust.herokuapp.com/tours/tours", {
+    .get("http://localhost:4000/api/tours", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+        Authorization: idToken,
       },
     })
     .then((res) => {

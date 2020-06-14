@@ -166,9 +166,9 @@ class ExploreTours extends Component {
                   <MDBNavItem style={{ display: "hide" }}>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
-                        <span style={{ fontSize: "1.3rem" }}>
+                        {/* <span style={{ fontSize: "1.3rem" }}>
                           {firebase.auth().currentUser.displayName}
-                        </span>
+                        </span> */}
                       </MDBDropdownToggle>
                       {/* {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
                         <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>

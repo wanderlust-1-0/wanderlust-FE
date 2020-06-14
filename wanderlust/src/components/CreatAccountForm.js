@@ -33,15 +33,6 @@ class CreateAccountForm extends Component {
 
   componentDidMount() {
     this.props.getSingleUserById();
-    //   const firebaseUser = firebase.auth().currentUser;
-
-    //   this.setState((state) => {
-    //     return {
-    //       ...state,
-    //       displayName: firebaseUser.displayName,
-    //       profilePhoto: firebaseUser.photoURL,
-    //     };
-    //   });
   }
 
   componentWillReceiveProps() {
@@ -89,7 +80,11 @@ class CreateAccountForm extends Component {
           phone_number: "",
         };
       });
-      this.props.history.push("/explore-tours");
+      if (this.props.currentUser.isTourGuide) {
+        this.props.history.push("/dashboard");
+      } else {
+        this.props.history.push("/explore-tours");
+      }
     });
   };
 
@@ -264,7 +259,7 @@ class CreateAccountForm extends Component {
 const mapStateToProps = (state) => {
   console.log("MStp in create guide form", state);
   return {
-    user: state.userReducer.currentUser,
+    currentUser: state.userReducer.currentUser,
   };
 };
 
