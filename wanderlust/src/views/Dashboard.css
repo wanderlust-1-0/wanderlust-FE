@@ -1,0 +1,11 @@
+.dashboardHeader {
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+  background-color: white;
+  color: red;
+}
+
+.background {
+  background-position: top !important;
+}

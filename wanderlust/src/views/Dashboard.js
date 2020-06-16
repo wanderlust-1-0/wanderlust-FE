@@ -18,6 +18,7 @@ import {
   MDBDropdownMenu,
   MDBDropdownItem,
 } from "mdbreact";
+import "./Dashboard.css";
 
 import OfferedToursList from "../components/OfferedToursList";
 import { getAllTours } from "../actions";
@@ -47,16 +48,9 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { isTourGuide } = this.props.currentUser;
-    if (!localStorage.getItem("firebase_jwt")) {
-      return <Redirect to={"/signin"} />;
-    } else if (!isTourGuide) {
-      return <Redirect to={"/explore-tours"} />;
-    }
-
     return (
       <div>
-        <header>
+        <header className='dashboardHeader'>
           <MDBNavbar
             color='unique-color'
             fixed='top'
@@ -81,26 +75,24 @@ class Dashboard extends React.Component {
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
                         <span style={{ fontSize: "1.3rem" }}>
-                          {JSON.parse(localStorage.getItem("user")).firstname}
+                          {this.props.currentUser.first_name}
                         </span>
                       </MDBDropdownToggle>
-                      {JSON.parse(localStorage.getItem("user")).istourguide ? (
-                        <MDBDropdownMenu color='unique-color'>
-                          <MDBDropdownItem href='/dashboard'>
-                            My offered Tours
-                          </MDBDropdownItem>
-                          <MDBDropdownItem href='/add-tour'>
-                            Add a Tour
-                          </MDBDropdownItem>
-                          <MDBDropdownItem href='/settings'>
-                            Settings
-                          </MDBDropdownItem>
-                          <MDBDropdownItem href='/logout'>
-                            Logout
-                          </MDBDropdownItem>
-                        </MDBDropdownMenu>
-                      ) : (
-                        <MDBDropdownMenu color='unique-color'>
+                      {/* {JSON.parse(localStorage.getItem("user")).istourguide ? ( */}
+                      <MDBDropdownMenu color='unique-color'>
+                        <MDBDropdownItem href='/dashboard'>
+                          My offered Tours
+                        </MDBDropdownItem>
+                        <MDBDropdownItem href='/add-tour'>
+                          Add a Tour
+                        </MDBDropdownItem>
+                        <MDBDropdownItem href='/settings'>
+                          Settings
+                        </MDBDropdownItem>
+                        <MDBDropdownItem href='/logout'>Logout</MDBDropdownItem>
+                      </MDBDropdownMenu>
+                      {/* ) : ( */}
+                      {/* <MDBDropdownMenu color='unique-color'>
                           <MDBDropdownItem href='/explore-tours'>
                             Explore Tours
                           </MDBDropdownItem>
@@ -111,8 +103,8 @@ class Dashboard extends React.Component {
                           <MDBDropdownItem href='/logout'>
                             Logout
                           </MDBDropdownItem>
-                        </MDBDropdownMenu>
-                      )}
+                        </MDBDropdownMenu> */}
+                      )
                     </MDBDropdown>
                   </MDBNavItem>
                 ) : (
@@ -124,31 +116,29 @@ class Dashboard extends React.Component {
                       fontWeight: "400",
                     }}
                   >
-                    {JSON.parse(localStorage.getItem("user")).istourguide ? (
-                      <>
-                        <MDBNavLink to='/dashboard'>
-                          My offered Tours
-                        </MDBNavLink>
-                        <MDBNavLink to='/add-tour'>Add a Tour</MDBNavLink>
-                        <MDBNavLink to='/settings'>Settings</MDBNavLink>
-                        <MDBNavLink to='/logout'>Logout</MDBNavLink>
-                      </>
-                    ) : (
+                    {/* {JSON.parse(localStorage.getItem("user")).istourguide ? ( */}
+                    <>
+                      <MDBNavLink to='/dashboard'>My offered Tours</MDBNavLink>
+                      <MDBNavLink to='/add-tour'>Add a Tour</MDBNavLink>
+                      <MDBNavLink to='/settings'>Settings</MDBNavLink>
+                      <MDBNavLink to='/logout'>Logout</MDBNavLink>
+                    </>
+                    {/* ) : (
                       <>
                         <MDBNavLink to='/explore-tours'>
                           Explore Tours
                         </MDBNavLink>
                         <MDBNavLink to='/settings'>Settings</MDBNavLink>
                         <MDBNavLink to='logout'>Logout</MDBNavLink>
-                      </>
-                    )}
+                      </> */}
+                    )
                   </MDBNavItem>
                 )}
               </MDBNavbarNav>
             </MDBCollapse>
           </MDBNavbar>
 
-          <MDBView src='https://i.imgur.com/eAs1xr6.png'>
+          <MDBView src='/assets/yosemite.PNG' className='background'>
             <MDBMask
               overlay='black-light'
               className='flex-center flex-column text-white text-center'
@@ -160,7 +150,7 @@ class Dashboard extends React.Component {
                 MAKE THE LEAP
               </h2>
               <h5>
-                Beeing a tour guide can make the day of thousands of people
+                Being a tour guide can make the day of thousands of people
                 better.
               </h5>
             </MDBMask>
@@ -199,7 +189,7 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = (state) => ({
   tourProps: state.tourReducer.tours,
-  guide: state.userReducer.currentUser,
+  currentUser: state.userReducer.currentUser,
 });
 
 export default connect(mapStateToProps, { getAllTours })(Dashboard);

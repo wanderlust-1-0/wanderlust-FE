@@ -30,9 +30,11 @@ class SignUp extends Component {
     event.preventDefault();
     const { email, password } = this.state;
     this.props.signUp(method, { email, password }).then(() => {
-      const { isRegistered } = this.props.currentUser;
+      const { isRegistered, isTourGuide } = this.props.currentUser.newUser;
+      console.log("isRegistered: ", isRegistered);
       if (isRegistered) {
-        this.props.history.push("/explore-tours");
+        if (isTourGuide) this.props.history.push("/dashboard");
+        else this.props.history.push("/explore-tours");
       } else {
         this.props.history.push("/create-account");
       }
