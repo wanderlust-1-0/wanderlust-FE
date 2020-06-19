@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { updateUserById, updateTouristById } from "../actions";
+import { updateUserById } from "../actions";
 import { connect } from "react-redux";
 
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from "mdbreact";
@@ -250,6 +250,4 @@ const mapStateToProps = () => {
   return {};
 };
 
-export default connect(mapStateToProps, { updateUserById, updateTouristById })(
-  EditInfoForm
-);
+export default connect(mapStateToProps, { updateUserById })(EditInfoForm);

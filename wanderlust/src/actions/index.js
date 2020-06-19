@@ -46,7 +46,7 @@ export const signUp = (method, accountData) => {
         }
       );
 
-      dispatch({ type: SIGNUP_SUCCESS, payload: user.data });
+      dispatch({ type: SIGNUP_SUCCESS, payload: user.data.newUser });
     } catch (error) {
       dispatch({ type: SIGNUP_FAILURE, payload: error });
     }
@@ -137,9 +137,8 @@ export const getSingleUserById = () => {
   return async (dispatch, getState, { getFirebase }) => {
     loadProgressBar();
     dispatch({ type: GET_SINGLE_USER_FETCHING });
+    const idToken = localStorage.getItem("firebase_jwt");
     try {
-      const idToken = await localStorage.getItem("firebase_jwt");
-
       const user = await axios.get("http://localhost:4000/api/users/userId", {
         headers: {
           Authorization: idToken,
@@ -186,125 +185,125 @@ export const updateUserById = (userData) => {
   };
 };
 
-// Tourists
+// // Tourists
 
-// Get all Tourists
-export const FETCHING_TOURISTS_START = "FETCHING_TOURISTS_START";
-export const FETCHING_TOURISTS_SUCCESS = "FETCHING_TOURISTS_SUCCESS";
-export const FETCHING_TOURISTS_FAILURE = "FETCHING_TOURISTS_FAILURE";
+// // Get all Tourists
+// export const FETCHING_TOURISTS_START = "FETCHING_TOURISTS_START";
+// export const FETCHING_TOURISTS_SUCCESS = "FETCHING_TOURISTS_SUCCESS";
+// export const FETCHING_TOURISTS_FAILURE = "FETCHING_TOURISTS_FAILURE";
 
-export const getAllTourists = () => (dispatch) => {
-  dispatch({ type: FETCHING_TOURISTS_START });
-  loadProgressBar();
-  axios
-    .get("https://roger-wanderlust.herokuapp.com/tourists/tourists", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
-      },
-    })
-    .then((res) => {
-      console.log("Get all TOURISTS: ", res.data);
-      dispatch({ type: FETCHING_TOURISTS_SUCCESS, payload: res.data });
-    })
-    .catch((err) => {
-      console.log("Get all TOURISTS err: ", err);
-      dispatch({ type: FETCHING_TOURISTS_FAILURE, payload: err });
-    });
-};
+// export const getAllTourists = () => (dispatch) => {
+//   dispatch({ type: FETCHING_TOURISTS_START });
+//   loadProgressBar();
+//   axios
+//     .get("https://roger-wanderlust.herokuapp.com/tourists/tourists", {
+//       headers: {
+//         Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+//       },
+//     })
+//     .then((res) => {
+//       console.log("Get all TOURISTS: ", res.data);
+//       dispatch({ type: FETCHING_TOURISTS_SUCCESS, payload: res.data });
+//     })
+//     .catch((err) => {
+//       console.log("Get all TOURISTS err: ", err);
+//       dispatch({ type: FETCHING_TOURISTS_FAILURE, payload: err });
+//     });
+// };
 
-// Add a new tourist to redux store
-export const ADD_NEW_TOURIST_STORE_SUCCESS = "ADD_NEW_TOURIST_STORE_SUCCESS";
+// // Add a new tourist to redux store
+// export const ADD_NEW_TOURIST_STORE_SUCCESS = "ADD_NEW_TOURIST_STORE_SUCCESS";
 
-export const addNewTouristToStore = (tourist) => {
-  return {
-    type: ADD_NEW_TOURIST_STORE_SUCCESS,
-    payload: tourist,
-  };
-};
+// export const addNewTouristToStore = (tourist) => {
+//   return {
+//     type: ADD_NEW_TOURIST_STORE_SUCCESS,
+//     payload: tourist,
+//   };
+// };
 
-// Add a new tourist
-export const ADD_NEW_TOURIST_FETCHING = "ADD_NEW_TOURIST_FETCHING";
-export const ADD_NEW_TOURIST_SUCCESS = "ADD_NEW_TOURIST_SUCCESS";
-export const ADD_NEW_TOURIST_FAILURE = "ADD_NEW_TOURIST_FAILURE";
+// // Add a new tourist
+// export const ADD_NEW_TOURIST_FETCHING = "ADD_NEW_TOURIST_FETCHING";
+// export const ADD_NEW_TOURIST_SUCCESS = "ADD_NEW_TOURIST_SUCCESS";
+// export const ADD_NEW_TOURIST_FAILURE = "ADD_NEW_TOURIST_FAILURE";
 
-export const addNewTourist = (tourist) => (dispatch) => {
-  dispatch({ type: ADD_NEW_TOURIST_FETCHING });
-  loadProgressBar();
-  axios
-    .post(
-      "https://roger-wanderlust.herokuapp.com/tourists/tourist/add",
-      tourist,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
-        },
-      }
-    )
-    .then((res) => {
-      console.log("add new tourist: ", res.data);
-      dispatch({ type: ADD_NEW_TOURIST_SUCCESS, payload: res.data });
-    })
-    .catch((err) => {
-      console.log("add new tourist err", err.response);
-      dispatch({ type: ADD_NEW_TOURIST_FAILURE, payload: err.response });
-    });
-};
+// export const addNewTourist = (tourist) => (dispatch) => {
+//   dispatch({ type: ADD_NEW_TOURIST_FETCHING });
+//   loadProgressBar();
+//   axios
+//     .post(
+//       "https://roger-wanderlust.herokuapp.com/tourists/tourist/add",
+//       tourist,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+//         },
+//       }
+//     )
+//     .then((res) => {
+//       console.log("add new tourist: ", res.data);
+//       dispatch({ type: ADD_NEW_TOURIST_SUCCESS, payload: res.data });
+//     })
+//     .catch((err) => {
+//       console.log("add new tourist err", err.response);
+//       dispatch({ type: ADD_NEW_TOURIST_FAILURE, payload: err.response });
+//     });
+// };
 
-// Get single tourist by id
-export const FETCHING_SINGLE_TOURIST_START = "FETCHING_SINGLE_TOURIST_START";
-export const FETCHING_SINGLE_TOURIST_SUCCESS =
-  "FETCHING_SINGLE_TOURIST_SUCCESS";
-export const FETCHING_SINGLE_TOURIST_FAILURE =
-  "FETCHING_SINGLE_TOURIST_FAILURE";
+// // Get single tourist by id
+// export const FETCHING_SINGLE_TOURIST_START = "FETCHING_SINGLE_TOURIST_START";
+// export const FETCHING_SINGLE_TOURIST_SUCCESS =
+//   "FETCHING_SINGLE_TOURIST_SUCCESS";
+// export const FETCHING_SINGLE_TOURIST_FAILURE =
+//   "FETCHING_SINGLE_TOURIST_FAILURE";
 
-export const getSingleTouristById = (id) => (dispatch) => {
-  dispatch({ type: FETCHING_SINGLE_TOURIST_START });
-  loadProgressBar();
-  axios
-    .get(`https://roger-wanderlust.herokuapp.com/tourists/${id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
-      },
-    })
-    .then((res) => {
-      console.log("get single tourist: ", res.data);
-      dispatch({ type: FETCHING_SINGLE_TOURIST_SUCCESS, payload: res.data });
-    })
-    .catch((err) => {
-      console.log("get single tourist err: ", err.response);
-      dispatch({ type: FETCHING_SINGLE_TOURIST_FAILURE });
-    });
-};
+// export const getSingleTouristById = (id) => (dispatch) => {
+//   dispatch({ type: FETCHING_SINGLE_TOURIST_START });
+//   loadProgressBar();
+//   axios
+//     .get(`https://roger-wanderlust.herokuapp.com/tourists/${id}`, {
+//       headers: {
+//         Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+//       },
+//     })
+//     .then((res) => {
+//       console.log("get single tourist: ", res.data);
+//       dispatch({ type: FETCHING_SINGLE_TOURIST_SUCCESS, payload: res.data });
+//     })
+//     .catch((err) => {
+//       console.log("get single tourist err: ", err.response);
+//       dispatch({ type: FETCHING_SINGLE_TOURIST_FAILURE });
+//     });
+// };
 
-// Update a tourist profile
-export const UPDATING_SINGLE_TOURIST_START = "UPDATING_SINGLE_TOURIST_START";
-export const UPDATING_SINGLE_TOURIST_SUCCESS =
-  "UPDATING_SINGLE_TOURIST_SUCCESS";
-export const UPDATING_SINGLE_TOURIST_FAILURE =
-  "UPDATING_SINGLE_TOURIST_FAILURE";
+// // Update a tourist profile
+// export const UPDATING_SINGLE_TOURIST_START = "UPDATING_SINGLE_TOURIST_START";
+// export const UPDATING_SINGLE_TOURIST_SUCCESS =
+//   "UPDATING_SINGLE_TOURIST_SUCCESS";
+// export const UPDATING_SINGLE_TOURIST_FAILURE =
+//   "UPDATING_SINGLE_TOURIST_FAILURE";
 
-export const updateTouristById = (tourist, id) => (dispatch) => {
-  dispatch({ type: UPDATING_SINGLE_TOURIST_START });
-  loadProgressBar();
-  axios
-    .put(
-      `https://roger-wanderlust.herokuapp.com/tourists/tourist/${id}`,
-      tourist,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
-        },
-      }
-    )
-    .then((res) => {
-      console.log("updated tourist: ", res.data);
-      dispatch({ type: UPDATING_SINGLE_TOURIST_SUCCESS, payload: res.data });
-    })
-    .catch((err) => {
-      console.log("updated tourist err: ", err.response);
-      dispatch({ type: UPDATING_SINGLE_TOURIST_FAILURE });
-    });
-};
+// export const updateTouristById = (tourist, id) => (dispatch) => {
+//   dispatch({ type: UPDATING_SINGLE_TOURIST_START });
+//   loadProgressBar();
+//   axios
+//     .put(
+//       `https://roger-wanderlust.herokuapp.com/tourists/tourist/${id}`,
+//       tourist,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+//         },
+//       }
+//     )
+//     .then((res) => {
+//       console.log("updated tourist: ", res.data);
+//       dispatch({ type: UPDATING_SINGLE_TOURIST_SUCCESS, payload: res.data });
+//     })
+//     .catch((err) => {
+//       console.log("updated tourist err: ", err.response);
+//       dispatch({ type: UPDATING_SINGLE_TOURIST_FAILURE });
+//     });
+// };
 
 // Tours
 
@@ -343,14 +342,18 @@ export const FETCHING_SINGLETOUR_FAILURE = "FETCHING_SINGLETOUR_FAILURE";
 export const getTourById = (id) => (dispatch) => {
   dispatch({ type: FETCHING_SINGLETOUR_START });
   loadProgressBar();
+
+  const idToken = localStorage.getItem("firebase_token");
+  console.log("id: >>>>>", id);
+
   axios
-    .get(`https://roger-wanderlust.herokuapp.com/tours/tour/${id}`, {
+    .get(`http://localhost:4000/api/tours/${id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+        Authorization: idToken,
       },
     })
     .then((res) => {
-      console.log("Get Single Tour: ", res.data);
+      console.log("Get Single Tour: ", res);
       dispatch({ type: FETCHING_SINGLETOUR_SUCCESS, payload: res.data });
     })
     .catch((err) => {
@@ -368,10 +371,13 @@ export const addTour = (tour) => (dispatch) => {
   console.log("THIS IS THE TOUR GETTING ADDED", tour);
   dispatch({ type: ADD_TOUR_START });
   loadProgressBar();
+
+  const idToken = localStorage.getItem("firebase_jwt");
+
   axios
-    .post("https://roger-wanderlust.herokuapp.com/tours/data/tours/add", tour, {
+    .post("http://localhost:4000/api/tours", tour, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+        Authorization: idToken,
       },
     })
     .then((res) => {

@@ -21,7 +21,7 @@ import {
 import "./Dashboard.css";
 
 import OfferedToursList from "../components/OfferedToursList";
-import { getAllTours } from "../actions";
+import { getAllTours, getSingleUserById } from "../actions";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Route } from "react-router-dom";
@@ -43,8 +43,8 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
+    this.props.getSingleUserById();
     this.props.getAllTours();
-    /* console.log('These are all the tours: ', tours); */
   }
 
   render() {
@@ -138,7 +138,10 @@ class Dashboard extends React.Component {
             </MDBCollapse>
           </MDBNavbar>
 
-          <MDBView src='/assets/yosemite.PNG' className='background'>
+          <MDBView
+            src='/assets/yosemite.PNG'
+            className='background jarallax-img'
+          >
             <MDBMask
               overlay='black-light'
               className='flex-center flex-column text-white text-center'
@@ -147,12 +150,9 @@ class Dashboard extends React.Component {
                 className='poppins-font'
                 style={{ fontSize: "6rem", fontWeight: "bold" }}
               >
-                MAKE THE LEAP
+                Hi {this.props.currentUser.first_name},
               </h2>
-              <h5>
-                Being a tour guide can make the day of thousands of people
-                better.
-              </h5>
+              <h3>here you can add, edit, and delete your tours!</h3>
             </MDBMask>
           </MDBView>
         </header>
@@ -192,4 +192,6 @@ const mapStateToProps = (state) => ({
   currentUser: state.userReducer.currentUser,
 });
 
-export default connect(mapStateToProps, { getAllTours })(Dashboard);
+export default connect(mapStateToProps, { getAllTours, getSingleUserById })(
+  Dashboard
+);

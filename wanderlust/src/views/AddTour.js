@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addTour } from "../actions";
+import { addTour, getSingleUserById } from "../actions";
 import "./AddTour.css";
 import { Redirect } from "react-router";
 
@@ -21,6 +21,7 @@ import {
   MDBDropdownToggle,
   MDBDropdownMenu,
   MDBDropdownItem,
+  MDBSelect,
 } from "mdbreact";
 
 import { MDBModal, MDBModalBody, MDBModalHeader, MDBBtn } from "mdbreact";
@@ -36,13 +37,31 @@ class AddTour extends Component {
       tourCategory: "",
       tourDescription: "",
       tourguidephonenumber: "",
-      tourLength: "",
+      tourLength: null,
       recommendedAge: "",
       whatTheyShouldBring: "",
       tourAddress: "",
-      tourPrice: "",
+      tourPrice: null,
+      options: [
+        {
+          text: "All Ages",
+          value: "allAges",
+        },
+        {
+          text: "13 Yrs +",
+          value: "13Yrs+",
+        },
+        {
+          text: "18 Yrs +",
+          value: "18Yrs+",
+        },
+      ],
     };
     this.onClick = this.onClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getSingleUserById();
   }
 
   onClick() {
@@ -67,8 +86,19 @@ class AddTour extends Component {
     });
   };
 
+  // Handle recommended age select
+  handleSelect = (value) => {
+    this.setState((state) => {
+      return {
+        ...state,
+        recommendedAge: value[0],
+      };
+    });
+  };
+
   addTour = (e) => {
     e.preventDefault();
+    // const { tourguidephonenumber } = this.props.
     this.props.addTour({
       tourname: this.state.tourTitle,
       category: this.state.tourCategory,
@@ -80,19 +110,11 @@ class AddTour extends Component {
       whattobring: this.state.whatTheyShouldBring,
       meetingaddress: this.state.tourAddress,
     });
+
+    this.redirectDashBoard();
   };
 
-  componentDidMount() {
-    /* this.props.getAllTours(); */
-    /* console.log('These are all the tours: ', tours); */
-  }
-
   render() {
-    // if (localStorage.getItem("auth-token") === null || localStorage.getItem("username") === null || localStorage.getItem("user") === null) {
-    //   return <Redirect to="/" />;
-    // } else if (!JSON.parse(localStorage.getItem("user")).istourguide) {
-    //   return <Redirect to="/explore-tours" />
-    // }
     return (
       <div>
         <header className='addTourHeader'>
@@ -120,7 +142,7 @@ class AddTour extends Component {
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
                         <span style={{ fontSize: "1.3rem" }}>
-                          {/* {JSON.parse(localStorage.getItem("user")).firstname} */}
+                          {this.props.currentUser.first_name}
                         </span>
                       </MDBDropdownToggle>
                       {/* {JSON.parse(localStorage.getItem("user")).istourguide ? ( */}
@@ -279,13 +301,18 @@ class AddTour extends Component {
                     </div>
                     <div className='people'>
                       <i className='peopleSymbol'></i>
-                      <input
-                        className='recommendedAge'
-                        type='number'
-                        placeholder='Recommended age'
-                        name='recommendedAge'
-                        value={this.state.recommendedAge}
-                        onChange={this.handleInputChanges}
+                      <MDBSelect
+                        required
+                        getValue={this.handleSelect}
+                        options={this.state.options}
+                        selected='Recommended Age'
+                        color='primary'
+                        className='form-control'
+                        style={{
+                          backgroundColor: "#F2F2F2",
+                          borderRadius: "5px",
+                          justifyContent: "center",
+                        }}
                       />
                     </div>
                     <div className='note'>
@@ -400,8 +427,10 @@ class AddTour extends Component {
 const mapStateToProps = (state) => {
   return {
     allTours: state.tourReducer.tours,
-    users: state.userReducer.user,
+    currentUser: state.userReducer.currentUser,
   };
 };
 
-export default connect(mapStateToProps, { addTour })(AddTour);
+export default connect(mapStateToProps, { addTour, getSingleUserById })(
+  AddTour
+);

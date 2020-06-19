@@ -25,7 +25,11 @@ class SignIn extends React.Component {
     event.preventDefault();
     const { email, password } = this.state;
     this.props.signIn(method, { email, password }).then(() => {
-      this.props.history.push("/explore-tours");
+      if (this.props.currentUser.isTourGuide) {
+        this.props.history.push("/dashboard");
+      } else {
+        this.props.history.push("/explore-tours");
+      }
     });
   };
 
@@ -146,7 +150,9 @@ class SignIn extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    currentUser: state.userReducer.currentUser,
+  };
 };
 
 export default connect(mapStateToProps, { signIn })(SignIn);

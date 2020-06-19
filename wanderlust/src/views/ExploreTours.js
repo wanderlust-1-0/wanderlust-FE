@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getAllTours, getAllTourists } from "../actions";
+import { getAllTours } from "../actions";
 import ShowTourList from "../components/ShowTourList";
 import { Redirect } from "react-router";
 import "./explore-tours.css";
@@ -73,6 +73,8 @@ class ExploreTours extends Component {
     if (!localStorage.getItem("firebase_jwt")) {
       return <Redirect to='/' />;
     }
+    let { displayName, first_name } = this.props.currentUser;
+    if (!displayName) displayName = first_name;
     return (
       <div>
         <header>
@@ -166,9 +168,9 @@ class ExploreTours extends Component {
                   <MDBNavItem style={{ display: "hide" }}>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
-                        {/* <span style={{ fontSize: "1.3rem" }}>
-                          {firebase.auth().currentUser.displayName}
-                        </span> */}
+                        <span style={{ fontSize: "1.3rem" }}>
+                          {displayName}
+                        </span>
                       </MDBDropdownToggle>
                       {/* {JSON.parse(localStorage.getItem("user")).istourguide ? <MDBDropdownMenu color='unique-color'>
                         <MDBDropdownItem href="/dashboard">My offered Tours</MDBDropdownItem>
@@ -188,7 +190,6 @@ class ExploreTours extends Component {
                           Logout
                         </MDBDropdownItem>
                       </MDBDropdownMenu>
-                      }
                     </MDBDropdown>
                   </MDBNavItem>
                 ) : (
@@ -215,7 +216,7 @@ class ExploreTours extends Component {
                       <MDBNavLink to='/settings'>Settings</MDBNavLink>
                       <MDBNavLink to='logout'>Logout</MDBNavLink>
                     </>
-                    )}
+                    )
                   </MDBNavItem>
                 )}
               </MDBNavbarNav>
@@ -312,6 +313,4 @@ const mapStateToProps = (state) => ({
   tourProps: state.tourReducer.tours,
 });
 
-export default connect(mapStateToProps, { getAllTours, getAllTourists })(
-  ExploreTours
-);
+export default connect(mapStateToProps, { getAllTours })(ExploreTours);

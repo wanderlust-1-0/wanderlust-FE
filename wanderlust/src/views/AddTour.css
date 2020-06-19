@@ -103,7 +103,7 @@
 .tourLength {
   margin-bottom: 1rem;
   width: 21.5rem;
-  padding-left: 10px;
+  padding: 10px;
   background: #f2f2f2;
   border: none;
   border-radius: 5px;
@@ -126,7 +126,7 @@
 .recommendedAge {
   margin-bottom: 1rem;
   width: 21.5rem;
-  padding-left: 10px;
+  padding: 10px;
   background: #f2f2f2;
   border: none;
   border-radius: 5px;
@@ -179,7 +179,7 @@
   background: #f2f2f2;
   border: none;
   border-radius: 5px;
-  padding-left: 10px;
+  padding: 10px;
   outline: none;
 }
 
@@ -230,7 +230,7 @@
 }
 
 .guideImage {
-  background-image: url(/assets/avatar_dracarys.png);
+  background-image: url(/assets/avatar_reeves.png);
   background-repeat: no-repeat;
   width: 15rem;
   height: 15rem;
