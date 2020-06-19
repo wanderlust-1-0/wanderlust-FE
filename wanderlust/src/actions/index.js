@@ -334,6 +334,35 @@ export const getAllTours = () => (dispatch) => {
     });
 };
 
+// Get all of a single guides offered tours
+// Get all tours
+export const FETCHING_OFFERED_TOURS_START = "FETCH_OFFERED_TOURS_START";
+export const FETCHING_OFFERED_TOURS_SUCCESS = "FETCHING_OFFERED_TOURS_SUCCESS";
+export const FETCHING_OFFERED_TOURS_FAILURE = "FETCHING_OFFERED_TOURS_FAILURE";
+
+export const getSingleGuidesTours = () => {
+  return async (dispatch) => {
+    dispatch({ type: FETCHING_OFFERED_TOURS_START });
+    loadProgressBar();
+
+    const idToken = localStorage.getItem("firebase_jwt");
+    try {
+      const tours = await axios.get(
+        "http://localhost:4000/api/users/offered-tours",
+        {
+          headers: {
+            Authorization: idToken,
+          },
+        }
+      );
+
+      dispatch({ type: FETCHING_OFFERED_TOURS_SUCCESS, payload: tours.data });
+    } catch (error) {
+      dispatch({ type: FETCHING_OFFERED_TOURS_FAILURE, payload: error });
+    }
+  };
+};
+
 // Get single tours by id
 export const FETCHING_SINGLETOUR_START = "FETCH_SINGLETOUR_START";
 export const FETCHING_SINGLETOUR_SUCCESS = "FETCHING_SINGLETOUR_SUCCESS";

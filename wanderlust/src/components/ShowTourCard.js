@@ -16,11 +16,11 @@ class ShowTourCard extends React.Component {
 
   render() {
     return (
-      <div className='card-background-forrest'>
-        <Link
-          to={"/tours/" + this.props.showTour.id}
-          style={{ color: "white", textDecoration: "none" }}
-        >
+      <Link
+        to={"/tours/" + this.props.showTour.id}
+        style={{ color: "white", textDecoration: "none" }}
+      >
+        <div className='card-background-forrest'>
           <div className='heart-icon' />
 
           <h3
@@ -35,8 +35,8 @@ class ShowTourCard extends React.Component {
           <span className='background'>
             ${this.props.showTour.price} per person
           </span>
-        </Link>
-      </div>
+        </div>
+      </Link>
     );
   }
 }

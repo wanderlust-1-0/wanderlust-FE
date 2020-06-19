@@ -13,6 +13,12 @@ import {
   UPDATE_USER_INFO_FAILURE,
 } from "../actions";
 
+import {
+  FETCHING_OFFERED_TOURS_START,
+  FETCHING_OFFERED_TOURS_SUCCESS,
+  FETCHING_OFFERED_TOURS_FAILURE,
+} from "../actions";
+
 const initialState = {
   currentUser: {},
   // users: [],
@@ -22,6 +28,8 @@ const initialState = {
   signInErr: "",
   fetchingUser: false,
   fetchingUserError: "",
+  fetchingOfferedTours: false,
+  fetchingOfferedToursError: "",
   updatingUser: false,
   updatingUserErr: "",
 };
@@ -85,7 +93,27 @@ const userReducer = (state = initialState, action) => {
         fetchingUser: false,
         fetchingUserError: action.payload,
       };
-
+    // Fetching a single guides tours
+    case FETCHING_OFFERED_TOURS_START:
+      return {
+        ...state,
+        fetchingOfferedTours: true,
+      };
+    case FETCHING_OFFERED_TOURS_SUCCESS:
+      return {
+        ...state,
+        fetchingOfferedTours: false,
+        currentUser: {
+          ...state.currentUser,
+          offeredTours: action.payload,
+        },
+        fetchingOfferedToursError: "",
+      };
+    case FETCHING_OFFERED_TOURS_FAILURE:
+      return {
+        ...state,
+        fetchingOfferedToursError: action.payload,
+      };
     // Updating User Info
     case UPDATE_USER_INFO_FETCHING:
       return {

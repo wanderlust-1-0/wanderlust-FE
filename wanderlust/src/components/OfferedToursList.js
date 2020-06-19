@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getAllTours } from "../actions";
+// import {  } from "../actions";
 import EditDeleteTourCard from "./EditDeleteTourCard";
 import { Route } from "react-router-dom";
 
 import "./componentStyles/showTour.css";
 
 class OfferedToursList extends Component {
-  componentDidMount() {
-    this.props.getAllTours();
-  }
+  // componentDidMount() {
+  //   this.props.getSingleGuidesTours();
+  // }
 
   // guidesOfferedTours = (id) => {
   //   const offeredTours = this.props.allTours.filter(tour => {
@@ -21,10 +21,9 @@ class OfferedToursList extends Component {
   // }
 
   render() {
-    // const singleGuideTours = this.guidesOfferedTours();
     return (
       <div className='showTourList'>
-        {this.props.allTours.map((tour) => {
+        {this.props.offeredTours.map((tour) => {
           return (
             <Route
               path='/dashboard'
@@ -47,4 +46,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getAllTours })(OfferedToursList);
+export default connect(mapStateToProps, {})(OfferedToursList);

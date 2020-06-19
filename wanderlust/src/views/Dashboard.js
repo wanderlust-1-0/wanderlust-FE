@@ -21,7 +21,11 @@ import {
 import "./Dashboard.css";
 
 import OfferedToursList from "../components/OfferedToursList";
-import { getAllTours, getSingleUserById } from "../actions";
+import {
+  getAllTours,
+  getSingleUserById,
+  getSingleGuidesTours,
+} from "../actions";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Route } from "react-router-dom";
@@ -44,7 +48,7 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     this.props.getSingleUserById();
-    this.props.getAllTours();
+    this.props.getSingleGuidesTours();
   }
 
   render() {
@@ -167,15 +171,17 @@ class Dashboard extends React.Component {
           </h2>
           <MDBContainer className='text-center my-5'>
             <div className='allToursWrapper'>
-              <Route
-                path='/dashboard'
-                render={(props) => (
-                  <OfferedToursList
-                    {...props}
-                    allTours={this.props.tourProps}
-                  />
-                )}
-              />
+              {this.props.currentUser.offeredTours && (
+                <Route
+                  path='/dashboard'
+                  render={(props) => (
+                    <OfferedToursList
+                      {...props}
+                      offeredTours={this.props.currentUser.offeredTours}
+                    />
+                  )}
+                />
+              )}
             </div>
           </MDBContainer>
         </main>
@@ -189,6 +195,8 @@ const mapStateToProps = (state) => ({
   currentUser: state.userReducer.currentUser,
 });
 
-export default connect(mapStateToProps, { getAllTours, getSingleUserById })(
-  Dashboard
-);
+export default connect(mapStateToProps, {
+  getAllTours,
+  getSingleUserById,
+  getSingleGuidesTours,
+})(Dashboard);

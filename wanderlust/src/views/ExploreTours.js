@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getAllTours } from "../actions";
+import { getAllTours, getSingleUserById } from "../actions";
 import ShowTourList from "../components/ShowTourList";
 import { Redirect } from "react-router";
 import "./explore-tours.css";
@@ -43,6 +43,7 @@ class ExploreTours extends Component {
   }
 
   componentDidMount() {
+    this.props.getSingleUserById();
     this.props.getAllTours();
     /* console.log('These are all the tours: ', tours); */
   }
@@ -309,4 +310,6 @@ const mapStateToProps = (state) => ({
   tourProps: state.tourReducer.tours,
 });
 
-export default connect(mapStateToProps, { getAllTours })(ExploreTours);
+export default connect(mapStateToProps, { getAllTours, getSingleUserById })(
+  ExploreTours
+);
