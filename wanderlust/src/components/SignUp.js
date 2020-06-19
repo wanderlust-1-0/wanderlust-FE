@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { signUp } from "../actions";
+import { signUp, getSingleUserById } from "../actions";
 import {
   MDBContainer,
   MDBRow,
@@ -30,14 +30,15 @@ class SignUp extends Component {
     event.preventDefault();
     const { email, password } = this.state;
     this.props.signUp(method, { email, password }).then(() => {
-      const { isRegistered, isTourGuide } = this.props.currentUser;
-      console.log("isRegistered: ", isRegistered);
-      if (isRegistered) {
-        if (isTourGuide) this.props.history.push("/dashboard");
-        else this.props.history.push("/explore-tours");
-      } else {
-        this.props.history.push("/create-account");
+      if (method === "google" || method === "facebook") {
+        if (this.props.currentUser) {
+          const { isRegistered, isTourGuide } = this.props.currentUser;
+          console.log("isRegistered: ", isRegistered);
+          if (isTourGuide) this.props.history.push("/dashboard");
+          else this.props.history.push("/explore-tours");
+        }
       }
+      this.props.history.push("/create-account");
     });
   };
 
@@ -160,4 +161,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   signUp,
+  getSingleUserById,
 })(SignUp);

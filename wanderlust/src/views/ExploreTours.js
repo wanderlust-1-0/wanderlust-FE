@@ -285,18 +285,14 @@ class ExploreTours extends Component {
                 allTours={
                   this.state.selected.length === 0
                     ? this.props.tourProps
-                    : this.props.tourProps.filter((tour) =>
-                        typeof this.state.selected == "number"
-                          ? this.state.selected >= tour.price
-                          : tour.tourname
-                              .toLowerCase()
-                              .includes(this.state.selected.toLowerCase()) ||
-                            tour.tourdescription
-                              .toLowerCase()
-                              .includes(this.state.selected.toLowerCase()) ||
-                            tour.category
-                              .toLowerCase()
-                              .includes(this.state.selected.toLowerCase())
+                    : this.props.tourProps.filter(
+                        (tour) =>
+                          tour.tourname
+                            .toLowerCase()
+                            .includes(this.state.selected.toLowerCase()) ||
+                          tour.tourdescription
+                            .toLowerCase()
+                            .includes(this.state.selected.toLowerCase())
                       )
                 }
               />

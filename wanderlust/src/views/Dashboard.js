@@ -138,10 +138,7 @@ class Dashboard extends React.Component {
             </MDBCollapse>
           </MDBNavbar>
 
-          <MDBView
-            src='/assets/yosemite.PNG'
-            className='background jarallax-img'
-          >
+          <MDBView src='/assets/yosemite.PNG' className='background'>
             <MDBMask
               overlay='black-light'
               className='flex-center flex-column text-white text-center'

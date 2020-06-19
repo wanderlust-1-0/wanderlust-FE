@@ -83,8 +83,8 @@ class Tour extends React.Component {
       displayName = first_name;
     }
     return (
-      <div className='tour-wrapper'>
-        <header>
+      <div>
+        <header className='tour-wrapper'>
           <MDBNavbar
             color='unique-color'
             fixed='top'
@@ -109,7 +109,7 @@ class Tour extends React.Component {
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret color='unique-color'>
                         <span style={{ fontSize: "1.3rem" }}>
-                          {this.props.currentUser.displayName}
+                          {this.props.currentUser.first_name}
                         </span>
                       </MDBDropdownToggle>
                       {isTourGuide ? (
@@ -175,11 +175,8 @@ class Tour extends React.Component {
               </MDBNavbarNav>
             </MDBCollapse>
           </MDBNavbar>
-          <MDBView src='https://i.imgur.com/kWPwuAz.jpg'>
-            <MDBMask
-              overlay='black-light'
-              className='flex-center flex-column text-white text-center'
-            >
+          <MDBView src='/assets/newyorkcityskyline.jpg'>
+            <MDBMask className='flex-center flex-column text-white text-center rgba-black-strong'>
               <div className='header-wrapper'>
                 <div>
                   <div className='header-text-wrapper'>
@@ -200,52 +197,35 @@ class Tour extends React.Component {
             </MDBMask>
           </MDBView>
         </header>
-        <div
-          className='tour-information-wrapper'
-          style={{ paddingRight: "10rem", width: "100%" }}
-        >
+        <div className='tour-information-wrapper'>
           <div className='tour-information-left'>
             <div className='info-wrapper'>
               <div className='info-symbol' />
               <div className='description-wrapper'>
-                <div
-                  className='description-header'
-                  style={{ paddingBottom: "0.3rem" }}
-                >
-                  About this tour
-                </div>
-                <span
-                  className='decent-text'
-                  style={{ textAlign: "left", marginLeft: "1.2rem" }}
-                >
+                <div className='description-header'>About this tour</div>
+                <span className='decent-text'>
                   {this.props.tourProps.tour.tourdescription}
                 </span>
               </div>
             </div>
             <div className='clock-wrapper'>
               <div className='clock-symbol' />
-              <div className='description-wrapper'>
-                {/* <span className='decent-text'>{props.tour.duration}</span> */}
-                <span className='clock-text'>
-                  Duration {this.props.tourProps.tour.durationhrs} hours
-                </span>
-              </div>
+
+              <span className='clock-text'>
+                Duration {this.props.tourProps.tour.durationhrs} hours
+              </span>
             </div>
             <div className='people-wrapper'>
               <div className='people-symbol' />
-              <div className='description-wrapper'>
-                {/* <span className='clock-text'>Redommended Age ({props.tour.recommendedAge})</span> */}
-                <span className='people-text'>
-                  Recommended Age ({this.props.tourProps.tour.recommendedage}+)
-                </span>
-              </div>
+              <span className='people-text'>
+                Recommended Age ({this.props.tourProps.tour.recommendedage}+)
+              </span>
             </div>
             <div className='note-wrapper'>
               <div className='note-symbol' />
               <div>
                 <span className='decent-text'>What to bring:</span>
                 <ul className='decent-text'>
-                  {/* { props.tour.whattobring } */}
                   <li>{this.props.tourProps.tour.whattobring}</li>
                   <li>Bottles Water</li>
                   <li>Sunscreen</li>
@@ -256,7 +236,6 @@ class Tour extends React.Component {
               <div className='target-symbol' />
               <div>
                 <div className='decent-text'>
-                  {/*   { props.tour.meetingaddress}*/}
                   Address
                   <br />
                   {this.props.tourProps.tour.meetingaddress}
@@ -267,7 +246,6 @@ class Tour extends React.Component {
           <div className='tour-information-right'>
             <div className='call-to-action'>
               <div className='price'>
-                {/* US$ {props.tour.price} */}
                 US$ {this.props.tourProps.tour.price} <br />
                 <span className='price-tiny'>per person</span>
               </div>
