@@ -56,15 +56,16 @@
   cursor: pointer;
 }
 
-.paperbin-icon {
-  background-image: url("/assets/paperbin-white.png");
+.edit-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-image: url("/assets/edit-white.png");
   background-repeat: no-repeat;
   background-size: 2.4rem 2.4rem;
   width: 2.5rem;
   height: 2.4rem;
   background-position: 95% 5%;
-  margin-left: 12rem;
-  margin-bottom: 8.3rem;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;

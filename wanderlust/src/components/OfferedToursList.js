@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import {  } from "../actions";
 import EditDeleteTourCard from "./EditDeleteTourCard";
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 import "./componentStyles/showTour.css";
 

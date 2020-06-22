@@ -26,7 +26,7 @@ import {
 
 import { MDBModal, MDBModalBody, MDBModalHeader, MDBBtn } from "mdbreact";
 
-class AddTour extends Component {
+class UpdateTour extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,6 +61,29 @@ class AddTour extends Component {
   }
 
   componentDidMount() {
+    console.log("update-tour state", this.props);
+    const {
+      tourname,
+      tourdescription,
+      durationhrs,
+      whattobring,
+      recommendedage,
+      meetingaddress,
+      price,
+    } = this.props.location.state;
+
+    this.setState((state) => {
+      return {
+        ...state,
+        tourTitle: tourname,
+        tourDescription: tourdescription,
+        recommendedAge: recommendedage,
+        whatTheyShouldBring: whattobring,
+        tourLength: durationhrs,
+        tourAddress: meetingaddress,
+        tourPrice: price,
+      };
+    });
     this.props.getSingleUserById();
   }
 
@@ -225,11 +248,10 @@ class AddTour extends Component {
                   marginTop: "5rem",
                 }}
               >
-                ADD A TOUR
+                Update / Delete A TOUR
               </h2>
-              <h5 style={{ paddingBottom: "1rem" }}>
-                Fill out the form to create a new tour thus enriching the life
-                of hundreds of people!
+              <h5 style={{ paddingBottom: "1rem", marginBottom: "5rem" }}>
+                Here you can update information or delete a tour.
               </h5>
               <div className='addTourWrapper'>
                 <div className='tourTitleWrapper'>
@@ -310,7 +332,7 @@ class AddTour extends Component {
                         required
                         getValue={this.handleSelect}
                         options={this.state.options}
-                        selected='Recommended Age'
+                        selected={this.state.recommendedAge}
                         color='primary'
                         className='form-control'
                         style={{
@@ -437,5 +459,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { addTour, getSingleUserById })(
-  AddTour
+  UpdateTour
 );

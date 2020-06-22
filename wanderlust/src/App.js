@@ -6,6 +6,7 @@ import Dashboard from "./views/Dashboard";
 import ExploreTours from "./views/ExploreTours";
 import Tour from "./views/Tour";
 import AddTour from "./views/AddTour";
+import UpdateTour from "./views/UpdateTour";
 import CreatAccount from "./views/CreateAccount";
 import Settings from "./views/Settings";
 import Logout from "./views/Logout";
@@ -31,7 +32,11 @@ function App() {
         path='/add-tour'
         render={(props) => <AddTour {...props} />}
       />
-
+      <Route
+        exact
+        path='/update-tour'
+        render={(props) => <UpdateTour {...props} />}
+      />
       <Route
         exact
         path='/create-account'
