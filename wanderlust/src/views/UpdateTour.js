@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addTour, getSingleUserById } from "../actions";
+import { addTour, getSingleUserById, updateTour } from "../actions";
 import "./AddTour.css";
 import { Redirect } from "react-router";
 
@@ -33,6 +33,7 @@ class UpdateTour extends Component {
       collapse: false,
       isWideEnough: false,
       modal: false,
+      id: null,
       tourTitle: "",
       tourCategory: "",
       tourDescription: "",
@@ -63,6 +64,7 @@ class UpdateTour extends Component {
   componentDidMount() {
     console.log("update-tour state", this.props);
     const {
+      id,
       tourname,
       tourdescription,
       durationhrs,
@@ -75,6 +77,7 @@ class UpdateTour extends Component {
     this.setState((state) => {
       return {
         ...state,
+        id,
         tourTitle: tourname,
         tourDescription: tourdescription,
         recommendedAge: recommendedage,
@@ -119,10 +122,10 @@ class UpdateTour extends Component {
     });
   };
 
-  addTour = (e) => {
+  handleUpdate = (e) => {
     e.preventDefault();
-    // const { tourguidephonenumber } = this.props.
-    this.props.addTour({
+    console.log("Update Start");
+    this.props.updateTour(this.state.id, {
       tourname: this.state.tourTitle,
       category: this.state.tourCategory,
       tourdescription: this.state.tourDescription,
@@ -232,14 +235,8 @@ class UpdateTour extends Component {
             </MDBCollapse>
           </MDBNavbar>
 
-          <MDBView
-            src='https://i.imgur.com/eAs1xr6.png'
-            className='d-flex h-100'
-          >
-            <MDBMask
-              overlay='black-light'
-              className='flex-center flex-column text-white text-center'
-            >
+          <MDBView src='/assets/mapwithcamera.jpg' className='d-flex h-100'>
+            <MDBMask className='flex-center flex-column text-white text-center rgba-black-strong'>
               <h2
                 className='poppins-font'
                 style={{
@@ -248,7 +245,7 @@ class UpdateTour extends Component {
                   marginTop: "5rem",
                 }}
               >
-                Update / Delete A TOUR
+                TOUR INFO
               </h2>
               <h5 style={{ paddingBottom: "1rem", marginBottom: "5rem" }}>
                 Here you can update information or delete a tour.
@@ -298,7 +295,7 @@ class UpdateTour extends Component {
               >
                 About this tour
               </h2>
-              <form onSubmit={this.addTour} className='d-flex flex-column'>
+              <form onSubmit={this.handleUpdate} className='d-flex flex-column'>
                 <div className='d-flex'>
                   <div className='d-flex flex-column'>
                     <div className='info'>
@@ -408,7 +405,7 @@ class UpdateTour extends Component {
                     className='btnAddTour'
                     gradient='blue'
                     type='submit'
-                    onClick={this.toggle}
+                    // onClick={this.toggle}
                     // style={{ width: "10rem", height: "3rem" }}
                   >
                     Save
@@ -458,6 +455,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addTour, getSingleUserById })(
-  UpdateTour
-);
+export default connect(mapStateToProps, {
+  addTour,
+  getSingleUserById,
+  updateTour,
+})(UpdateTour);

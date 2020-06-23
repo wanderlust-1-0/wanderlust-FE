@@ -31,7 +31,7 @@ class EditDeleteTourCard extends Component {
     return (
       <Link
         to={{
-          pathname: "/update-tour",
+          pathname: `/update-tour`,
           state: {
             ...this.props.offeredTours,
           },

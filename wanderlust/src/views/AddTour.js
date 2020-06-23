@@ -209,14 +209,8 @@ class AddTour extends Component {
             </MDBCollapse>
           </MDBNavbar>
 
-          <MDBView
-            src='https://i.imgur.com/eAs1xr6.png'
-            className='d-flex h-100'
-          >
-            <MDBMask
-              overlay='black-light'
-              className='flex-center flex-column text-white text-center'
-            >
+          <MDBView src='/assets/mapwithcamera.jpg' className='d-flex h-100'>
+            <MDBMask className='flex-center flex-column text-white text-center rgba-black-strong'>
               <h2
                 className='poppins-font'
                 style={{

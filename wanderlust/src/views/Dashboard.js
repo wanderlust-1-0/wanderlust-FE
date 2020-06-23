@@ -142,18 +142,17 @@ class Dashboard extends React.Component {
             </MDBCollapse>
           </MDBNavbar>
 
-          <MDBView src='/assets/yosemite.PNG' className='background'>
-            <MDBMask
-              overlay='black-light'
-              className='flex-center flex-column text-white text-center'
-            >
-              <h2
-                className='poppins-font'
-                style={{ fontSize: "6rem", fontWeight: "bold" }}
-              >
-                Hi {this.props.currentUser.first_name},
-              </h2>
-              <h3>here you can add, edit, and delete your tours!</h3>
+          <MDBView src='/assets/mountains2.png' className='background'>
+            <MDBMask className='flex-center flex-column text-white text-center rgba-black-strong'>
+              {this.props.currentUser.first_name && (
+                <h2
+                  className='poppins-font'
+                  style={{ fontSize: "6rem", fontWeight: "bold" }}
+                >
+                  Hi {this.props.currentUser.first_name}
+                </h2>
+              )}
+              <h3>Tours Dashboard</h3>
             </MDBMask>
           </MDBView>
         </header>

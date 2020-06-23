@@ -424,22 +424,27 @@ export const UPDATE_TOUR_START = "UPDATE_TOUR_START";
 export const UPDATE_TOUR_SUCCESS = "UPDATE_TOUR_SUCCESS";
 export const UPDATE_TOUR_FAILURE = "UPDATE_TOUR_FAILURE";
 
-export const updateTour = (id) => (dispatch) => {
+export const updateTour = (id, changes) => (dispatch) => {
   dispatch({ type: UPDATE_TOUR_START });
   loadProgressBar();
+
+  const idToken = localStorage.getItem("firebase_jwt");
+  console.log("update tour id", id);
+  console.log("update tour id token", idToken);
+
   axios
-    .put(`https://roger-wanderlust.herokuapp.comtours/data/tours/${id}`, {
+    .put(`http://localhost:4000/api/tours/${id}`, changes, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+        Authorization: idToken,
       },
     })
     .then((res) => {
-      console.log("Update a tour: ", res.config.data);
-      dispatch({ type: UPDATE_TOUR_SUCCESS, payload: res.config.data });
+      console.log("Update a tour: ", res.data);
+      dispatch({ type: UPDATE_TOUR_SUCCESS, payload: res.data });
     })
-    .then((err) => {
-      console.log("Update a tour err: ", err.response);
-      dispatch({ type: UPDATE_TOUR_FAILURE, payload: err.response });
+    .catch((err) => {
+      console.log("Update a tour err: ", err);
+      dispatch({ type: UPDATE_TOUR_FAILURE, payload: err });
     });
 };
 

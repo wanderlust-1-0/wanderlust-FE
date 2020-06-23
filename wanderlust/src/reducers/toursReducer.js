@@ -2,49 +2,49 @@ import {
   FETCHING_TOURS_START,
   FETCHING_TOURS_SUCCESS,
   FETCHING_TOURS_FAILURE,
-} from '../actions';
+} from "../actions";
 
-import { ADD_TOUR_START, ADD_TOUR_SUCCESS, ADD_TOUR_FAILURE } from '../actions';
+import { ADD_TOUR_START, ADD_TOUR_SUCCESS, ADD_TOUR_FAILURE } from "../actions";
 
 import {
   UPDATE_TOUR_START,
   UPDATE_TOUR_SUCCESS,
   UPDATE_TOUR_FAILURE,
-} from '../actions';
+} from "../actions";
 
 import {
   DELETE_TOUR_START,
   DELETE_TOUR_SUCCESS,
   DELETE_TOUR_FAILURE,
-} from '../actions';
+} from "../actions";
 
 import {
   FETCHING_SINGLETOUR_START,
   FETCHING_SINGLETOUR_SUCCESS,
   FETCHING_SINGLETOUR_FAILURE,
-} from '../actions';
+} from "../actions";
 
 import {
   ADD_TOURIST_TO_TOUR_START,
   ADD_TOURIST_TO_TOUR_SUCCESS,
   ADD_TOURIST_TO_TOUR_FAILURE,
-} from '../actions';
+} from "../actions";
 
 const initialState = {
   tours: [],
   fetchingTours: false,
-  fetchingToursErr: '',
+  fetchingToursErr: "",
   tour: {},
   addingTour: false,
-  addingTourErr: '',
+  addingTourErr: "",
   updatingTour: false,
-  updatingTourErr: '',
+  updatingTourErr: "",
   deletingTour: false,
-  deletingTourErr: '',
+  deletingTourErr: "",
   fetchingSingleTour: false,
-  fetchSingleTourErr: '',
+  fetchSingleTourErr: "",
   addingTouristToTour: false,
-  addingTouristToTourError: '',
+  addingTouristToTourError: "",
 };
 
 const tourReducer = (state = initialState, action) => {
@@ -53,15 +53,15 @@ const tourReducer = (state = initialState, action) => {
       return {
         ...state,
         fetchingTours: true,
-        fetchingToursErr: '',
+        fetchingToursErr: "",
       };
     case FETCHING_TOURS_SUCCESS:
-      console.log('Reducing of TOURS: ', action.payload);
+      console.log("Reducing of TOURS: ", action.payload);
       return {
         ...state,
         tours: action.payload,
         fetchingTours: false,
-        fetchingToursErr: '',
+        fetchingToursErr: "",
       };
     case FETCHING_TOURS_FAILURE:
       return {
@@ -73,14 +73,13 @@ const tourReducer = (state = initialState, action) => {
       return {
         ...state,
         updatingTour: true,
-        updatingTourErr: '',
+        updatingTourErr: "",
       };
     case UPDATE_TOUR_SUCCESS:
       return {
         ...state,
-        tours: action.payload,
         updatingTour: false,
-        updatingTourErr: '',
+        updatingTourErr: "",
       };
     case UPDATE_TOUR_FAILURE:
       return {
@@ -92,14 +91,14 @@ const tourReducer = (state = initialState, action) => {
       return {
         ...state,
         deletingTour: true,
-        deletingTourErr: '',
+        deletingTourErr: "",
       };
     case DELETE_TOUR_SUCCESS:
       return {
         ...state,
         tours: action.payload,
         deletingTour: false,
-        deletingTourErr: '',
+        deletingTourErr: "",
       };
     case DELETE_TOUR_FAILURE:
       return {
@@ -113,7 +112,7 @@ const tourReducer = (state = initialState, action) => {
         fetchingSingleTour: true,
       };
     case FETCHING_SINGLETOUR_SUCCESS:
-      console.log('Reducing of Single Tour: ', action.payload);
+      console.log("Reducing of Single Tour: ", action.payload);
       return {
         ...state,
         fetchingSingleTour: false,
@@ -122,7 +121,7 @@ const tourReducer = (state = initialState, action) => {
         },
       };
     case FETCHING_SINGLETOUR_FAILURE:
-      console.log('GET Single Tour ERR: ', action.payload);
+      console.log("GET Single Tour ERR: ", action.payload);
       return {
         ...state,
         fetchingSingleTour: false,
@@ -134,7 +133,7 @@ const tourReducer = (state = initialState, action) => {
         addingTouristToTour: true,
       };
     case ADD_TOURIST_TO_TOUR_SUCCESS:
-      console.log('Reducing of Single Tour: ', action.payload);
+      console.log("Reducing of Single Tour: ", action.payload);
       return {
         ...state,
         addingTouristToTour: false,
@@ -143,7 +142,7 @@ const tourReducer = (state = initialState, action) => {
         },
       };
     case ADD_TOURIST_TO_TOUR_FAILURE:
-      console.log('GET Single Tour ERR: ', action.payload);
+      console.log("GET Single Tour ERR: ", action.payload);
       return {
         ...state,
         addingTouristToTour: false,
@@ -155,7 +154,7 @@ const tourReducer = (state = initialState, action) => {
         addingTour: true,
       };
     case ADD_TOUR_SUCCESS:
-      console.log('Reducing of Single Tour: ', action.payload);
+      console.log("Reducing of Single Tour: ", action.payload);
       return {
         ...state,
         addingTour: false,
@@ -164,7 +163,7 @@ const tourReducer = (state = initialState, action) => {
         },
       };
     case ADD_TOUR_FAILURE:
-      console.log('GET Single Tour ERR: ', action.payload);
+      console.log("GET Single Tour ERR: ", action.payload);
       return {
         ...state,
         addingTour: false,
