@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import NumberFormat from "react-number-format";
 import { addTour, getSingleUserById } from "../actions";
 import "./AddTour.css";
 import { Redirect } from "react-router";
@@ -22,6 +23,7 @@ import {
   MDBDropdownMenu,
   MDBDropdownItem,
   MDBSelect,
+  MDBInput,
 } from "mdbreact";
 
 import { MDBModal, MDBModalBody, MDBModalHeader, MDBBtn } from "mdbreact";
@@ -41,7 +43,7 @@ class AddTour extends Component {
       recommendedAge: "",
       whatTheyShouldBring: "",
       tourAddress: "",
-      tourPrice: null,
+      tourPrice: 0,
       options: [
         {
           text: "All Ages",
@@ -227,31 +229,25 @@ class AddTour extends Component {
               </h5>
               <div className='addTourWrapper'>
                 <div className='tourTitleWrapper'>
-                  <div className='tourTitle'>
-                    <input
-                      className='title'
+                  <div className='tourTitle md-outline md-form form-lg'>
+                    <MDBInput
+                      label='Title'
+                      className='title form-control'
+                      size='lg'
+                      id='title'
                       type='text'
-                      placeholder='Title Your Tour'
                       name='tourTitle'
                       maxLength='35'
                       value={this.state.tourTitle}
                       onChange={this.handleInputChanges}
-                      style={{
-                        outline: "none",
-                        border: "none",
-                        fontSize: "2rem",
-                      }}
+                      style={
+                        {
+                          // outline: "none",
+                          // border: "none",
+                          // fontSize: "2rem",
+                        }
+                      }
                     />
-                    {/* <input
-                      className='category'
-                      type='text'
-                      placeholder='Category'
-                      name='tourCategory'
-                      maxLength='15'
-                      value={this.state.tourCategory}
-                      onChange={this.handleInputChanges}
-                      style={{ outline: "none", border: "none" }}
-                    /> */}
                   </div>
                 </div>
               </div>
@@ -310,7 +306,12 @@ class AddTour extends Component {
                         style={{
                           backgroundColor: "#F2F2F2",
                           borderRadius: "5px",
+                          display: "flex",
                           justifyContent: "center",
+                          alignItems: "center",
+                          height: "50px",
+                          width: "100%",
+                          padding: "1rem 0.5rem",
                         }}
                       />
                     </div>
@@ -356,13 +357,24 @@ class AddTour extends Component {
                             US${" "}
                           </strong>
                         </div>
-                        <input
+                        <NumberFormat
+                          thousandSeparator={true}
+                          allowNegative={false}
+                          allowEmptyFormatting={true}
+                          decimalScale={2}
+                          fixedDecimalScale={true}
                           className='tourPriceInput py-3'
-                          type='number'
-                          name='tourPrice'
                           value={this.state.tourPrice}
-                          onChange={this.handleInputChanges}
                           style={{ color: "black", width: "6rem" }}
+                          onValueChange={(values) => {
+                            const { formattedValue, value } = values;
+                            this.setState((state) => {
+                              return {
+                                ...state,
+                                tourPrice: value,
+                              };
+                            });
+                          }}
                         />
                         &nbsp;
                         <div style={{ fontWeight: 500, textAlign: "left" }}>

@@ -25,20 +25,38 @@
   margin-left: 1rem;
 }
 
-.title {
-  width: 45rem;
-  margin: 1rem 0;
-  padding: 1.5rem 0;
-  background-color: white !important;
-  color: black;
-  padding-left: 0.5rem;
+.tourTitle label {
+  /* position: relative !important; */
+  /* left: 0 !important; */
+  font-size: 2.5rem !important;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0) !important;
+  margin-bottom: 0 !important;
 }
 
-.title::placeholder {
+.tourTitle label.active.fadeIn {
+  position: absolute !important;
+  top: -15px !important;
+  margin-bottom: 2rem !important;
+  background-color: white !important;
+  border-radius: 5px !important;
+  padding: 5px 10px !important;
+}
+
+.title {
+  width: 45rem !important;
+  margin: 1rem 0 !important;
+  padding: 1.5rem 0 !important;
+  background-color: white !important;
+  /* color: black !important; */
+  padding-left: 0.5rem !important;
+}
+
+/* .title::placeholder {
   font-size: 1.6rem;
   color: black;
   padding-left: 0.8rem;
-}
+} */
 
 .addThumbnail {
   background-image: url(/assets/AddThumbnail.PNG);

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import NumberFormat from "react-number-format";
 import { addTour, getSingleUserById, updateTour } from "../actions";
 import "./AddTour.css";
 import { Redirect } from "react-router";
@@ -107,9 +108,13 @@ class UpdateTour extends Component {
   }
 
   handleInputChanges = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
+    e.target.name
+      ? this.setState({
+          [e.target.name]: e.target.value,
+        })
+      : this.setState({
+          [this.inputElm]: e.target.value,
+        });
   };
 
   // Handle recommended age select
@@ -381,13 +386,23 @@ class UpdateTour extends Component {
                             US${" "}
                           </strong>
                         </div>
-                        <input
+                        <NumberFormat
+                          thousandSeparator={true}
+                          allowNegative={false}
+                          decimalScale={2}
+                          fixedDecimalScale={true}
                           className='tourPriceInput py-3'
-                          type='number'
-                          name='tourPrice'
                           value={this.state.tourPrice}
-                          onChange={this.handleInputChanges}
                           style={{ color: "black", width: "6rem" }}
+                          onValueChange={(values) => {
+                            const { formattedValue, value } = values;
+                            this.setState((state) => {
+                              return {
+                                ...state,
+                                tourPrice: value,
+                              };
+                            });
+                          }}
                         />
                         &nbsp;
                         <div style={{ fontWeight: 500, textAlign: "left" }}>
