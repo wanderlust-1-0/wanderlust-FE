@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import NumberFormat from "react-number-format";
-import { addTour, getSingleUserById, updateTour } from "../actions";
+import { getSingleUserById, updateTour, deleteTour } from "../actions";
 import "./AddTour.css";
 import { Redirect } from "react-router";
 
@@ -144,6 +144,12 @@ class UpdateTour extends Component {
 
     this.redirectDashBoard();
   };
+
+  handleDelete() {
+    this.props.deleteTour(this.state.id).then(() => {
+      this.props.history.push("/dashboard");
+    });
+  }
 
   render() {
     const { isTourGuide } = this.props.currentUser;
@@ -421,7 +427,6 @@ class UpdateTour extends Component {
                     gradient='blue'
                     type='submit'
                     // onClick={this.toggle}
-                    // style={{ width: "10rem", height: "3rem" }}
                   >
                     Save
                   </MDBBtn>
@@ -438,21 +443,31 @@ class UpdateTour extends Component {
                         color: "green",
                       }}
                     >
-                      Your tour is now published!
+                      <h3 style={{ color: "red" }}>Warning:</h3>
+                      <p style={{ color: "red" }}>This cannot be undone!</p>
+                      <div className='d=flex' color='danger'>
+                        <MDBBtn color='secondary' onClick={this.toggle}>
+                          Go Back
+                        </MDBBtn>
+                        <MDBBtn color='danger' onClick={this.handleDelete}>
+                          Delete
+                        </MDBBtn>
+                      </div>
                     </MDBModalBody>
                   </MDBModal>
                   <MDBBtn
                     className='btnCancel'
-                    // style={{
-                    //   width: "2rem",
-                    //   marginLeft: "0",
-                    //   height: "3rem",
-                    // }}
-                    color='danger'
-                    type='submit'
+                    color='info'
                     onClick={() => this.redirectDashBoard()}
                   >
                     Cancel
+                  </MDBBtn>
+                  <MDBBtn
+                    className='btnCancel'
+                    color='danger'
+                    onClick={() => this.toggle()}
+                  >
+                    Delete
                   </MDBBtn>
                 </div>
               </form>
@@ -471,7 +486,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  addTour,
   getSingleUserById,
   updateTour,
+  deleteTour,
 })(UpdateTour);
