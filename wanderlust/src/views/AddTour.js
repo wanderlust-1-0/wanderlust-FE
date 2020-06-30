@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import NumberFormat from "react-number-format";
 import { addTour, getSingleUserById } from "../actions";
+import Map from "../components/Map";
 import "./AddTour.css";
 import { Redirect } from "react-router";
 
@@ -254,7 +255,33 @@ class AddTour extends Component {
             </MDBMask>
           </MDBView>
         </header>
-        <MDBContainer className='text-center' style={{ height: "100%" }}>
+        <MDBContainer
+          className='text-center d-flex'
+          style={{
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingRight: "500px",
+          }}
+        >
+          <div className='mapWrapper w-100' style={{ margin: "0 3rem" }}>
+            <h2>Map</h2>
+            <div
+              className='map'
+              style={{
+                width: "100%",
+                border: "1px solid black",
+                borderRadius: "5px",
+              }}
+            >
+              <Map
+                google={this.props.google}
+                center={{ lat: 25.7617, lng: -80.1918 }}
+                height='500px'
+                zoom={12}
+              />
+            </div>
+          </div>
           <div className='addTourAboutWrapper'>
             <div className='addTourAbout'>
               <h2
