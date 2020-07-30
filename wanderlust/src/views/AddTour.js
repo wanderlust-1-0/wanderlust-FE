@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import NumberFormat from "react-number-format";
 import { addTour, getSingleUserById } from "../actions";
 import Map from "../components/Map";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
 import "./AddTour.css";
 import { Redirect } from "react-router";
 
@@ -17,6 +21,8 @@ import {
   MDBContainer,
   MDBMask,
   MDBView,
+  MDBAutocomplete,
+  func,
 } from "mdbreact";
 import {
   MDBDropdown,
@@ -45,6 +51,8 @@ class AddTour extends Component {
       whatTheyShouldBring: "",
       tourAddress: "",
       tourPrice: 0,
+      lat: 0,
+      lng: 0,
       options: [
         {
           text: "All Ages",
@@ -115,6 +123,10 @@ class AddTour extends Component {
     });
 
     this.redirectDashBoard();
+  };
+
+  handPlaceSelected = (place) => {
+    console.log(place);
   };
 
   render() {
@@ -358,14 +370,17 @@ class AddTour extends Component {
                     </div>
                     <div className='target'>
                       <i className='targetSymbol'></i>
-                      <input
+                      {/* <input
                         className='tourAddress'
-                        type='text'
-                        placeholder='What is the address'
+                        // type='text'
+                        // placeholder='What is the address'
                         name='tourAddress'
+                        // onPlaceSelected={this.handPlaceSelected}
+                        // types={["(regions)"]}
                         value={this.state.tourAddress}
                         onChange={this.handleInputChanges}
-                      />
+                      /> */}
+                      <Search />
                     </div>
                     <div></div>
                     {/* <MDBContainer style={{ marginLeft: "1.5rem" }}>
@@ -414,7 +429,7 @@ class AddTour extends Component {
                     </div>
                   </div>
                 </div>
-                <div>
+                <div style={{ marginTop: "3rem" }}>
                   <MDBBtn
                     className='btnAddTour'
                     gradient='blue'
@@ -472,3 +487,53 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, { addTour, getSingleUserById })(
   AddTour
 );
+
+function Search() {
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      location: { lat: () => 25.7617, lng: () => -80.1918 },
+    },
+    radius: 100 * 1000,
+  });
+
+  const handleChange = (e) => {
+    console.log("value", value);
+    setValue(e.target.value);
+  };
+
+  const handleSelected = ({ description }) => {
+    setValue(description, false);
+    clearSuggestions();
+  };
+
+  const renderSuggestions = () => {
+    data.map((suggestion) => {
+      const {
+        id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        <li key={id} onClick={handleSelected(suggestion)}>
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      );
+    });
+  };
+
+  console.log("Status", status);
+  console.log("data", data);
+  return (
+    <div>
+      <MDBInput value={value} onChange={handleChange} />
+
+      {status === "OK" && <ul>{renderSuggestions()}</ul>}
+    </div>
+  );
+}
