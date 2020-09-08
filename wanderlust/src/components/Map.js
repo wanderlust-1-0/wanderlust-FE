@@ -22,21 +22,17 @@ const options = {
   zoomControl: true,
 };
 
-const Map = () => {
+const Map = ({ lat, lng }) => {
   // if (loadError) return "Error loading maps";
+  console.log("lat, lng from map", lat, lng);
   return (
     <div>
-      <LoadScript
-        googleMapsApiKey='AIzaSyCca7zM4LtiL7PygucWbisKSzAFLpp8Be0'
-        libraries={libraries}
-      >
-        <GoogleMap
-          mapContainerStyle={mapContainerStyle}
-          zoom={12}
-          center={center}
-          options={options}
-        ></GoogleMap>
-      </LoadScript>
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        zoom={12}
+        center={center}
+        options={options}
+      ></GoogleMap>
     </div>
   );
 };

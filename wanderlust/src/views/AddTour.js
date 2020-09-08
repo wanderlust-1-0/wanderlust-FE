@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { connect } from "react-redux";
 import NumberFormat from "react-number-format";
 import { addTour, getSingleUserById } from "../actions";
@@ -34,6 +34,7 @@ import {
 } from "mdbreact";
 
 import { MDBModal, MDBModalBody, MDBModalHeader, MDBBtn } from "mdbreact";
+import { LoadScript } from "@react-google-maps/api";
 
 class AddTour extends Component {
   constructor(props) {
@@ -51,8 +52,8 @@ class AddTour extends Component {
       whatTheyShouldBring: "",
       tourAddress: "",
       tourPrice: 0,
-      lat: 0,
-      lng: 0,
+      lat: 40.7128,
+      lng: -74.006,
       options: [
         {
           text: "All Ages",
@@ -127,6 +128,17 @@ class AddTour extends Component {
 
   handPlaceSelected = (place) => {
     console.log(place);
+  };
+
+  setLatLng = (lat, lng) => {
+    if ((lat, lng))
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          lat,
+          lng,
+        };
+      });
   };
 
   render() {
@@ -288,9 +300,11 @@ class AddTour extends Component {
             >
               <Map
                 google={this.props.google}
-                center={{ lat: 25.7617, lng: -80.1918 }}
+                center={{ lat: this.state.lat, lng: this.state.lng }}
                 height='500px'
                 zoom={12}
+                lat={this.state.lat}
+                lng={this.state.lng}
               />
             </div>
           </div>
@@ -380,7 +394,7 @@ class AddTour extends Component {
                         value={this.state.tourAddress}
                         onChange={this.handleInputChanges}
                       /> */}
-                      <Search />
+                      <Search setLatLng={this.setLatLng} />
                     </div>
                     <div></div>
                     {/* <MDBContainer style={{ marginLeft: "1.5rem" }}>
@@ -488,7 +502,8 @@ export default connect(mapStateToProps, { addTour, getSingleUserById })(
   AddTour
 );
 
-function Search() {
+function Search({ setLatLng }) {
+  const [libraries] = useState(["places"]);
   const {
     ready,
     value,
@@ -497,43 +512,41 @@ function Search() {
     clearSuggestions,
   } = usePlacesAutocomplete({
     requestOptions: {
-      location: { lat: () => 25.7617, lng: () => -80.1918 },
+      location: { lat: () => 43.6532, lng: () => -79.3832 },
+      radius: 100 * 1000,
     },
-    radius: 100 * 1000,
   });
 
-  const handleChange = (e) => {
+  const logValue = (val) => {
+    console.log("val", val);
+
+    setValue(val, true);
     console.log("value", value);
-    setValue(e.target.value);
+    let x = data.map((item) => item.description);
+    console.log("description", x);
+
+    async function onPlaceSelected(address) {
+      try {
+        const results = await getGeocode({ address });
+        const { lat, lng } = await getLatLng(results[0]);
+        console.log("lat, lng", lat, lng);
+        setLatLng(lat, lng);
+      } catch (error) {
+        console.log("error!", error);
+      }
+    }
+    onPlaceSelected(x[0]);
   };
 
-  const handleSelected = ({ description }) => {
-    setValue(description, false);
-    clearSuggestions();
-  };
-
-  const renderSuggestions = () => {
-    data.map((suggestion) => {
-      const {
-        id,
-        structured_formatting: { main_text, secondary_text },
-      } = suggestion;
-
-      return (
-        <li key={id} onClick={handleSelected(suggestion)}>
-          <strong>{main_text}</strong> <small>{secondary_text}</small>
-        </li>
-      );
-    });
-  };
-
-  console.log("Status", status);
-  console.log("data", data);
   return (
-    <div>
-      <MDBInput value={value} onChange={handleChange} />
-
-      {status === "OK" && <ul>{renderSuggestions()}</ul>}
+    <div className='w-100'>
+      <MDBAutocomplete
+        data={data.map((item) => item.description)}
+        label='Tour Address'
+        id='tourAddress'
+        getValue={logValue}
+        className='address'
+      />
     </div>
   );
 }
